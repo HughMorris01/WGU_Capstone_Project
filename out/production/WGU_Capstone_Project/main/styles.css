@@ -1,0 +1,8 @@
+#appointmentsTable .table-column {
+  -fx-alignment: CENTER;
+}
+
+#customersTable .table-column {
+  -fx-alignment: CENTER;
+}
+
