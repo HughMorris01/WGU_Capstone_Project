@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="450.0" prefWidth="600.0" stylesheets="@../main/styles.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerScreenController">
+      <TableView fx:id="customersTable" layoutX="3.0" layoutY="52.0" prefHeight="274.0" prefWidth="593.0">
+        <columns>
+          <TableColumn fx:id="idCol" prefWidth="45.0" style="textAlign: center;" text="ID" />
+          <TableColumn fx:id="nameCol" prefWidth="125.0" text="Name" />
+            <TableColumn fx:id="addressCol" prefWidth="125.0" text="Address" />
+            <TableColumn fx:id="postalCol" prefWidth="100.0" text="Postal Code" />
+            <TableColumn fx:id="phoneCol" prefWidth="100.0" text="Phone" />
+            <TableColumn fx:id="divisionCol" minWidth="5.0" prefWidth="95.0" text="Division" />
+        </columns>
+      </TableView>
+      <Label layoutX="251.0" layoutY="14.0" text="Customers">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+   <Button layoutX="75.0" layoutY="410.0" mnemonicParsing="false" onAction="#toUserHomeScreen" text="&lt;== Back" />
+   <ButtonBar layoutX="198.0" layoutY="371.0" prefHeight="52.0" prefWidth="388.0">
+     <buttons>
+            <Button mnemonicParsing="false" onAction="#onAddCustomer" prefHeight="26.0" prefWidth="105.0" text="New Customer" />
+            <Button mnemonicParsing="false" onAction="#onModifyCustomer" prefHeight="26.0" prefWidth="110.0" text="Modify Customer" />
+            <Button mnemonicParsing="false" onAction="#onDeleteCustomer" prefHeight="26.0" prefWidth="105.0" text="Delete Customer" textAlignment="CENTER" />
+     </buttons>
+   </ButtonBar>
+</AnchorPane>
