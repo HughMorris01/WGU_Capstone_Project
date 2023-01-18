@@ -28,7 +28,6 @@ public class Division {
         setDivisionId(divisionId);
         setDivisionName(divisionName);
         setCountryId(countryId);
-        DBCountries.getAllCountries();
         for (Country c : DBCountries.getAllCountries()) {
             if (countryId == c.getCountryId()) {
                 this.country = c;

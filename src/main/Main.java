@@ -17,7 +17,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    /** This method starts the appointment management application and loads the MainScreen FXML screen.
+    /** This method starts the appointment management application and loads the LoginScreen FXML screen.
      * @throws Exception FXMLLoader.load() will throw and exception if it cannot locate the FXML document.
      * @param stage The initial stage for loading the first scene.
      * */
@@ -25,7 +25,7 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/view/LoginScreen.fxml"));
         if(LoginScreenController.getUserLocale().getLanguage().equals("fr")) { stage.setTitle("Écran Principal"); }
-        else { stage.setTitle("Main Screen"); }
+        else { stage.setTitle("Login Screen"); }
         stage.setScene(new Scene(root, 600, 400));
         stage.show();
     }

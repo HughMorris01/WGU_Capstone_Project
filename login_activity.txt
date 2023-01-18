@@ -1,0 +1,15 @@
+Login Attempt #1 - 1/9/23 2:27PM
+Username Entered: "admin" | Password Entered: "admin" | Successful: true
+
+Login Attempt #1 - 1/17/23 1:53PM
+Username Entered: "admin" | Password Entered: "admin" | Successful: true
+
+Login Attempt #1 - 1/17/23 2:53PM
+Username Entered: "admin" | Password Entered: "admin" | Successful: true
+
+Login Attempt #1 - 1/17/23 6:34PM
+Username Entered: "admin" | Password Entered: "Passw0rd!" | Successful: true
+
+Login Attempt #2 - 1/17/23 6:35PM
+Username Entered: "test" | Password Entered: "test" | Successful: true
+

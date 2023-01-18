@@ -175,13 +175,20 @@ public class LoginScreenController implements Initializable {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-
-                    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/UserHomeScreen.fxml")));
-                    Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
-                    Scene scene = new Scene(root, 500, 500);
-                    stage.setScene(scene);
-                    stage.setTitle("User Home Screen");
-
+                    if(u.getAdminKey() == 0) {
+                        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/UserHomeScreen.fxml")));
+                        Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
+                        Scene scene = new Scene(root, 500, 500);
+                        stage.setScene(scene);
+                        stage.setTitle("User Home Screen");
+                    }
+                    if(u.getAdminKey() == 1) {
+                        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/AdminHomeScreen.fxml")));
+                        Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
+                        Scene scene = new Scene(root, 500, 500);
+                        stage.setScene(scene);
+                        stage.setTitle("Administrator Home Screen");
+                    }
                     return;
                 }
             }

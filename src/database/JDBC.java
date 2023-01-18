@@ -15,17 +15,17 @@ public abstract class JDBC {
     /** String for database vendor. */
     private static final String vendor = ":mysql:";
     /** String for database address. */
-    private static final String location = "//localhost/";
+    private static final String location = "//capstone-db.cget13oy91km.us-east-1.rds.amazonaws.com/";
     /** String for database name. */
     private static final String databaseName = "client_schedule";
     /** String for full URL. */
     private static final String jdbcUrl = protocol + vendor + location + databaseName + "?connectionTimeZone = SERVER"; // LOCAL
     /** String for driver reference. */
-    private static final String driver = "com.mysql.cj.jdbc.Driver";
+    private static final String driver = "software.aws.rds.jdbc.mysql.Driver";
     /** String for database username. */
-    private static final String userName = "sqlUser";
+    private static final String userName = "hughmorris";
     /** String for database password. */
-    final private static String password = "Passw0rd!";
+    final private static String password = "AWSQueen4383";
     /** Connection interface object. */
     private static Connection connection;
 
