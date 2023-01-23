@@ -1,11 +1,19 @@
 package model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 /** This is the class for creating objects representing Regions that exist in the database.
  *  Each Region has a name and an ID.
  * @author Gregory Farrell
  * @version 1.1
  */
 public class Region {
+    /** Static ObservableList field for accessing all Regions so that the database only needs to be queried once when
+     * the application initially launches.
+     * */
+    public static ObservableList<Region> allRegionsList = FXCollections.observableArrayList();
+
     /** RegionId as an int. */
     private int regionId;
     /** RegionName as a string. */

@@ -28,11 +28,10 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-/** This is the controller class for the LoginScreen.fxml document and is not meant to be instantiated.
- *  The Main screen authenticates the User's login credentials, as well determines the User's locale and accesses the
- *  resource bundle to change the language to French if appropriate.
+/** This class is the controller for the LoginScreen.fxml document and not meant to be instantiated.
+ *  The Main screen authenticates the User's login credentials, as well determines the User's locale.
  * @author Gregory Farrell
- * @version 1.0
+ * @version 1.1
  * */
 public class LoginScreenController implements Initializable {
     /** User ID text field */
@@ -185,7 +184,7 @@ public class LoginScreenController implements Initializable {
                     if(u.getAdminKey() == 1) {
                         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/AdminHomeScreen.fxml")));
                         Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
-                        Scene scene = new Scene(root, 500, 500);
+                        Scene scene = new Scene(root, 800, 500);
                         stage.setScene(scene);
                         stage.setTitle("Administrator Home Screen");
                     }

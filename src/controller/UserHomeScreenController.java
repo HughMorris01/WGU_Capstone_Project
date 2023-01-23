@@ -161,7 +161,7 @@ public class UserHomeScreenController implements Initializable {
      * @param actionEvent Passed from the On Action event listener on the top Calculate button.
      * @throws IOException Exception gets thrown if load() cannot locate the FXML file
      * */
-    public void onSubmit(ActionEvent actionEvent) {
+    /*public void onSubmit(ActionEvent actionEvent) {
         Month selectedMonth = monthComboBox.getSelectionModel().getSelectedItem();
         if(selectedMonth == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -180,14 +180,14 @@ public class UserHomeScreenController implements Initializable {
         }
         ObservableList<Appointment> reportAppointments = DBAppointments.getAppointmentsByMonthAndType(selectedType, selectedMonth);
         outputBox.setText(String.valueOf(reportAppointments.size()));
-    }
+    } */
 
     /** This method is an event handler on the bottom Calculate button.
      * When clicked, the button runs the report for the chosen criteria.
      * @param actionEvent Passed from the On Action event listener on the bottom Calculate button.
      * @throws IOException Exception gets thrown if load() cannot locate the FXML file
      * */
-    public void onSubmit2(ActionEvent actionEvent) {
+    /*public void onSubmit2(ActionEvent actionEvent) {
         Month selectedMonth = monthComboBox2.getSelectionModel().getSelectedItem();
         if(selectedMonth == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -206,5 +206,5 @@ public class UserHomeScreenController implements Initializable {
         }
         ObservableList<Appointment> reportAppointments = DBAppointments.getAppointmentsByMonthAndLocation(selectedDivision, selectedMonth);
         outputBox2.setText(String.valueOf(reportAppointments.size()));
-    }
+    } */
 }

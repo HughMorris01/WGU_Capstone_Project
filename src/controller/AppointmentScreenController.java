@@ -59,7 +59,7 @@ public class AppointmentScreenController implements Initializable {
     public TableColumn <Appointment, Integer> userIdCol;
 
     /** This method is called by the FXMLLoader.load() call contained in the toAppointmentScreen() method of the UserHomeScreenController class.
-     * The method populates the table with all of the Appointment data that is in the database. It also populates the
+     * The method populates the table with all the Appointment data that is in the database. It also populates the
      * Contact combo box used to filter the table by Contact.
      * @param resourceBundle An unreferenced ResourceBundle object passed automatically
      * @param url An unreferenced URL object passed automatically
@@ -77,7 +77,7 @@ public class AppointmentScreenController implements Initializable {
         customerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         contactNameCol.setCellValueFactory(new PropertyValueFactory<>("contactName"));
         userIdCol.setCellValueFactory(new PropertyValueFactory<>("userId"));
-        appointmentsTable.setItems(DBAppointments.getAllAppointments());
+        //appointmentsTable.setItems(DBAppointments.getAllAppointments());
 
         contactComboBox.setItems(DBContacts.getAllContacts());
     }
@@ -143,7 +143,7 @@ public class AppointmentScreenController implements Initializable {
                 int appointmentId = selectedAppointment.getAppointmentId();
                 String type = selectedAppointment.getType();
                 DBAppointments.deleteAppointment(appointmentId);
-                appointmentsTable.setItems(DBAppointments.getAllAppointments());
+                appointmentsTable.setItems(DBAppointments.getEveryAppointment());
 
                 Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
                 alert1.setTitle("Deletion Confirmation");
@@ -165,7 +165,7 @@ public class AppointmentScreenController implements Initializable {
      * @throws SQLException Exception gets thrown if the SQL code does not compute properly.
      * */
     public void loadMonthlySchedule(ActionEvent actionEvent) {
-        appointmentsTable.setItems(DBAppointments.getAppointmentsByMonth());
+        //appointmentsTable.setItems(DBAppointments.getAppointmentsByMonth());
     }
 
     /** This method is an event handler on the Weekly Schedule radio button.
@@ -173,7 +173,7 @@ public class AppointmentScreenController implements Initializable {
      * @param actionEvent Passed from the On Action event listener on Weekly Schedule radio button.
      * */
     public void loadWeeklySchedule(ActionEvent actionEvent) {
-        appointmentsTable.setItems(DBAppointments.getAppointmentsByWeek());
+        //appointmentsTable.setItems(DBAppointments.getAppointmentsByWeek());
     }
 
     /** This method is an event handler on the All Upcoming Appointments radio button.
@@ -181,16 +181,16 @@ public class AppointmentScreenController implements Initializable {
      * @param actionEvent Passed from the On Action event listener on All Upcoming Appointments radio button.
      * */
     public void loadAllAppointments(ActionEvent actionEvent) {
-        appointmentsTable.setItems(DBAppointments.getAllAppointments());
+        appointmentsTable.setItems(DBAppointments.getEveryAppointment());
     }
 
-    /** This method is an event handler on the Contacts combo box.
+    /** This method is an event handler on the Contact's combo box.
      * When clicked, the table will repopulate with all Appointments associated with the selected Contact.
      * @param actionEvent Passed from the On Action event listener on Contacts combo box.
      * */
     public void onSelectContact(ActionEvent actionEvent) {
         Contact selectedContact = contactComboBox.getSelectionModel().getSelectedItem();
-        appointmentsTable.setItems(DBAppointments.getAppointmentsByContact(selectedContact));
+        //appointmentsTable.setItems(DBAppointments.getAppointmentsByContact(selectedContact));
     }
 
     /** This method is an event handler for the Back button that sends the program back to the UserHomeScreen.

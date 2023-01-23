@@ -1,11 +1,44 @@
 package model;
 
+import database.DBRegions;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 /** This is the class for creating objects representing States that exist in the database.
  *  Each State has an ID, name, Division, and DivisionId.
  * @author Gregory Farrell
  * @version 1.1
  */
 public class State {
+    /** Static ObservableList field for accessing all States so that the database only needs to be queried once when
+     * the application initially launches.
+     * */
+    public static ObservableList<State> allStatesList = FXCollections.observableArrayList();
+    /** Static ObservableList field for accessing all Northeast States so that the database only needs to be queried
+     * once when the application initially launches.
+     * */
+    public static ObservableList<State> northeastRegionStatesList = FXCollections.observableArrayList();
+    /** Static ObservableList field for accessing all Southeast States so that the database only needs to be queried
+     * once when the application initially launches.
+     * */
+    public static ObservableList<State> southeastRegionStatesList = FXCollections.observableArrayList();
+    /** Static ObservableList field for accessing all Mid-West States so that the database only needs to be queried
+     * once when the application initially launches.
+     * */
+    public static ObservableList<State> midwestRegionStatesList = FXCollections.observableArrayList();
+    /** Static ObservableList field for accessing all Texas+ States so that the database only needs to be queried
+     * once when the application initially launches.
+     * */
+    public static ObservableList<State> texasPlusRegionStatesList = FXCollections.observableArrayList();
+    /** Static ObservableList field for accessing all California+ States so that the database only needs to be queried
+     * once when the application initially launches.
+     * */
+    public static ObservableList<State> californiaPlusRegionStatesList = FXCollections.observableArrayList();
+    /** Static ObservableList field for accessing all Northwest States so that the database only needs to be queried
+     * once when the application initially launches.
+     * */
+    public static ObservableList<State> northwestRegionStatesList = FXCollections.observableArrayList();
+
     /** StateId as an int. */
     private int stateId;
     /** State name as a string. */
@@ -30,12 +63,6 @@ public class State {
         setStateName(stateName);
         setStateAbbreviation(stateAbbreviation);
         setRegionId(regionId);
-        for (Region r : DBRegions.getAllRegions()) {
-            if (regionId == r.getRegionId()) {
-                this.region = r;
-                return;
-            }
-        }
     }
 
     /** Sets the stateId instance variable.
@@ -44,7 +71,7 @@ public class State {
     /** Sets the stateName instance variable.
      * @param stateName stateName as a string */
     public void setStateName(String stateName) { this.stateName = stateName; }
-    /** Sets the stateName instance variable.
+    /** Sets the stateAbbreviation instance variable.
      * @param stateAbbreviation stateAbbreviation as a string */
     public void setStateAbbreviation(String stateAbbreviation) { this.stateAbbreviation = stateAbbreviation; }
     /** Sets the regionId instance variable.
@@ -63,11 +90,8 @@ public class State {
     /** Method returns the regionId field.
      *  @return regionId as an int. */
     public int getRegionId() { return regionId; }
-    /** Method returns the region field
-     * @return country as a Country object. */
-    public Region getRegion() { return region; }
 
-    /** Method overrides the inherited toString() method to return the regionName field. */
+    /** Method overrides the inherited toString() method to return the stateName field. */
     @Override
     public String toString() {
         return getStateName();

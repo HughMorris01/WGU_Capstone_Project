@@ -91,16 +91,16 @@ public class AddModifyAppointmentScreenController implements Initializable {
 
         if (tempAppointment != null) {
             appointmentIdTextField.setText(String.valueOf(tempAppointment.getAppointmentId()));
-            customerComboBox.setValue(tempAppointment.getCustomer());
+            //customerComboBox.setValue(tempAppointment.getCustomer());
             datePickerComboBox.setValue(tempAppointment.getStart().toLocalDate());
             startTimeComboBox.setValue(tempAppointment.getStartTimeString());
             onStartTime();
             endTimeComboBox.setValue(tempAppointment.getEndTimeString());
             titleTextField.setText(tempAppointment.getTitle());
-            descriptionTextField.setText(tempAppointment.getDescription());
-            locationTextField.setText(tempAppointment.getLocation());
+            //descriptionTextField.setText(tempAppointment.getDescription());
+            //locationTextField.setText(tempAppointment.getLocation());
             typeComboBox.setValue(tempAppointment.getType());
-            contactComboBox.setValue(tempAppointment.getContact());
+            //contactComboBox.setValue(tempAppointment.getContact());
         }
         else {
             appointmentIdTextField.setText(null);
@@ -132,7 +132,7 @@ public class AddModifyAppointmentScreenController implements Initializable {
      */
     public void onCustomerSelect(ActionEvent actionEvent) {
         Customer selectedCustomer = customerComboBox.getSelectionModel().getSelectedItem();
-        locationTextField.setText(selectedCustomer.getDivision().getDivisionName());
+        //locationTextField.setText(selectedCustomer.getDivision().getDivisionName());
     }
 
     /** This method is an event handler for the Start Time combo box.
@@ -180,7 +180,7 @@ public class AddModifyAppointmentScreenController implements Initializable {
      * @throws IOException The FXMLLoader.load() call will throw this exception if the FXML document can't be found.
      * @throws SQLException This execution will be thrown if the SQL does not execute properly.
      */
-    public void onSubmit(ActionEvent actionEvent) throws IOException, SQLException {
+    /*public void onSubmit(ActionEvent actionEvent) throws IOException, SQLException {
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a");
         ObservableList<Appointment> localCustomerAppointments;
         if (appointmentIdTextField.getText() == null) {
@@ -283,7 +283,6 @@ public class AddModifyAppointmentScreenController implements Initializable {
                 alert.show();
                 return;
             }
-            String location = locationTextField.getText();
             String type = typeComboBox.getSelectionModel().getSelectedItem();
             if (type == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -303,7 +302,8 @@ public class AddModifyAppointmentScreenController implements Initializable {
             int contactId = contact.getId();
             int userId = Integer.parseInt(userIdTextField.getText());
 
-            DBAppointments.insertAppointment(title, description, location, type, timeStampStart, timeStampEnd, customerId, contactId, userId);
+            //DBAppointments.insertAppointment(title, type, timeStampStart, timeStampEnd, customerId,
+            //salespersonId, stateId, regionId);
 
             Parent root = FXMLLoader.load(getClass().getResource("/view/AppointmentScreen.fxml"));
             Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
@@ -445,7 +445,7 @@ public class AddModifyAppointmentScreenController implements Initializable {
             stage.setScene(scene);
             stage.setTitle("Appointment Screen");
         }
-    }
+    } */
 
     /** This method is an event handler for the Back button that sends the program back to the AppointmentScreen.
      * The method loads the FXML document for the AppointmentScreen, passes that to a new scene and then sets the

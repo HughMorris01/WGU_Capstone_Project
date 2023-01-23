@@ -4,8 +4,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginScreenController">
-      <Button fx:id="loginButton" layoutX="222.0" layoutY="254.0" mnemonicParsing="false" onAction="#loginValidation" prefHeight="26.0" prefWidth="75.0" style="-fx-border-radius: 75 75 75 75;" text="Login" underline="true" />
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginScreenController">
+      <Button fx:id="loginButton" defaultButton="true" layoutX="224.0" layoutY="263.0" mnemonicParsing="false" onAction="#loginValidation" prefHeight="26.0" prefWidth="75.0" style="-fx-border-radius: 75 75 75 75;" text="Login" underline="true" />
       <Label fx:id="userIdLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="65.0" layoutY="167.0" prefHeight="20.0" prefWidth="150.0" text="User ID :" />
       <Label fx:id="passwordLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="65.0" layoutY="213.0" prefHeight="20.0" prefWidth="150.0" text="Password :" />
       <TextField fx:id="userIdTextField" layoutX="222.0" layoutY="164.0" promptText="Enter Username" />

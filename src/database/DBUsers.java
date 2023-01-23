@@ -8,12 +8,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/** This class is for retrieving and manipulating the User data in the database and not meant to be instantiated. The
- * class contains one method that returns all data in the form of an ObservableList of User objects.TODO
+/** This abstract class is for retrieving and manipulating the User data in the database and not meant to be instantiated.
+ * The class contains one method that returns all data in the form of an ObservableList of User objects.TODO
  * @author Gregory Farrell
  * @version 1.0
  */
-public class DBUsers {
+public abstract class DBUsers {
     /** This method returns all records in the User table of the database.
      * @return An ObservableList of User objects.
      * */
@@ -21,7 +21,7 @@ public class DBUsers {
         ObservableList<User> allUsers = FXCollections.observableArrayList();
 
         try {
-            String sqlCommand = "SELECT * FROM user";
+            String sqlCommand = "SELECT * FROM users";
             PreparedStatement ps = JDBC.getConnection().prepareStatement(sqlCommand);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

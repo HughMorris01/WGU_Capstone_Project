@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AllCustomersScreenController">
+   <children>
+      <Button layoutX="26.0" layoutY="354.0" mnemonicParsing="false" onAction="#toAdminHomeScreen" text="&lt;== Back" />
+      <TableView fx:id="customerTable" layoutX="14.0" layoutY="83.0" prefHeight="200.0" prefWidth="981.0">
+        <columns>
+          <TableColumn fx:id="idCol" prefWidth="64.39999461174011" text="ID" />
+          <TableColumn fx:id="nameCol" prefWidth="145.0" text="Name" />
+            <TableColumn fx:id="addressCol" prefWidth="141.40003967285156" text="Address" />
+            <TableColumn fx:id="zipCodeCol" prefWidth="63.60003662109375" text="ZipCode" />
+            <TableColumn fx:id="stateCol" prefWidth="50.0" text="State" />
+            <TableColumn fx:id="phoneCol" prefWidth="101.4000244140625" text="Phone" />
+            <TableColumn fx:id="emailCol" prefWidth="109.0" text="Email" />
+            <TableColumn fx:id="salespersonCol" prefWidth="155.79998779296875" text="Salesperson" />
+            <TableColumn fx:id="regionCol" prefWidth="125.0" text="Region" />
+        </columns>
+      </TableView>
+      <TextField fx:id="searchTextField" layoutX="784.0" layoutY="29.0" onAction="#searchCustomers" prefHeight="26.0" prefWidth="149.0" promptText="Search by Name or ID...." />
+      <Button layoutX="797.0" layoutY="328.0" mnemonicParsing="false" onAction="#onDeleteCustomer" text="Delete Customer" />
+      <Label layoutX="410.0" layoutY="24.0" text="WSU Customers">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font></Label>
+      <Button layoutX="654.0" layoutY="328.0" mnemonicParsing="false" onAction="#toAdminEditCustomerScreen" text="Edit Customer Info" />
+      <Button layoutX="472.0" layoutY="328.0" mnemonicParsing="false" onAction="#toAdminCreateCustomerScreen" text="Create New Customer" />
+   </children>
+</AnchorPane>

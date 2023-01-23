@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import model.Appointment;
 import model.Contact;
 import model.Division;
+import model.State;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,19 +15,20 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 
-/** This abstract class exists to provide static methods used to manipulate Appointment records in the database.
- * There are a variety of different methods defined that serve to retrieve and filter Appointment data needed throughout
- * the application.
+/** This abstract class is for manipulating the Appointment records in the database and not meant to be instantiated.
+ * The class contains methods to insert, update, delete and return all Appointment records as an ObservableList of
+ * Appointment objects.
  * @author Gregory Farrell
- * @version 1.0
+ * @version 1.1
  * */
 public abstract class DBAppointments {
 
-    /** This method is used to return all of the Appointment records in the database, even if the date has passed, as an
+    /** This method is used to return all the Appointment records in the database, even if the date has passed, as an
      * ObservableList of Appointment objects.
      * @return An ObservableList of Appointment objects.
      * */
     public static ObservableList<Appointment> getEveryAppointment() {
+        Appointment.allAppointmentsList.clear();
         ObservableList<Appointment> everyAppointment = FXCollections.observableArrayList();
         try {
             String sqlCommand = "SELECT * FROM appointments";
@@ -35,18 +37,19 @@ public abstract class DBAppointments {
             while (rs.next()) {
                 int appointmentId = rs.getInt("Appointment_ID");
                 String title = rs.getString("Title");
-                String description = rs.getString("Description");
-                String location = rs.getString("Location");
                 String type = rs.getString("Type");
                 Timestamp sts = rs.getTimestamp("Start");
                 LocalDateTime start = sts.toLocalDateTime();
                 Timestamp ets = rs.getTimestamp("End");
                 LocalDateTime end = ets.toLocalDateTime();
                 int customerId = rs.getInt("Customer_ID");
-                int userId = rs.getInt("User_ID");
-                int contactId = rs.getInt("Contact_ID");
-                Appointment tempAppointment = new Appointment(appointmentId, start, end, title, description, location, type, customerId, userId, contactId);
+                int salespersonId = rs.getInt("Salesperson_ID");
+                int stateId = rs.getInt("State_ID");
+                int regionId = rs.getInt("State_ID");
+                Appointment tempAppointment = new Appointment(appointmentId, title, type, start, end, customerId, salespersonId,
+                        stateId, regionId);
                 everyAppointment.add(tempAppointment);
+                Appointment.allAppointmentsList.add(tempAppointment);
             }
         }
         catch (SQLException e) {
@@ -55,45 +58,87 @@ public abstract class DBAppointments {
         }
         return everyAppointment;
     }
-    /** This method is used to return all of the upcoming Appointment records in the database as an
-     * ObservableList of Appointment objects.
+    /** This method is used to return all the upcoming Appointment records in the database as an ObservableList
+     * of Appointment objects.
      * @return An ObservableList of Appointment objects.
      * */
-    public static ObservableList<Appointment> getAllAppointments() {
-        ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
+    public static ObservableList<Appointment> getUpcomingAppointments() {
+        Appointment.allUpcomingAppointmentsList.clear();
+        ObservableList<Appointment> allUpcomingAppointments = FXCollections.observableArrayList();
         try {
             String sqlCommand = "SELECT * FROM appointments WHERE Start >= ?";
             PreparedStatement ps = JDBC.getConnection().prepareStatement(sqlCommand);
-            String dateString = LocalDate.now().toString();
+            LocalDate date = LocalDate.now();
+            String dateString = date.toString();
             ps.setString(1, dateString);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int appointmentId = rs.getInt("Appointment_ID");
                 String title = rs.getString("Title");
-                String description = rs.getString("Description");
-                String location = rs.getString("Location");
                 String type = rs.getString("Type");
                 Timestamp sts = rs.getTimestamp("Start");
                 LocalDateTime start = sts.toLocalDateTime();
                 Timestamp ets = rs.getTimestamp("End");
                 LocalDateTime end = ets.toLocalDateTime();
                 int customerId = rs.getInt("Customer_ID");
-                int userId = rs.getInt("User_ID");
-                int contactId = rs.getInt("Contact_ID");
-                Appointment tempAppointment = new Appointment(appointmentId, start, end, title, description, location, type, customerId, userId, contactId);
-                allAppointments.add(tempAppointment);
+                int salespersonId = rs.getInt("Salesperson_ID");
+                int stateId = rs.getInt("State_ID");
+                int regionId = rs.getInt("State_ID");
+                Appointment tempAppointment = new Appointment(appointmentId, title, type, start, end, customerId, salespersonId,
+                        stateId, regionId);
+                allUpcomingAppointments.add(tempAppointment);
+                Appointment.allUpcomingAppointmentsList.add(tempAppointment);
             }
         }
         catch (SQLException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-        return allAppointments;
+        return allUpcomingAppointments;
     }
+    /** This method is used to return all the completed Appointment records in the database as an ObservableList
+     * of Appointment objects.
+     * @return An ObservableList of Appointment objects.
+     * */
+    public static ObservableList<Appointment> getCompletedAppointments() {
+        Appointment.allCompletedAppointmentsList.clear();
+        ObservableList<Appointment> allCompletedAppointments = FXCollections.observableArrayList();
+        try {
+            String sqlCommand = "SELECT * FROM appointments WHERE Start < ?";
+            PreparedStatement ps = JDBC.getConnection().prepareStatement(sqlCommand);
+            LocalDate date = LocalDate.now();
+            String dateString = date.toString();
+            ps.setString(1, dateString);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int appointmentId = rs.getInt("Appointment_ID");
+                String title = rs.getString("Title");
+                String type = rs.getString("Type");
+                Timestamp sts = rs.getTimestamp("Start");
+                LocalDateTime start = sts.toLocalDateTime();
+                Timestamp ets = rs.getTimestamp("End");
+                LocalDateTime end = ets.toLocalDateTime();
+                int customerId = rs.getInt("Customer_ID");
+                int salespersonId = rs.getInt("Salesperson_ID");
+                int stateId = rs.getInt("State_ID");
+                int regionId = rs.getInt("State_ID");
+                Appointment tempAppointment = new Appointment(appointmentId, title, type, start, end, customerId, salespersonId,
+                        stateId, regionId);
+                allCompletedAppointments.add(tempAppointment);
+                Appointment.allCompletedAppointmentsList.add(tempAppointment);
+            }
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return allCompletedAppointments;
+    }
+
     /** This method is used to return all Appointment records in the database that are scheduled in the next 7 days
      * @return An ObservableList of Appointment objects.
      * */
-    public static ObservableList<Appointment> getAppointmentsByWeek() {
+    /*public static ObservableList<Appointment> getAppointmentsByWeek() {
         ObservableList<Appointment> weeklyAppointments = FXCollections.observableArrayList();
         try {
             String sqlCommand = "SELECT * FROM appointments WHERE Start >= ? AND Start <= ?";
@@ -127,11 +172,11 @@ public abstract class DBAppointments {
             e.printStackTrace();
         }
         return weeklyAppointments;
-    }
+    } */
     /** This method is used to return all Appointment records in the database that are scheduled in the next 30 days
      * @return An ObservableList of Appointment objects.
      * */
-    public static ObservableList<Appointment> getAppointmentsByMonth() {
+    /*public static ObservableList<Appointment> getAppointmentsByMonth() {
         ObservableList<Appointment> monthlyAppointments = FXCollections.observableArrayList();
         try {
             String sqlCommand = "SELECT * FROM appointments WHERE Start >= ? AND Start <= ?";
@@ -165,12 +210,12 @@ public abstract class DBAppointments {
             e.printStackTrace();
         }
         return monthlyAppointments;
-    }
+    } */
     /** This method is used to return an ObservableList of Appointment objects filtered by their associated Contact.
      * @param contact contact as a Contact object
      * @return An ObservableList of Appointment objects.
      * */
-    public static ObservableList<Appointment> getAppointmentsByContact(Contact contact) {
+    /*public static ObservableList<Appointment> getAppointmentsByContact(Contact contact) {
         ObservableList<Appointment> contactAppointments = FXCollections.observableArrayList();
         try {
             String sqlCommand = "SELECT * FROM appointments WHERE Start >= ? AND Contact_ID = ?";
@@ -203,13 +248,13 @@ public abstract class DBAppointments {
             e.printStackTrace();
         }
         return contactAppointments;
-    }
+    } */
     /** This method is used to return an ObservableList of Appointment objects filtered by month and type.
      * @param selectedType as a string.
      * @param month as a Month object.
      * @return An ObservableList of Appointment objects.
      * */
-    public static ObservableList<Appointment> getAppointmentsByMonthAndType(String selectedType, Month month) {
+    /*public static ObservableList<Appointment> getAppointmentsByMonthAndType(String selectedType, Month month) {
         ObservableList<Appointment> reportAppointments = FXCollections.observableArrayList();
         try {
             String sqlCommand = "SELECT * FROM appointments WHERE Start >= ? AND End <= ? AND Type = ?";
@@ -245,13 +290,13 @@ public abstract class DBAppointments {
         }
 
         return reportAppointments;
-    }
+    } */
     /** This method is used to return an ObservableList of Appointment objects filtered by month and location.
      * @param selectedDivision as Division object.
      * @param month as a Month object.
      * @return An ObservableList of Appointment objects.
      * */
-    public static ObservableList<Appointment> getAppointmentsByMonthAndLocation(Division selectedDivision, Month month) {
+    /*public static ObservableList<Appointment> getAppointmentsByMonthAndLocation(Division selectedDivision, Month month) {
         ObservableList<Appointment> reportAppointments = FXCollections.observableArrayList();
         try {
             String sqlCommand = "SELECT * FROM appointments WHERE Start >= ? AND End <= ? AND Location = ?";
@@ -291,12 +336,12 @@ public abstract class DBAppointments {
         }
 
         return reportAppointments;
-    }
+    } */
     /** This method is used to return an ObservableList of Appointment objects filtered by Customer.
      * @param customerId as an int.
      * @return An ObservableList of Appointment objects.
      * */
-    public static ObservableList<Appointment> getAppointmentsByCustomerId(int customerId) {
+    /*public static ObservableList<Appointment> getAppointmentsByCustomerId(int customerId) {
         ObservableList<Appointment> customerAppointments = FXCollections.observableArrayList();
         try {
             String sqlCommand = "SELECT * FROM appointments WHERE Customer_ID = ?";
@@ -325,31 +370,31 @@ public abstract class DBAppointments {
             e.printStackTrace();
         }
         return customerAppointments;
-    }
+    } */
     /** This method is used to insert a new Appointment record into the database.
      * @param title as a string.
-     * @param description as a string.
-     * @param location as a string.
      * @param type as a string
      * @param start as a TimeStamp object
      * @param end as a TimeStamp object.
      * @param customerId as an int.
-     * @param contactId as an int.
-     * @param userId as an int.
+     * @param salespersonId as an int.
+     * @param stateId as an int.
+     * @param regionId as an int.
      * @throws SQLException Throws a SQLException if the SQL does not execute properly.
      * */
-    public static void insertAppointment(String title, String description, String location, String type, Timestamp start, Timestamp end, int customerId, int contactId, int userId) throws SQLException {
-            String sqlCommand = "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Customer_ID, Contact_ID, User_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    public static void insertAppointment(String title, String type, Timestamp start, Timestamp end, int customerId,
+                                         int salespersonId, int stateId, int regionId) throws SQLException {
+            String sqlCommand = "INSERT INTO appointments (Title, Type, Start, End, Customer_ID, Salesperson_ID, State_ID, Region_ID) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = JDBC.getConnection().prepareStatement(sqlCommand);
             ps.setString(1, title);
-            ps.setString(2, description);
-            ps.setString(3, location);
-            ps.setString(4, type);
-            ps.setTimestamp(5, start);
-            ps.setTimestamp(6, end);
-            ps.setInt(7, customerId);
-            ps.setInt(8, contactId);
-            ps.setInt(9, userId);
+            ps.setString(2, type);
+            ps.setTimestamp(3, start);
+            ps.setTimestamp(4, end);
+            ps.setInt(5, customerId);
+            ps.setInt(6, salespersonId);
+            ps.setInt(7, stateId);
+            ps.setInt(8, regionId);
             ps.executeUpdate();
     }
     /** This method is used to update an existing Appointment record into the database.
