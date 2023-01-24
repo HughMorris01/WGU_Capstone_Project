@@ -362,10 +362,8 @@ public class AdminCreateEditCustomerScreenController implements Initializable {
         }
     }
 
-    /**
-     * This method is an event handler on the Back button.
+    /** This method is an event handler on the Back button.
      * When clicked, the button redirects the program to the AllCustomersScreen.
-     *
      * @param actionEvent Passed from the On Action event listener on the Back button.
      * @throws IOException Exception gets thrown if load() cannot locate the FXML file
      */

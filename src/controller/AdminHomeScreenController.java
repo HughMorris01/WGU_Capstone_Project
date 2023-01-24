@@ -13,6 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.Administrator;
 import model.Customer;
 import model.Salesperson;
 
@@ -46,6 +47,8 @@ public class AdminHomeScreenController implements Initializable {
     public TableColumn<Salesperson, Integer> totalCustomersCol;
     /** TableColumn for salesperson's region */
     public TableColumn<Salesperson, String> regionCol;
+    /** Static Administrator object corresponding to the User. */
+    private static Administrator userAdministrator;
 
 
     /** This method is called by the FXMLLoader.load() call contained in the loginValidation() method of the LoginScreenController class.
@@ -153,6 +156,12 @@ public class AdminHomeScreenController implements Initializable {
         stage.setScene(scene);
         stage.setTitle("All Appointments Screen");
     }
+
+    /** This method sets the static Administrator object corresponding with the User.  */
+    public static void setUserAdministrator(Administrator paramAdministrator) { userAdministrator = paramAdministrator; }
+
+    /** This method returns the static Administrator object corresponding with the User.  */
+    public static Administrator getUserAdministrator() { return userAdministrator; }
 
 
 

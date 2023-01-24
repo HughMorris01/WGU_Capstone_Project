@@ -32,7 +32,7 @@ public class Main extends Application {
         stage.show();
     }
 
-    /** The Javadoc folder is located in the main directory, "/Assessment_Project/Javadoc".
+    /** The Javadoc folder is located in the main directory, "/Capstone_Project/JavaDocs".
      *  This is the main method that begins the program.
      * @param args command-line arguments.
      * */
@@ -46,6 +46,7 @@ public class Main extends Application {
         System.out.println(localTime0.toInstant());
 
         DBUsers.getAllUsers();
+        DBAdministrators.getAllAdministrators();
         DBRegions.getAllRegions();
         DBStates.getAllStates();
         DBStates.getNortheastStates();
@@ -61,8 +62,8 @@ public class Main extends Application {
         DBAppointments.getCompletedAppointments();
         DBSalespersons.getAllSalespersons();
 
-
         launch(args);
+
         JDBC.closeConnection();
     }
 }

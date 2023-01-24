@@ -4,10 +4,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AllCustomersScreenController">
+<AnchorPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AllCustomersScreenController">
    <children>
-      <Button layoutX="26.0" layoutY="354.0" mnemonicParsing="false" onAction="#toAdminHomeScreen" text="&lt;== Back" />
-      <TableView fx:id="customerTable" layoutX="14.0" layoutY="83.0" prefHeight="200.0" prefWidth="981.0">
+      <Button layoutX="25.0" layoutY="444.0" mnemonicParsing="false" onAction="#toAdminHomeScreen" text="&lt;== Back" />
+      <TableView fx:id="customerTable" layoutX="14.0" layoutY="126.0" prefHeight="302.0" prefWidth="982.0">
         <columns>
           <TableColumn fx:id="idCol" prefWidth="86.80000114440918" text="CustomerID" />
           <TableColumn fx:id="nameCol" prefWidth="143.00000762939453" text="Name" />
@@ -20,13 +20,13 @@
             <TableColumn fx:id="regionCol" prefWidth="125.800048828125" text="Region" />
         </columns>
       </TableView>
-      <TextField fx:id="searchTextField" layoutX="784.0" layoutY="29.0" onAction="#searchCustomers" prefHeight="26.0" prefWidth="149.0" promptText="Search by Name or ID...." />
-      <Button layoutX="797.0" layoutY="328.0" mnemonicParsing="false" onAction="#onDeleteCustomer" text="Delete Customer" />
+      <TextField fx:id="searchTextField" layoutX="802.0" layoutY="46.0" onAction="#searchCustomers" prefHeight="26.0" prefWidth="149.0" promptText="Search by Name or ID...." />
+      <Button layoutX="859.0" layoutY="444.0" mnemonicParsing="false" onAction="#onDeleteCustomer" text="Delete Customer" />
       <Label layoutX="410.0" layoutY="24.0" text="WSU Customers">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Label>
-      <Button layoutX="654.0" layoutY="328.0" mnemonicParsing="false" onAction="#toAdminEditCustomerScreen" text="Edit Customer Info" />
-      <Button layoutX="472.0" layoutY="328.0" mnemonicParsing="false" onAction="#toAdminCreateCustomerScreen" text="Create New Customer" />
+      <Button layoutX="716.0" layoutY="444.0" mnemonicParsing="false" onAction="#toAdminEditCustomerScreen" text="Edit Customer Info" />
+      <Button layoutX="534.0" layoutY="444.0" mnemonicParsing="false" onAction="#toAdminCreateCustomerScreen" text="Create New Customer" />
    </children>
 </AnchorPane>

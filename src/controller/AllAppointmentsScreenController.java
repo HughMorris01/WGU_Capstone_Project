@@ -1,7 +1,6 @@
 package controller;
 
 import database.DBAppointments;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -13,12 +12,13 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Appointment;
-import model.Customer;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /** This is the controller class for the AllAppointmentsScreen.fxml document and is not meant to be instantiated.
@@ -155,7 +155,7 @@ public class AllAppointmentsScreenController implements Initializable {
     public void toAdminCreateAppointmentScreen(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/AdminCreateEditAppointmentScreen.fxml")));
         Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
-        Scene scene = new Scene(root, 1000, 500);
+        Scene scene = new Scene(root, 600, 500);
         stage.setScene(scene);
         stage.setTitle("Create Appointment Screen");
     }
@@ -166,9 +166,11 @@ public class AllAppointmentsScreenController implements Initializable {
      * @throws IOException Exception gets thrown if load() cannot locate the FXML file
      */
     public void toAdminEditAppointmentScreen(ActionEvent actionEvent) throws IOException {
+        AdminCreateEditAppointmentScreenController.setTempAppointment(appointmentsTable.getSelectionModel().getSelectedItem());
+
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/AdminCreateEditAppointmentScreen.fxml")));
         Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
-        Scene scene = new Scene(root, 1000, 500);
+        Scene scene = new Scene(root, 600, 500);
         stage.setScene(scene);
         stage.setTitle("Edit Appointment Screen");
     }
@@ -178,7 +180,32 @@ public class AllAppointmentsScreenController implements Initializable {
      * the appointment is deleted from the database.
      * @param actionEvent Passed from the On Action event listener on the Delete Appointment button.
      */
-    public void deleteAppointment(ActionEvent actionEvent) {
+    public void deleteAppointment(ActionEvent actionEvent) throws SQLException {
+        Appointment selectedAppointment = appointmentsTable.getSelectionModel().getSelectedItem();
+
+        if (selectedAppointment == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("No Appointment Selected");
+            alert.setContentText("Please select the appointment to be deleted");
+            alert.show();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Permanently delete selected appointment?");
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                int appointmentId = selectedAppointment.getAppointmentId();
+                DBAppointments.deleteAppointment(appointmentId);
+
+                appointmentsTable.setItems(DBAppointments.getEveryAppointment());
+                DBAppointments.getCompletedAppointments();
+                DBAppointments.getUpcomingAppointments();
+
+                Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                alert1.setTitle("Deletion Confirmation");
+                alert1.setContentText("The selected appointment has been deleted");
+                alert1.show();
+            }
+        }
     }
 
     /** This method loads the appointmentsTable with appointments that fall within the specified custom date range.

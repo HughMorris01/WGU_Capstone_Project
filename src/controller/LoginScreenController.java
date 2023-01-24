@@ -13,9 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import model.LEInterface1;
-import model.LEInterface2;
-import model.User;
+import model.*;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -175,6 +173,12 @@ public class LoginScreenController implements Initializable {
                         e.printStackTrace();
                     }
                     if(u.getAdminKey() == 0) {
+                        for(Salesperson salesperson : Salesperson.allSalespersonsList) {
+                            if(salesperson.getUserId() == user.getUserId()) {
+                                SalespersonHomeScreenController.setUserSalesperson(salesperson);
+                            }
+                        }
+
                         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/SalespersonHomeScreen.fxml")));
                         Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
                         Scene scene = new Scene(root, 500, 500);
@@ -182,6 +186,12 @@ public class LoginScreenController implements Initializable {
                         stage.setTitle("Salesperson Home Screen");
                     }
                     if(u.getAdminKey() == 1) {
+                        for(Administrator administrator : Administrator.allAdministratorsList) {
+                            if(administrator.getUserId() == user.getUserId()) {
+                                AdminHomeScreenController.setUserAdministrator(administrator);
+                            }
+                        }
+
                         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/AdminHomeScreen.fxml")));
                         Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
                         Scene scene = new Scene(root, 1000, 500);

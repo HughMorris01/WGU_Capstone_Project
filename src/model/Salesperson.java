@@ -23,8 +23,6 @@ public class Salesperson extends User {
     private String salespersonLastName;
     /** Email as a string. */
     private String email;
-    // /** UserID as an int. */
-    //private int userId;
     /** RegionID as an int. */
     private int regionId;
     /** Region name as a string. */
@@ -54,7 +52,6 @@ public class Salesperson extends User {
         setSalespersonFirstName(salespersonFirstName);
         setSalespersonLastName(salespersonLastName);
         setEmail(email);
-        //setUserId(userId);
         setRegionId(regionId);
         setScheduledAppointments();
         setCompletedAppointments();

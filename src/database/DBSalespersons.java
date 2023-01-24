@@ -75,7 +75,8 @@ public abstract class DBSalespersons {
         return ps.executeUpdate();
     }
 
-    /** This method is used to return all the Salesperson records in the database as an ObservableList of Contact objects.
+    /** This method is used to return all the Salesperson records in the database as an ObservableList of Salesperson
+     * objects.
      * @return An ObservableList of Contact objects.
      * */
     public static ObservableList<Salesperson> getAllSalespersons() {
