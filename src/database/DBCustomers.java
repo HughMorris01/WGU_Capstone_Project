@@ -90,6 +90,7 @@ public abstract class DBCustomers {
         String sqlCommand = "DELETE FROM customers WHERE Customer_ID = ? ";
         PreparedStatement ps = JDBC.getConnection().prepareStatement(sqlCommand);
         ps.setInt(1, customerId);
+
         return ps.executeUpdate();
     }
     /** This method is used to return all the Customer records in the database as an ObservableList of Customer objects.

@@ -160,6 +160,34 @@ public class Salesperson extends User {
      * @return regionName as a string. */
     public String getRegionName() { return regionName; }
 
+    /** This method is used to traverse the allSalespersonsList to search for a matching ID or partial matching ID's.
+     * @param searchInt an int representing an ID to search for
+     * @return an observable list containing the search results
+     * */
+    public static ObservableList<Salesperson> searchSalespersons(int searchInt) {
+        ObservableList<Salesperson> salespersonsFoundList = FXCollections.observableArrayList();
+        for (Salesperson salesperson : allSalespersonsList) {
+            if (Integer.toString(salesperson.getSalespersonId()).contains(Integer.toString(searchInt))) {
+                salespersonsFoundList.add(salesperson);
+            }
+        }
+        return salespersonsFoundList;
+    }
+
+    /** This method is used to traverse the allSalespersonsList to search for any partial name matches.
+     * @param searchString a string with a name or partial name to search for.
+     * @return an observable list containing the search results
+     * */
+    public static ObservableList<Salesperson> searchSalespersons(String searchString) {
+        ObservableList<Salesperson> salespersonFoundList = FXCollections.observableArrayList();
+        for (Salesperson salesperson : allSalespersonsList) {
+            if (salesperson.getFullName().contains(searchString)) {
+                salespersonFoundList.add(salesperson);
+            }
+        }
+        return salespersonFoundList;
+    }
+
     /** Method overrides the inherited toString() method to return the salespersonFirstName and salespersonLastName fields.
      * @return concatenated names as a string. */
     public String toString() { return this.salespersonFirstName + " " + this.salespersonLastName; }

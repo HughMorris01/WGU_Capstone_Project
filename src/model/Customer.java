@@ -35,8 +35,11 @@ public class Customer {
     private int stateId;
     /** RegionID as an int. */
     private int regionId;
+    /** State object associated with the Customer instance */
     private State customerState;
+    /** Salesperson object associated with the Customer instance */
     private Salesperson customerSalesperson;
+    /** Region object associated with the Customer instance */
     private Region customerRegion;
 
     /** Constructor used to create Customer objects.

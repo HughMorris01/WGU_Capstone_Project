@@ -3,9 +3,6 @@ package database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointment;
-import model.Contact;
-import model.Division;
-import model.State;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +10,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Month;
 
 /** This abstract class is for manipulating the Appointment records in the database and not meant to be instantiated.
  * The class contains methods to insert, update, delete and return all Appointment records as an ObservableList of
@@ -45,7 +41,7 @@ public abstract class DBAppointments {
                 int customerId = rs.getInt("Customer_ID");
                 int salespersonId = rs.getInt("Salesperson_ID");
                 int stateId = rs.getInt("State_ID");
-                int regionId = rs.getInt("State_ID");
+                int regionId = rs.getInt("Region_ID");
                 Appointment tempAppointment = new Appointment(appointmentId, title, type, start, end, customerId, salespersonId,
                         stateId, regionId);
                 everyAppointment.add(tempAppointment);
@@ -83,7 +79,7 @@ public abstract class DBAppointments {
                 int customerId = rs.getInt("Customer_ID");
                 int salespersonId = rs.getInt("Salesperson_ID");
                 int stateId = rs.getInt("State_ID");
-                int regionId = rs.getInt("State_ID");
+                int regionId = rs.getInt("Region_ID");
                 Appointment tempAppointment = new Appointment(appointmentId, title, type, start, end, customerId, salespersonId,
                         stateId, regionId);
                 allUpcomingAppointments.add(tempAppointment);
@@ -121,7 +117,7 @@ public abstract class DBAppointments {
                 int customerId = rs.getInt("Customer_ID");
                 int salespersonId = rs.getInt("Salesperson_ID");
                 int stateId = rs.getInt("State_ID");
-                int regionId = rs.getInt("State_ID");
+                int regionId = rs.getInt("Region_ID");
                 Appointment tempAppointment = new Appointment(appointmentId, title, type, start, end, customerId, salespersonId,
                         stateId, regionId);
                 allCompletedAppointments.add(tempAppointment);
@@ -138,41 +134,39 @@ public abstract class DBAppointments {
     /** This method is used to return all Appointment records in the database that are scheduled in the next 7 days
      * @return An ObservableList of Appointment objects.
      * */
-    /*public static ObservableList<Appointment> getAppointmentsByWeek() {
-        ObservableList<Appointment> weeklyAppointments = FXCollections.observableArrayList();
+    public static ObservableList<Appointment> getCustomDateRangeList(LocalDate localStartDate, LocalDate localEndDate) {
+        ObservableList<Appointment> customDateRangeList = FXCollections.observableArrayList();
         try {
             String sqlCommand = "SELECT * FROM appointments WHERE Start >= ? AND Start <= ?";
             PreparedStatement ps = JDBC.getConnection().prepareStatement(sqlCommand);
-            LocalDate date = LocalDate.now();
-            LocalDate date1 = date.plusDays(6);
-            String dateString = date.toString();
-            String dateString2 = date1.toString();
+            String dateString = localStartDate.toString();
+            String dateString2 = localEndDate.toString();
             ps.setString(1, dateString);
             ps.setString(2, dateString2);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int appointmentId = rs.getInt("Appointment_ID");
                 String title = rs.getString("Title");
-                String description = rs.getString("Description");
-                String location = rs.getString("Location");
                 String type = rs.getString("Type");
                 Timestamp sts = rs.getTimestamp("Start");
                 LocalDateTime start = sts.toLocalDateTime();
                 Timestamp ets = rs.getTimestamp("End");
                 LocalDateTime end = ets.toLocalDateTime();
                 int customerId = rs.getInt("Customer_ID");
-                int userId = rs.getInt("User_ID");
-                int contactId = rs.getInt("Contact_ID");
-                Appointment tempAppointment = new Appointment(appointmentId, start, end, title, description, location, type, customerId, userId, contactId);
-                weeklyAppointments.add(tempAppointment);
+                int salespersonId = rs.getInt("Salesperson_ID");
+                int stateId = rs.getInt("State_ID");
+                int regionId = rs.getInt("Region_ID");
+                Appointment tempAppointment = new Appointment(appointmentId, title, type, start, end, customerId, salespersonId,
+                        stateId, regionId);
+                customDateRangeList.add(tempAppointment);
             }
         }
         catch (SQLException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-        return weeklyAppointments;
-    } */
+        return customDateRangeList;
+    }
     /** This method is used to return all Appointment records in the database that are scheduled in the next 30 days
      * @return An ObservableList of Appointment objects.
      * */

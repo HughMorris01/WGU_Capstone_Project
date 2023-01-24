@@ -1,7 +1,6 @@
 package controller;
 
 import database.DBAppointments;
-import database.DBContacts;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,7 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Appointment;
-import model.Contact;
+import model.Salesperson;
 
 import java.io.IOException;
 import java.net.URL;
@@ -32,7 +31,7 @@ public class AppointmentScreenController implements Initializable {
     /** ToggleGroup used to filter the table data. */
     public ToggleGroup scheduleToggle;
     /** ComboBox used to filer the table data by Contact. */
-    public ComboBox<Contact> contactComboBox;
+    public ComboBox<Salesperson> contactComboBox;
     /** TableView populated Appointment data from the database. */
     public TableView<Appointment> appointmentsTable;
     /** TableColumn for Appointment ID. */
@@ -79,7 +78,7 @@ public class AppointmentScreenController implements Initializable {
         userIdCol.setCellValueFactory(new PropertyValueFactory<>("userId"));
         //appointmentsTable.setItems(DBAppointments.getAllAppointments());
 
-        contactComboBox.setItems(DBContacts.getAllContacts());
+        contactComboBox.setItems(Salesperson.allSalespersonsList);
     }
 
     /** /** This method is an event handler on the New Appointment button.
@@ -189,7 +188,7 @@ public class AppointmentScreenController implements Initializable {
      * @param actionEvent Passed from the On Action event listener on Contacts combo box.
      * */
     public void onSelectContact(ActionEvent actionEvent) {
-        Contact selectedContact = contactComboBox.getSelectionModel().getSelectedItem();
+        Salesperson selectedContact = contactComboBox.getSelectionModel().getSelectedItem();
         //appointmentsTable.setItems(DBAppointments.getAppointmentsByContact(selectedContact));
     }
 

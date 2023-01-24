@@ -49,6 +49,14 @@ public class Appointment {
     private int stateId;
     /** RegionID as an int. */
     private int regionId;
+    /** Customer object assigned to the Appointment instance. */
+    private Customer appointmentCustomer;
+    /** Salesperson object assigned to the Appointment instance. */
+    private Salesperson appointmentSalesperson;
+    /** State object assigned to the Appointment instance. */
+    private State appointmentState;
+    /** Region object assigned to the Appointment instance. */
+    private Region appointmentRegion;
 
     /** Constructor used to create Appointment objects.
      * This constructor is used for creating Appointment objects to move back and forth in the database.
@@ -76,6 +84,11 @@ public class Appointment {
         setSalespersonId(salespersonId);
         setStateId(stateId);
         setRegionId(regionId);
+
+        setCustomer(customerId);
+        setSalesperson(salespersonId);
+        setState(stateId);
+        setRegion(regionId);
     }
 
     /** Sets the appointmentId instance variable.
@@ -114,6 +127,47 @@ public class Appointment {
     /** Sets the regionId instance variable.
      * @param regionId regionId as an int. */
     public void setRegionId(int regionId) { this.regionId = regionId; }
+    /** Sets the appointmentCustomer instance variable.
+     * @param customerId customerId as an int. */
+    public void setCustomer(int customerId) {
+        for(Customer customer : Customer.allCustomerList) {
+            if(customer.getCustomerId() == customerId) {
+                appointmentCustomer = customer;
+                break;
+            }
+        }
+    }
+    /** Sets the appointmentSalesperson instance variable.
+     * @param salespersonId salespersonId as an int. */
+    public void setSalesperson(int salespersonId) {
+        for(Salesperson salesperson : Salesperson.allSalespersonsList) {
+            if(salesperson.getSalespersonId() == salespersonId) {
+                appointmentSalesperson = salesperson;
+                break;
+            }
+        }
+    }
+    /** Sets the appointmentState instance variable.
+     * @param stateId stateId as an int. */
+    public void setState(int stateId) {
+        for(State state : State.allStatesList) {
+            if(state.getStateId() == stateId) {
+                appointmentState = state;
+                break;
+            }
+        }
+
+    }
+    /** Sets the appointmentRegion instance variable.
+     * @param regionId regionId as an int. */
+    public void setRegion(int regionId) {
+        for(Region region : Region.allRegionsList) {
+            if(region.getRegionId() == regionId) {
+                appointmentRegion = region;
+                break;
+            }
+        }
+    }
 
 
     /** Method returns the appointmentId field.
@@ -140,17 +194,80 @@ public class Appointment {
     /** Method returns the endTimeString field.
      * @return endTimeString as a string. */
     public String getEndTimeString() { return endTimeString; }
+    /** Method returns the appointmentCustomer field.
+     * @return appointmentCustomer as a Customer object. */
+    public Customer getCustomer() { return appointmentCustomer; }
     /** Method returns the customerId field.
      * @return customerId as an int. */
     public int getCustomerId() { return customerId; }
+    /** Method returns the appointment customer's full name for use in appointment tableviews.
+     * @return customerFullName as a string */
+    public String getCustomerName() { return appointmentCustomer.getCustomerFullName(); }
+    /** Method returns the appointmentSalesperson field.
+     * @return appointmentSalesperson as a Salesperson object. */
+    public Salesperson getSalesperson() { return appointmentSalesperson; }
     /** Method returns the salespersonId field.
      * @return salespersonId as an int. */
     public int getSalespersonId() { return salespersonId; }
+    /** Method returns the appointment salesperson's full name for use in appointment tableviews.
+     * @return salespersonFullName as a string */
+    public String getSalespersonFullName() { return appointmentSalesperson.getFullName(); }
+    /** Method returns the appointmentState field.
+     * @return appointmentState as a State object. */
+    public State getState() { return appointmentState; }
     /** Method returns the stateId field.
      * @return stateId as an int. */
     public int getStateId() { return stateId; }
+    /** Method returns the state abbreviation for use in appointment tableviews.
+     * @return stateAbbreviation as a string */
+    public String getStateAbbreviation() { return appointmentState.getStateAbbreviation(); }
+    /** Method returns the appointmentRegion field.
+     * @return appointmentRegion as a Region object. */
+    public Region getRegion() { return appointmentRegion; }
     /** Method returns the regionId field.
      * @return regionId as an int. */
     public int getRegionId() { return regionId; }
+    /** Method returns the region name for use in appointment tableviews.
+     * @return regionName as a string */
+    public String getRegionName() {
+        return appointmentRegion.getRegionName();
+    }
+
+    /** This method is used to traverse the allAppointmentList to search for a matching ID or partial matching ID's.
+     * @param searchInt an int representing an ID to search for.
+     * @return an observable list containing the search results.
+     * */
+    public static ObservableList<Appointment> searchAppointments(int searchInt) {
+        ObservableList<Appointment> appointmentsFoundList = FXCollections.observableArrayList();
+        for (Appointment appointment : allAppointmentsList) {
+            if (Integer.toString(appointment.getAppointmentId()).contains(Integer.toString(searchInt))) {
+                appointmentsFoundList.add(appointment);
+            }
+            if (Integer.toString(appointment.getCustomerId()).contains(Integer.toString(searchInt))) {
+                appointmentsFoundList.add(appointment);
+            }
+        }
+        return appointmentsFoundList;
+    }
+
+    /** This method is used to traverse the allAppointmentList to search for any partial name matches.
+     * @param searchString a string with a name or partial name to search for.
+     * @return an observable list containing the search results
+     * */
+    public static ObservableList<Appointment> searchAppointments(String searchString) {
+        ObservableList<Appointment> appointmentFoundList = FXCollections.observableArrayList();
+        for (Appointment appointment : allAppointmentsList) {
+            if (appointment.getCustomerName().contains(searchString)) {
+                appointmentFoundList.add(appointment);
+            }
+            if (appointment.getTitle().contains(searchString)) {
+                appointmentFoundList.add(appointment);
+            }
+            if (appointment.getSalespersonFullName().contains(searchString)) {
+                appointmentFoundList.add(appointment);
+            }
+        }
+        return appointmentFoundList;
+    }
 
 }

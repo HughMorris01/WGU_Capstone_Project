@@ -175,16 +175,16 @@ public class LoginScreenController implements Initializable {
                         e.printStackTrace();
                     }
                     if(u.getAdminKey() == 0) {
-                        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/UserHomeScreen.fxml")));
+                        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/SalespersonHomeScreen.fxml")));
                         Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
                         Scene scene = new Scene(root, 500, 500);
                         stage.setScene(scene);
-                        stage.setTitle("User Home Screen");
+                        stage.setTitle("Salesperson Home Screen");
                     }
                     if(u.getAdminKey() == 1) {
                         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/AdminHomeScreen.fxml")));
                         Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
-                        Scene scene = new Scene(root, 800, 500);
+                        Scene scene = new Scene(root, 1000, 500);
                         stage.setScene(scene);
                         stage.setTitle("Administrator Home Screen");
                     }

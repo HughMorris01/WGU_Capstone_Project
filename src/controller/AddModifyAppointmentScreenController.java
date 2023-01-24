@@ -1,7 +1,5 @@
 package controller;
 
-import database.DBAppointments;
-import database.DBContacts;
 import database.DBCustomers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,17 +12,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Appointment;
-import model.Contact;
 import model.Customer;
+import model.Salesperson;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
-import java.util.TimeZone;
 
 /** This is the controller class for the AddModifyAppointmentScreen.fxml document and is not meant to be instantiated.
  * The class will either load the form with Appointment data passed from the previous AppointmentScreen or will begin as blank
@@ -40,7 +36,7 @@ public class AddModifyAppointmentScreenController implements Initializable {
     /** Boolean used to track if it will be a new or existing Appointment. */
     public static boolean isNewAppointment = false;
     /** ComboBox populated with the Contacts from the database. */
-    public ComboBox<Contact> contactComboBox;
+    public ComboBox<Salesperson> contactComboBox;
     /** ComboBox populated with the Customers from the database. */
     public ComboBox<Customer> customerComboBox;
     /** Disabled TextField that displays the Appointment ID, if appropriate. */
@@ -85,7 +81,7 @@ public class AddModifyAppointmentScreenController implements Initializable {
         types.add("Group Session");
 
         customerComboBox.setItems(DBCustomers.getAllCustomers());
-        contactComboBox.setItems(DBContacts.getAllContacts());
+        //contactComboBox.setItems(Salesperson);
         typeComboBox.setItems(types);
         userIdTextField.setText(Integer.toString(LoginScreenController.getUser().getUserId()));
 

@@ -9,15 +9,15 @@
       <Button layoutX="26.0" layoutY="354.0" mnemonicParsing="false" onAction="#toAdminHomeScreen" text="&lt;== Back" />
       <TableView fx:id="customerTable" layoutX="14.0" layoutY="83.0" prefHeight="200.0" prefWidth="981.0">
         <columns>
-          <TableColumn fx:id="idCol" prefWidth="64.39999461174011" text="ID" />
-          <TableColumn fx:id="nameCol" prefWidth="145.0" text="Name" />
-            <TableColumn fx:id="addressCol" prefWidth="141.40003967285156" text="Address" />
-            <TableColumn fx:id="zipCodeCol" prefWidth="63.60003662109375" text="ZipCode" />
-            <TableColumn fx:id="stateCol" prefWidth="50.0" text="State" />
-            <TableColumn fx:id="phoneCol" prefWidth="101.4000244140625" text="Phone" />
-            <TableColumn fx:id="emailCol" prefWidth="109.0" text="Email" />
-            <TableColumn fx:id="salespersonCol" prefWidth="155.79998779296875" text="Salesperson" />
-            <TableColumn fx:id="regionCol" prefWidth="125.0" text="Region" />
+          <TableColumn fx:id="idCol" prefWidth="86.80000114440918" text="CustomerID" />
+          <TableColumn fx:id="nameCol" prefWidth="143.00000762939453" text="Name" />
+            <TableColumn fx:id="addressCol" prefWidth="134.19998168945312" text="Address" />
+            <TableColumn fx:id="zipCodeCol" prefWidth="74.5999755859375" text="ZipCode" />
+            <TableColumn fx:id="stateCol" prefWidth="53.5999755859375" text="State" />
+            <TableColumn fx:id="phoneCol" prefWidth="96.39999389648438" text="Phone" />
+            <TableColumn fx:id="emailCol" prefWidth="114.0" text="Email" />
+            <TableColumn fx:id="salespersonCol" prefWidth="147.4000244140625" text="Salesperson" />
+            <TableColumn fx:id="regionCol" prefWidth="125.800048828125" text="Region" />
         </columns>
       </TableView>
       <TextField fx:id="searchTextField" layoutX="784.0" layoutY="29.0" onAction="#searchCustomers" prefHeight="26.0" prefWidth="149.0" promptText="Search by Name or ID...." />

@@ -24,58 +24,39 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/** This is the controller class for the AllCustomersScreen.fxml document and is not meant to be instantiated.
+ *  This class populates the data for the Customers table, as well as provide the functionality for the buttons on the screen.
+ * @author Gregory Farrell
+ * @version 1.1
+ * */
 public class AllCustomersScreenController implements Initializable {
-    /**
-     * Text field used to search the Customer records by name or customer ID.
-     */
+    /** Text field used to search the Customer records by name or customerID. */
     public TextField searchTextField;
-    /**
-     * TableView populated Customer records from the database.
-     */
+    /** TableView populated Customer records from the database. */
     public TableView<Customer> customerTable;
-    /**
-     * TableColumn for Customer ID.
-     */
+    /** TableColumn for Customer ID. */
     public TableColumn<Customer, Integer> idCol;
-    /**
-     * TableColumn for Customer's name.
-     */
+    /** TableColumn for Customer's name. */
     public TableColumn<Customer, String> nameCol;
-    /**
-     * TableColumn for Customer's address.
-     */
+    /** TableColumn for Customer's address. */
     public TableColumn<Customer, String> addressCol;
-    /**
-     * TableColumn for Customer's zip code.
-     */
+    /** TableColumn for Customer's zip code. */
     public TableColumn<Customer, String> zipCodeCol;
-    /**
-     * TableColumn for Customer's state abbreviation.
-     */
+    /** TableColumn for Customer's state abbreviation. */
     public TableColumn<Customer, String> stateCol;
-    /**
-     * TableColumn for Customer's phone number.
-     */
+    /** TableColumn for Customer's phone number. */
     public TableColumn<Customer, String> phoneCol;
-    /**
-     * TableColumn for Customer's email
-     */
+    /** TableColumn for Customer's email */
     public TableColumn<Customer, String> emailCol;
-    /**
-     * TableColumn for Salesperson associated with Customer.
-     */
+    /** TableColumn for Salesperson associated with Customer. */
     public TableColumn<Customer, Salesperson> salespersonCol;
-    /**
-     * TableColumn for Region associated with Customer.
-     */
+    /** TableColumn for Region associated with Customer. */
     public TableColumn<Customer, Region> regionCol;
 
-    /**
-     * This method is called by the FXMLLoader.load() call contained in the toAllCustomersScreen() method of the
+    /** This method is called by the FXMLLoader.load() call contained in the toAllCustomersScreen() method of the
      * AdminHomeScreenController class. The method populates the table with every Customer that is in the database.
-     *
      * @param resourceBundle An unreferenced ResourceBundle object passed automatically
-     * @param url            An unreferenced URL object passed automatically
+     * @param url An unreferenced URL object passed automatically
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -92,6 +73,10 @@ public class AllCustomersScreenController implements Initializable {
         customerTable.setItems(Customer.allCustomerList);
     }
 
+    /** This method is an event handler on the searchTextField.
+     * Search function searches the allCustomersList for matches containing either the string or ID entered.
+     * @param actionEvent Passed from the On Action event listener on the text field.
+     */
     public void searchCustomers(ActionEvent actionEvent) {
         try {
             String searchString = searchTextField.getText();
@@ -103,7 +88,7 @@ public class AllCustomersScreenController implements Initializable {
             }
             if (customersFoundList.isEmpty()) {
                 searchTextField.setText("");
-                Alert alert1 = new Alert(Alert.AlertType.ERROR);
+                Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
                 alert1.setTitle("No Results Found");
                 alert1.setContentText("There are no Customers matching that search criteria.");
                 alert1.show();
@@ -113,19 +98,17 @@ public class AllCustomersScreenController implements Initializable {
             searchTextField.setText("");
         } catch (NumberFormatException exception) {
             searchTextField.setText("");
-            Alert alert1 = new Alert(Alert.AlertType.ERROR);
+            Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
             alert1.setTitle("No Results Found");
             alert1.setContentText("There are no Customers matching that search criteria.");
             alert1.show();
         }
     }
 
-    /**
-     * /** This method is an event handler on the Delete Customer button.
+    /** This method is an event handler on the Delete Customer button.
      * When clicked, an alert will pop up asking the User to verify that they wish to delete the Customer and all
      * associated Appointments. Upon confirmation, the Customer will be deleted from the database and the display table
      * updated.
-     *
      * @param actionEvent Passed from the On Action event listener on the Delete Customer button.
      * @throws SQLException Exception gets thrown if the SQL code does not compute properly.
      */
@@ -137,7 +120,6 @@ public class AllCustomersScreenController implements Initializable {
             alert.setTitle("No Customer Selected");
             alert.setContentText("Please select the customer to be deleted");
             alert.show();
-            return;
         } else {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Permanently delete selected customer and all associated appointments?");
             Optional<ButtonType> result = alert.showAndWait();
@@ -164,7 +146,7 @@ public class AllCustomersScreenController implements Initializable {
      * @throws IOException Exception gets thrown if load() cannot locate the FXML file
      */
     public void toAdminCreateCustomerScreen(ActionEvent actionEvent) throws IOException {
-
+            AdminCreateEditCustomerScreenController.labelBoolean = false;
 
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/AdminCreateEditCustomerScreen.fxml")));
             Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
@@ -184,7 +166,7 @@ public class AllCustomersScreenController implements Initializable {
         if (customerTable.getSelectionModel().getSelectedItem() != null) {
             AdminCreateEditCustomerScreenController.labelBoolean = true;
             AdminCreateEditCustomerScreenController.tempCustomer = customerTable.getSelectionModel().getSelectedItem();
-            AdminCreateEditCustomerScreenController.tempCustomerIndex = Customer.allCustomerList.indexOf(AdminCreateEditCustomerScreenController.tempCustomer);
+            //AdminCreateEditCustomerScreenController.tempCustomerIndex = Customer.allCustomerList.indexOf(AdminCreateEditCustomerScreenController.tempCustomer);
 
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/AdminCreateEditCustomerScreen.fxml")));
             Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
@@ -209,7 +191,7 @@ public class AllCustomersScreenController implements Initializable {
     public void toAdminHomeScreen(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/AdminHomeScreen.fxml")));
         Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
-        Scene scene = new Scene(root, 800, 500);
+        Scene scene = new Scene(root, 1000, 500);
         stage.setScene(scene);
         stage.setTitle("Administrator Home Screen");
     }

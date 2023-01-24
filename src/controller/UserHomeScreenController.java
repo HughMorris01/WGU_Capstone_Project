@@ -1,7 +1,6 @@
 package controller;
 
 import database.DBAppointments;
-import database.DBFirst_Level_Divisions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,7 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Appointment;
-import model.Division;
+import model.State;
 
 import java.io.IOException;
 import java.net.URL;
@@ -44,7 +43,7 @@ public class UserHomeScreenController implements Initializable {
     /** Output TextField for the first report. */
     public TextField outputBox;
     /** ComboBox listing appointment locations. */
-    public ComboBox<Division> locationComboBox;
+    public ComboBox<State> locationComboBox;
     /** ComboBox listing months of the year. */
     public ComboBox<Month> monthComboBox2;
     /** Output TextField for the second report. */
@@ -71,7 +70,7 @@ public class UserHomeScreenController implements Initializable {
         typeStrings.add("Remote");
         typeStrings.add("Group Session");
         typeComboBox.setItems(typeStrings);
-        locationComboBox.setItems(DBFirst_Level_Divisions.getAllDivisions());
+        locationComboBox.setItems(State.allStatesList);
         ObservableList<Month> months = FXCollections.observableArrayList();
         Month month1 = Month.JANUARY;
         months.add(month1);
