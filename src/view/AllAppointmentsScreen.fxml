@@ -6,30 +6,44 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AllAppointmentsScreenController">
-    <Button layoutX="14.0" layoutY="457.0" mnemonicParsing="false" onAction="#toAdminHomeScreen" text="&lt;== Back" />
+    <Button layoutX="14.0" layoutY="457.0" mnemonicParsing="false" onAction="#toAdminHomeScreen" text="&lt;== Admin Home">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
     <TableView fx:id="appointmentsTable" layoutX="15.0" layoutY="196.0" prefHeight="231.0" prefWidth="970.0">
       <columns>
-          <TableColumn fx:id="appointmentId" prefWidth="65.0" text="Appt. ID" />
-          <TableColumn fx:id="dateCol" prefWidth="101.20001220703125" text="Date" />
-          <TableColumn fx:id="salespersonCol" prefWidth="161.60003662109375" text="Salesperson" />
-          <TableColumn fx:id="titleCol" minWidth="0.0" prefWidth="131.39999389648438" text="Title" />
-          <TableColumn fx:id="typeCol" prefWidth="105.39996337890625" text="Type" />
-          <TableColumn fx:id="regionCol" prefWidth="93.79998779296875" text="Region" />
-          <TableColumn fx:id="stateAbbreviationCol" prefWidth="46.800048828125" text="State" />
-          <TableColumn fx:id="customerIdCol" prefWidth="84.60003662109375" text="Customer ID" />
-          <TableColumn fx:id="customerNameCol" prefWidth="161.7999267578125" text="Customer Name" />
+          <TableColumn fx:id="appointmentId" prefWidth="50.0" text="Appt ID" />
+          <TableColumn fx:id="dateCol" prefWidth="76.9999771118164" text="Date" />
+          <TableColumn fx:id="salespersonCol" prefWidth="116.60000610351562" text="Salesperson" />
+          <TableColumn fx:id="startTimeStringCol" prefWidth="90.0" text="Start" />
+          <TableColumn fx:id="endTimeStringCol" prefWidth="90.0" text="End" />
+          <TableColumn fx:id="titleCol" minWidth="0.0" prefWidth="114.39999389648438" text="Title" />
+          <TableColumn fx:id="typeCol" prefWidth="90.0" text="Type" />
+          <TableColumn fx:id="regionCol" prefWidth="90.0" text="Region" />
+          <TableColumn fx:id="stateAbbreviationCol" minWidth="0.0" prefWidth="41.20001220703125" text="State" />
+          <TableColumn fx:id="customerIdCol" prefWidth="79.4000244140625" text="Customer ID" />
+          <TableColumn fx:id="customerNameCol" prefWidth="106.20001220703125" text="Customer Name" />
       </columns>
     </TableView>
     <TextField fx:id="searchTextField" layoutX="777.0" layoutY="27.0" onAction="#searchAppointments" prefHeight="26.0" prefWidth="186.0" promptText="Search by ID, Name or Title...." />
-   <Button layoutX="561.0" layoutY="444.0" mnemonicParsing="false" onAction="#toAdminCreateAppointmentScreen" text="Create New Appointment" />
-   <Button layoutX="732.0" layoutY="444.0" mnemonicParsing="false" onAction="#toAdminEditAppointmentScreen" text="Edit Appointment" />
-   <Button layoutX="862.0" layoutY="444.0" mnemonicParsing="false" onAction="#deleteAppointment" text="Delete Appointment" />
+   <Button layoutX="561.0" layoutY="444.0" mnemonicParsing="false" onAction="#toAdminCreateAppointmentScreen" text="Create New Appointment">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button layoutX="732.0" layoutY="444.0" mnemonicParsing="false" onAction="#toAdminEditAppointmentScreen" text="Edit Appointment">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button layoutX="862.0" layoutY="444.0" mnemonicParsing="false" onAction="#deleteAppointment" text="Delete Appointment">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
    <RadioButton layoutX="248.0" layoutY="78.0" mnemonicParsing="false" onAction="#loadAllAppointments" selected="true" text="All Appointments">
       <toggleGroup>
          <ToggleGroup fx:id="appointmentsRadioGroup" />
       </toggleGroup>
    </RadioButton>
-   <RadioButton layoutX="416.0" layoutY="78.0" mnemonicParsing="false" onAction="#loadUpcomingAppointments" text="Upcoming Appointments" toggleGroup="$appointmentsRadioGroup" />
+   <RadioButton layoutX="416.0" layoutY="78.0" mnemonicParsing="false" onAction="#loadUpcomingAppointments" selected="true" text="Upcoming Appointments" toggleGroup="$appointmentsRadioGroup" />
    <RadioButton layoutX="615.0" layoutY="78.0" mnemonicParsing="false" onAction="#loadCompletedAppointments" text="Completed Appointments" toggleGroup="$appointmentsRadioGroup" />
    <Label layoutX="371.0" layoutY="9.0" text="WSU Appointments">
       <font>

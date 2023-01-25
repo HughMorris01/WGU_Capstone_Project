@@ -1,5 +1,6 @@
 package controller;
 
+import database.DBSalespersons;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -58,6 +59,8 @@ public class AdminHomeScreenController implements Initializable {
      * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        DBSalespersons.getAllSalespersons();
+
         salespersonId.setCellValueFactory(new PropertyValueFactory<>("salespersonId"));
         salespersonNameCol.setCellValueFactory(new PropertyValueFactory<>("fullName"));
         scheduledApptsCol.setCellValueFactory(new PropertyValueFactory<>("scheduledAppointments"));

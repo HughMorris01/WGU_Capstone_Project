@@ -137,14 +137,11 @@ public class AdminCreateEditCustomerScreenController implements Initializable {
         }
     }
 
-    /**
-     * This method is an event handler on the StateComboBox.
-     * When a state is initially chosen, it sets the corresponding Region and fills the SalespersonComboBox with the
+    /** This method is an event handler on the StateComboBox.
+     * When a state is initially chosen, it sets the corresponding Region and fills the SalespersonComboBox and with the
      * salespersons for that region. It also filters out the remaining states so that only states from that region are
      * available. To get the full list of states back, the region needs to be changed.
-     *
-     * @param actionEvent Passed from the On Action event listener on the StateComboBox.
-     */
+     * @param actionEvent Passed from the On Action event listener on the StateComboBox. */
     public void onStateSelect(ActionEvent actionEvent) {
             if (regionComboBox.getSelectionModel().getSelectedItem() == null) {
                 int regionId = stateComboBox.getSelectionModel().getSelectedItem().getRegionId();
@@ -183,25 +180,39 @@ public class AdminCreateEditCustomerScreenController implements Initializable {
      * @param actionEvent Passed from the On Action event listener on the RegionComboBox.
      */
     public void onRegionSelect(ActionEvent actionEvent) {
-        int regionId = regionComboBox.getSelectionModel().getSelectedItem().getRegionId();
+        if (regionComboBox.getSelectionModel().getSelectedItem() != null) {
+            int regionId = regionComboBox.getSelectionModel().getSelectedItem().getRegionId();
 
-        ObservableList<State> regionStates = FXCollections.observableArrayList();
-        for(State state : State.allStatesList) {
-            if(state.getRegionId() == regionId) {
-                regionStates.add(state);
+            ObservableList<State> regionStates = FXCollections.observableArrayList();
+            for (State state : State.allStatesList) {
+                if (state.getRegionId() == regionId) {
+                    regionStates.add(state);
+                }
             }
-        }
-        stateComboBox.setItems(regionStates);
+            stateComboBox.setItems(regionStates);
 
-        ObservableList<Salesperson> regionSalespersons = FXCollections.observableArrayList();
-        for(Salesperson salesperson : Salesperson.allSalespersonsList) {
-            if(salesperson.getRegionId() == regionId) {
-                regionSalespersons.add(salesperson);
+            ObservableList<Salesperson> regionSalespersons = FXCollections.observableArrayList();
+            for (Salesperson salesperson : Salesperson.allSalespersonsList) {
+                if (salesperson.getRegionId() == regionId) {
+                    regionSalespersons.add(salesperson);
+                }
             }
+            salespersonComboBox.setItems(regionSalespersons);
+            salespersonComboBox.setValue(null);
+            salespersonComboBox.setPromptText("");
         }
-        salespersonComboBox.setItems(regionSalespersons);
+    }
+
+    /** Method resets the region based combo boxes back to the original state of the screen.
+     * @param actionEvent Passed from the On Action event listener on the Reset button.*/
+    public void resetRegionBasedInfo(ActionEvent actionEvent) {
+        stateComboBox.setItems(State.allStatesList);
+        stateComboBox.setValue(null);
+        stateComboBox.setPromptText("Select State");
+        regionComboBox.setDisable(true);
+        regionComboBox.setValue(null);
         salespersonComboBox.setValue(null);
-        salespersonComboBox.setPromptText("");
+        salespersonComboBox.setDisable(true);
     }
 
     /**
@@ -372,7 +383,7 @@ public class AdminCreateEditCustomerScreenController implements Initializable {
 
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/AllCustomersScreen.fxml")));
         Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
-        Scene scene = new Scene(root, 1000, 400);
+        Scene scene = new Scene(root, 1000, 500);
         stage.setScene(scene);
         stage.setTitle("All Customers Screen");
     }

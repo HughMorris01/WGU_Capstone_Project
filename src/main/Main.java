@@ -47,20 +47,11 @@ public class Main extends Application {
 
         DBUsers.getAllUsers();
         DBAdministrators.getAllAdministrators();
+        DBSalespersons.getAllSalespersons();
         DBRegions.getAllRegions();
         DBStates.getAllStates();
-        DBStates.getNortheastStates();
-        DBStates.getSoutheastStates();
-        DBStates.getMidwestStates();
-        DBStates.getTexasPlusStates();
-        DBStates.getCaliforniaPlusStates();
-        DBStates.getNorthwestStates();
-        DBSalespersons.getAllSalespersons();
         DBCustomers.getAllCustomers();
         DBAppointments.getEveryAppointment();
-        DBAppointments.getUpcomingAppointments();
-        DBAppointments.getCompletedAppointments();
-        DBSalespersons.getAllSalespersons();
 
         launch(args);
 

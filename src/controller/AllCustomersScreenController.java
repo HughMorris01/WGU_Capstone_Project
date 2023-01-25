@@ -166,7 +166,6 @@ public class AllCustomersScreenController implements Initializable {
         if (customerTable.getSelectionModel().getSelectedItem() != null) {
             AdminCreateEditCustomerScreenController.labelBoolean = true;
             AdminCreateEditCustomerScreenController.tempCustomer = customerTable.getSelectionModel().getSelectedItem();
-            //AdminCreateEditCustomerScreenController.tempCustomerIndex = Customer.allCustomerList.indexOf(AdminCreateEditCustomerScreenController.tempCustomer);
 
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/AdminCreateEditCustomerScreen.fxml")));
             Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();

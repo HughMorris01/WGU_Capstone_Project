@@ -52,6 +52,8 @@ public abstract class DBAppointments {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
+        getUpcomingAppointments();
+        getCompletedAppointments();
         return everyAppointment;
     }
     /** This method is used to return all the upcoming Appointment records in the database as an ObservableList
@@ -194,31 +196,33 @@ public abstract class DBAppointments {
             ps.setInt(8, regionId);
             ps.executeUpdate();
     }
+
     /** This method is used to update an existing Appointment record into the database.
      * @param title as a string.
-     * @param description as a string.
-     * @param location as a string.
      * @param type as a string
      * @param start as a TimeStamp object
      * @param end as a TimeStamp object.
      * @param customerId as an int.
-     * @param contactId as an int.
-     * @param userId as an int.
+     * @param salespersonId as an int.
+     * @param stateId as an int.
+     * @param regionId as an int.
+     * @param appointmentId as an int.
      * @throws SQLException Throws a SQLException if the SQL does not execute properly.
      * */
-    public static void updateAppointment(String title, String description, String location, String type, Timestamp start, Timestamp end, int customerId, int contactId, int userId, int appointmentId) throws SQLException {
-        String sqlCommand = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, Customer_ID = ?, Contact_ID = ?, User_ID = ? WHERE Appointment_ID = ?";
+    public static void updateAppointment(String title, String type, Timestamp start, Timestamp end, int customerId,
+                                         int salespersonId, int stateId, int regionId, int appointmentId) throws SQLException {
+        String sqlCommand = "UPDATE appointments SET Title = ?, Type = ?, Start = ?, End = ?, Customer_ID = ?, " +
+                "Salesperson_ID = ?, State_ID = ?, Region_ID = ? WHERE Appointment_ID = ?";
         PreparedStatement ps = JDBC.getConnection().prepareStatement(sqlCommand);
         ps.setString(1, title);
-        ps.setString(2, description);
-        ps.setString(3, location);
-        ps.setString(4, type);
-        ps.setTimestamp(5, start);
-        ps.setTimestamp(6, end);
-        ps.setInt(7, customerId);
-        ps.setInt(8, contactId);
-        ps.setInt(9, userId);
-        ps.setInt(10, appointmentId);
+        ps.setString(2, type);
+        ps.setTimestamp(3, start);
+        ps.setTimestamp(4, end);
+        ps.setInt(5, customerId);
+        ps.setInt(6, salespersonId);
+        ps.setInt(7, stateId);
+        ps.setInt(8, regionId);
+        ps.setInt(9, appointmentId);
         ps.executeUpdate();
     }
     /** This method is used to delete existing Appointment record into the database by entering the appointmentId.

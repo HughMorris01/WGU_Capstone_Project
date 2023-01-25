@@ -42,13 +42,13 @@
       <TextField fx:id="addressTextField" layoutX="250.0" layoutY="170.0" promptText="Address" />
       <TextField fx:id="zipCodeTextField" layoutX="250.0" layoutY="210.0" promptText="Zip Code" />
       <TextField fx:id="phoneNumberTextField" layoutX="250.0" layoutY="290.0" promptText="Phone Number" />
-      <ComboBox fx:id="salespersonComboBox" disable="true" layoutX="250.0" layoutY="410.0" prefWidth="150.0" promptText="Associated Salesperson" />
-      <ComboBox fx:id="stateComboBox" layoutX="250.0" layoutY="250.0" onAction="#onStateSelect" prefWidth="150.0" />
+      <ComboBox fx:id="salespersonComboBox" disable="true" layoutX="250.0" layoutY="410.0" prefWidth="150.0" promptText="Select Salesperson" />
+      <ComboBox fx:id="stateComboBox" layoutX="250.0" layoutY="250.0" onAction="#onStateSelect" prefWidth="150.0" promptText="Select State" />
       <Button fx:id="submitButton" defaultButton="true" layoutX="283.0" layoutY="458.0" mnemonicParsing="false" onAction="#onSaveButtonClick" prefHeight="26.0" prefWidth="84.0" text="Save">
       <font>
          <Font name="System Bold" size="12.0" />
       </font></Button>
-      <Button layoutX="21.0" layoutY="459.0" mnemonicParsing="false" onAction="#toAllCustomersScreen" text="&lt;== Back">
+      <Button layoutX="21.0" layoutY="459.0" mnemonicParsing="false" onAction="#toAllCustomersScreen" text="&lt;== All Customers">
       <font>
          <Font name="System Bold" size="12.0" />
       </font></Button>
@@ -69,5 +69,7 @@
          <Font name="System Bold" size="12.0" />
       </font>
    </Label>
-   <ComboBox fx:id="regionComboBox" disable="true" layoutX="250.0" layoutY="370.0" onAction="#onRegionSelect" prefWidth="150.0" promptText="Region" />
+   <ComboBox fx:id="regionComboBox" disable="true" layoutX="250.0" layoutY="370.0" onAction="#onRegionSelect" prefWidth="150.0" promptText="Select Region" />
+   <Button layoutX="469.0" layoutY="250.0" mnemonicParsing="false" onAction="#resetRegionBasedInfo" text="Reset" />
+   <Label layoutX="418.0" layoutY="231.0" text="Reset region based information" />
 </AnchorPane>

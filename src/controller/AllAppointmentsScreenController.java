@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -36,6 +38,10 @@ public class AllAppointmentsScreenController implements Initializable {
     public TableColumn<Appointment, Integer> appointmentId;
     /** TableColumn for the Appointment date. */
     public TableColumn<Appointment, String> dateCol;
+    /** TableColumn for the Appointment's start time. */
+    public TableColumn<Appointment, String> startTimeStringCol;
+    /** TableColumn for the Appointment's end time. */
+    public TableColumn<Appointment, String> endTimeStringCol;
     /** TableColumn for the Appointment's associated salesperson. */
     public TableColumn<Appointment, String> salespersonCol;
     /** TableColumn for the Appointment's title */
@@ -50,10 +56,12 @@ public class AllAppointmentsScreenController implements Initializable {
     public TableColumn<Appointment, Integer> customerIdCol;
     /** TableColumn for the Appointment's associated customer */
     public TableColumn<Appointment, String> customerNameCol;
+    /** Toggle group for the radio buttons that load the appointments when selected. */
     public ToggleGroup appointmentsRadioGroup;
+    /** Date picker for the start of the custom date range. */
     public DatePicker startDatePicker;
+    /** Date picker for the end of the custom date range. */
     public DatePicker endDatePicker;
-
 
     /** This method is called by the FXMLLoader.load() call contained in the toAllAppointmentsScreen() method of the
      * AdminHomeScreenController class. The method initially populates the table with every Appointment that is in the database.
@@ -65,6 +73,8 @@ public class AllAppointmentsScreenController implements Initializable {
         appointmentId.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("startDateString"));
         salespersonCol.setCellValueFactory(new PropertyValueFactory<>("salespersonFullName"));
+        startTimeStringCol.setCellValueFactory(new PropertyValueFactory<>("startTimeString"));
+        endTimeStringCol.setCellValueFactory(new PropertyValueFactory<>("endTimeString"));
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
         regionCol.setCellValueFactory(new PropertyValueFactory<>("regionName"));
@@ -72,7 +82,7 @@ public class AllAppointmentsScreenController implements Initializable {
         customerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         customerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
 
-        appointmentsTable.setItems(Appointment.allAppointmentsList);
+        appointmentsTable.setItems(Appointment.allUpcomingAppointmentsList);
 
     }
 
@@ -153,6 +163,8 @@ public class AllAppointmentsScreenController implements Initializable {
      * @throws IOException Exception gets thrown if load() cannot locate the FXML file
      */
     public void toAdminCreateAppointmentScreen(ActionEvent actionEvent) throws IOException {
+        AdminCreateEditAppointmentScreenController.labelBoolean = true;
+
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/AdminCreateEditAppointmentScreen.fxml")));
         Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
         Scene scene = new Scene(root, 600, 500);
@@ -166,7 +178,23 @@ public class AllAppointmentsScreenController implements Initializable {
      * @throws IOException Exception gets thrown if load() cannot locate the FXML file
      */
     public void toAdminEditAppointmentScreen(ActionEvent actionEvent) throws IOException {
-        AdminCreateEditAppointmentScreenController.setTempAppointment(appointmentsTable.getSelectionModel().getSelectedItem());
+        if(appointmentsTable.getSelectionModel().getSelectedItem() != null)  {
+            if(appointmentsTable.getSelectionModel().getSelectedItem().getStart().isBefore(LocalDateTime.now())) {
+                Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                alert1.setTitle("Appointment Already Completed");
+                alert1.setContentText("An Appointment that has already been completed cannot be edited.");
+                alert1.show();
+                return;
+            }
+            AdminCreateEditAppointmentScreenController.setTempAppointment(appointmentsTable.getSelectionModel().getSelectedItem());
+        }
+        else {
+            Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+            alert1.setTitle("No Selection Made");
+            alert1.setContentText("Please select an Appointment to update.");
+            alert1.show();
+            return;
+        }
 
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/AdminCreateEditAppointmentScreen.fxml")));
         Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
