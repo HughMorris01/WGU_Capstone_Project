@@ -20,6 +20,7 @@ import java.sql.Timestamp;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /** This is the controller class for the AdminCreateEditAppointmentScreenController.fxml document and is not meant to be instantiated.
@@ -55,11 +56,9 @@ public class AdminCreateEditAppointmentScreenController implements Initializable
     /** Combo box used to select the appointment type. */
     public ComboBox<String> typeComboBox;
     /** Combo box used to select the appointment customer. */
-    public ComboBox<Customer> customerComboBox;
+    public ComboBox<Client> customerComboBox;
     /** Button used to reset the region based information back to original state. */
     public Button resetButton;
-    /** Label for the reset button. */
-    public Label resetButtonLabel;
     /** Button used to take user to the create new customer screen. */
     public Button createNewCustomerButton;
 
@@ -83,7 +82,6 @@ public class AdminCreateEditAppointmentScreenController implements Initializable
         typeComboBox.setItems(types);
         if (tempAppointment != null) {
             resetButton.setVisible(false);
-            resetButtonLabel.setVisible(false);
             createNewCustomerButton.setVisible(false);
 
             appointmentIdTextField.setText(String.valueOf(tempAppointment.getAppointmentId()));
@@ -165,15 +163,15 @@ public class AdminCreateEditAppointmentScreenController implements Initializable
         ObservableList<Appointment> localCustomerAppointments = FXCollections.observableArrayList();
         ObservableList<Appointment> localSalespersonAppointments = FXCollections.observableArrayList();
         if (appointmentIdTextField.getText() == null) {
-            Customer selectedCustomer = customerComboBox.getSelectionModel().getSelectedItem();
-            if (selectedCustomer == null) {
+            Client selectedClient = customerComboBox.getSelectionModel().getSelectedItem();
+            if (selectedClient == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Blank Field");
                 alert.setContentText("Please select a customer. ");
                 alert.show();
                 return;
             }
-            int customerId = selectedCustomer.getCustomerId();
+            int customerId = selectedClient.getCustomerId();
             Salesperson selectedSalesperson = salespersonComboBox.getSelectionModel().getSelectedItem();
             if (selectedSalesperson == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -316,15 +314,15 @@ public class AdminCreateEditAppointmentScreenController implements Initializable
         }
         else {
             int appointmentId = Integer.parseInt(appointmentIdTextField.getText());
-            Customer selectedCustomer = customerComboBox.getSelectionModel().getSelectedItem();
-            if (selectedCustomer == null) {
+            Client selectedClient = customerComboBox.getSelectionModel().getSelectedItem();
+            if (selectedClient == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Blank Field");
                 alert.setContentText("Please select a customer. ");
                 alert.show();
                 return;
             }
-            int customerId = selectedCustomer.getCustomerId();
+            int customerId = selectedClient.getCustomerId();
             Salesperson selectedSalesperson = salespersonComboBox.getSelectionModel().getSelectedItem();
             if (selectedSalesperson == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -407,21 +405,21 @@ public class AdminCreateEditAppointmentScreenController implements Initializable
                 if((ap.getStart().isBefore(localDateTimeStart)) && (ap.getEnd().isAfter(localDateTimeStart))) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Conflicting Appointment");
-                    alert.setContentText("Already scheduled " + ap.getStartTimeString() + "to " + ap.getEndTimeString());
+                    alert.setContentText("Salesperson already scheduled " + ap.getStartTimeString() + " to " + ap.getEndTimeString());
                     alert.show();
                     return;
                 }
                 if(ap.getStart().equals(localDateTimeStart)) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Conflicting Appointment");
-                    alert.setContentText("Already scheduled " + ap.getStartTimeString() + "to " + ap.getEndTimeString());
+                    alert.setContentText("Salesperson already scheduled " + ap.getStartTimeString() + " to " + ap.getEndTimeString());
                     alert.show();
                     return;
                 }
                 if((ap.getStart().isAfter(localDateTimeStart)) && (ap.getStart().isBefore(localDateTimeEnd))) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Conflicting Appointment");
-                    alert.setContentText("Already scheduled " + ap.getStartTimeString() + "to " + ap.getEndTimeString());
+                    alert.setContentText("Salesperson already scheduled " + ap.getStartTimeString() + " to " + ap.getEndTimeString());
                     alert.show();
                     return;
                 }
@@ -435,21 +433,21 @@ public class AdminCreateEditAppointmentScreenController implements Initializable
                 if((ap.getStart().isBefore(localDateTimeStart)) && (ap.getEnd().isAfter(localDateTimeStart))) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Conflicting Appointment");
-                    alert.setContentText("Already scheduled " + ap.getStartTimeString() + "to " + ap.getEndTimeString());
+                    alert.setContentText("Client already scheduled " + ap.getStartTimeString() + "to " + ap.getEndTimeString());
                     alert.show();
                     return;
                 }
                 if(ap.getStart().equals(localDateTimeStart)) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Conflicting Appointment");
-                    alert.setContentText("Already scheduled " + ap.getStartTimeString() + "to " + ap.getEndTimeString());
+                    alert.setContentText("Client already scheduled " + ap.getStartTimeString() + "to " + ap.getEndTimeString());
                     alert.show();
                     return;
                 }
                 if((ap.getStart().isAfter(localDateTimeStart)) && (ap.getStart().isBefore(localDateTimeEnd))) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Conflicting Appointment");
-                    alert.setContentText("Already scheduled " + ap.getStartTimeString() + "to " + ap.getEndTimeString());
+                    alert.setContentText("Client already scheduled " + ap.getStartTimeString() + "to " + ap.getEndTimeString());
                     alert.show();
                     return;
                 }
@@ -537,13 +535,13 @@ public class AdminCreateEditAppointmentScreenController implements Initializable
             }
             salespersonComboBox.setItems(regionSalespersons);
 
-            ObservableList<Customer> regionCustomers = FXCollections.observableArrayList();
-            for (Customer customer : Customer.allCustomerList) {
-                if (customer.getRegionId() == regionId) {
-                    regionCustomers.add(customer);
+            ObservableList<Client> regionClients = FXCollections.observableArrayList();
+            for (Client client : Client.allClientList) {
+                if (client.getRegionId() == regionId) {
+                    regionClients.add(client);
                 }
             }
-            customerComboBox.setItems(regionCustomers);
+            customerComboBox.setItems(regionClients);
 
             regionComboBox.setDisable(false);
             salespersonComboBox.setDisable(false);
@@ -581,13 +579,13 @@ public class AdminCreateEditAppointmentScreenController implements Initializable
             salespersonComboBox.setValue(null);
             salespersonComboBox.setPromptText("");
 
-            ObservableList<Customer> regionCustomers = FXCollections.observableArrayList();
-            for (Customer customer : Customer.allCustomerList) {
-                if (customer.getRegionId() == regionId) {
-                    regionCustomers.add(customer);
+            ObservableList<Client> regionClients = FXCollections.observableArrayList();
+            for (Client client : Client.allClientList) {
+                if (client.getRegionId() == regionId) {
+                    regionClients.add(client);
                 }
             }
-            customerComboBox.setItems(regionCustomers);
+            customerComboBox.setItems(regionClients);
             customerComboBox.setValue(null);
             customerComboBox.setPromptText("");
         }
@@ -613,9 +611,9 @@ public class AdminCreateEditAppointmentScreenController implements Initializable
         customerComboBox.setDisable(true);
     }
 
-    /** This method is an event handler on the New Customer button.
+    /** This method is an event handler on the New Client button.
      * When clicked, the button redirects the program to the AddModifyCustomerScreen.
-     * @param actionEvent Passed from the On Action event listener on the New Customer button.
+     * @param actionEvent Passed from the On Action event listener on the New Client button.
      * @throws IOException Exception gets thrown if load() cannot locate the FXML file
      */
     public void toAdminCreateCustomerScreen(ActionEvent actionEvent) throws IOException {
@@ -625,8 +623,25 @@ public class AdminCreateEditAppointmentScreenController implements Initializable
         Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
         Scene scene = new Scene(root, 600, 500);
         stage.setScene(scene);
-        stage.setTitle("Add New Customer Screen");
+        stage.setTitle("Add New Client Screen");
         stage.show();
+    }
 
+    /** This method is an event handler on the SignOut button.
+     * When clicked, the button redirects the program to the original Login Screen
+     * @param actionEvent Passed from the On Action event listener on the SignOut button.
+     * @throws IOException Exception gets thrown if load() cannot locate the FXML file
+     */
+    public void toSignOut(ActionEvent actionEvent) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you wish to log out?");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/LoginScreen.fxml")));
+            Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
+            Scene scene = new Scene(root, 600, 400);
+            stage.setScene(scene);
+            stage.setTitle("Administrator Home Screen");
+        }
     }
 }

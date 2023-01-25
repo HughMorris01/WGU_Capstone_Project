@@ -13,8 +13,7 @@ import javafx.collections.ObservableList;
  */
 public class User {
     /** Static ObservableList for accessing all Users so that the database only needs to be queried once when
-     * the application initially launches.
-     * */
+     * the application initially launches. */
     public static ObservableList<User> allUserList = FXCollections.observableArrayList();
 
     /** UserId as an int. */

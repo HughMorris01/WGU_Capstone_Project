@@ -2,10 +2,11 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminCreateEditCustomerScreenController">
-      <Label fx:id="screenLabel" layoutX="210.0" layoutY="10.0" prefHeight="27.0" prefWidth="185.0" text="Enter Customer Info" underline="true">
+      <Label fx:id="screenLabel" layoutX="226.0" layoutY="8.0" prefHeight="27.0" prefWidth="185.0" text="Enter Customer Info" textFill="#0c56e8" underline="true">
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Label>
@@ -44,11 +45,11 @@
       <TextField fx:id="phoneNumberTextField" layoutX="250.0" layoutY="290.0" promptText="Phone Number" />
       <ComboBox fx:id="salespersonComboBox" disable="true" layoutX="250.0" layoutY="410.0" prefWidth="150.0" promptText="Select Salesperson" />
       <ComboBox fx:id="stateComboBox" layoutX="250.0" layoutY="250.0" onAction="#onStateSelect" prefWidth="150.0" promptText="Select State" />
-      <Button fx:id="submitButton" defaultButton="true" layoutX="283.0" layoutY="458.0" mnemonicParsing="false" onAction="#onSaveButtonClick" prefHeight="26.0" prefWidth="84.0" text="Save">
+      <Button fx:id="submitButton" defaultButton="true" layoutX="273.0" layoutY="453.0" mnemonicParsing="false" onAction="#onSaveButtonClick" prefHeight="26.0" prefWidth="84.0" text="Save">
       <font>
          <Font name="System Bold" size="12.0" />
       </font></Button>
-      <Button layoutX="21.0" layoutY="459.0" mnemonicParsing="false" onAction="#toAllCustomersScreen" text="&lt;== All Customers">
+      <Button fx:id="backButton" layoutX="9.0" layoutY="468.0" mnemonicParsing="false" onAction="#toAllCustomersScreen" text="&lt;-- Back">
       <font>
          <Font name="System Bold" size="12.0" />
       </font></Button>
@@ -70,6 +71,11 @@
       </font>
    </Label>
    <ComboBox fx:id="regionComboBox" disable="true" layoutX="250.0" layoutY="370.0" onAction="#onRegionSelect" prefWidth="150.0" promptText="Select Region" />
-   <Button layoutX="469.0" layoutY="250.0" mnemonicParsing="false" onAction="#resetRegionBasedInfo" text="Reset" />
-   <Label layoutX="418.0" layoutY="231.0" text="Reset region based information" />
+   <Button layoutX="426.0" layoutY="251.0" mnemonicParsing="false" onAction="#resetRegionBasedInfo" text="Reset" />
+   <Button layoutX="522.0" layoutY="9.0" mnemonicParsing="false" onAction="#toSignOut" text="Sign Out">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font>
+   </Button>
+   <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#1f93ff00" height="450.0" layoutX="117.0" layoutY="39.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" width="380.0" />
 </AnchorPane>

@@ -6,13 +6,13 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AllAppointmentsScreenController">
-    <Button layoutX="14.0" layoutY="457.0" mnemonicParsing="false" onAction="#toAdminHomeScreen" text="&lt;== Admin Home">
+    <Button layoutX="14.0" layoutY="457.0" mnemonicParsing="false" onAction="#toAdminHomeScreen" text="&lt;-- Back">
       <font>
          <Font name="System Bold" size="12.0" />
       </font></Button>
     <TableView fx:id="appointmentsTable" layoutX="15.0" layoutY="196.0" prefHeight="231.0" prefWidth="970.0">
       <columns>
-          <TableColumn fx:id="appointmentId" prefWidth="50.0" text="Appt ID" />
+          <TableColumn fx:id="appointmentIdCol" prefWidth="50.0" text="Appt ID" />
           <TableColumn fx:id="dateCol" prefWidth="76.9999771118164" text="Date" />
           <TableColumn fx:id="salespersonCol" prefWidth="116.60000610351562" text="Salesperson" />
           <TableColumn fx:id="startTimeStringCol" prefWidth="90.0" text="Start" />
@@ -25,7 +25,7 @@
           <TableColumn fx:id="customerNameCol" prefWidth="106.20001220703125" text="Customer Name" />
       </columns>
     </TableView>
-    <TextField fx:id="searchTextField" layoutX="777.0" layoutY="27.0" onAction="#searchAppointments" prefHeight="26.0" prefWidth="186.0" promptText="Search by ID, Name or Title...." />
+    <TextField fx:id="searchTextField" layoutX="741.0" layoutY="140.0" onAction="#searchAppointments" prefHeight="26.0" prefWidth="186.0" promptText="Search by ID, Name or Title...." />
    <Button layoutX="561.0" layoutY="444.0" mnemonicParsing="false" onAction="#toAdminCreateAppointmentScreen" text="Create New Appointment">
       <font>
          <Font name="System Bold" size="12.0" />
@@ -38,26 +38,40 @@
       <font>
          <Font name="System Bold" size="12.0" />
       </font></Button>
-   <RadioButton layoutX="248.0" layoutY="78.0" mnemonicParsing="false" onAction="#loadAllAppointments" selected="true" text="All Appointments">
+   <RadioButton layoutX="126.0" layoutY="61.0" mnemonicParsing="false" onAction="#loadAllAppointments" selected="true" text="All Appointments">
       <toggleGroup>
          <ToggleGroup fx:id="appointmentsRadioGroup" />
       </toggleGroup>
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font>
    </RadioButton>
-   <RadioButton layoutX="416.0" layoutY="78.0" mnemonicParsing="false" onAction="#loadUpcomingAppointments" selected="true" text="Upcoming Appointments" toggleGroup="$appointmentsRadioGroup" />
-   <RadioButton layoutX="615.0" layoutY="78.0" mnemonicParsing="false" onAction="#loadCompletedAppointments" text="Completed Appointments" toggleGroup="$appointmentsRadioGroup" />
-   <Label layoutX="371.0" layoutY="9.0" text="WSU Appointments">
+   <RadioButton layoutX="294.0" layoutY="61.0" mnemonicParsing="false" onAction="#loadUpcomingAppointments" selected="true" text="Upcoming Appointments" toggleGroup="$appointmentsRadioGroup">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></RadioButton>
+   <RadioButton layoutX="493.0" layoutY="61.0" mnemonicParsing="false" onAction="#loadCompletedAppointments" text="Completed Appointments" toggleGroup="$appointmentsRadioGroup">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></RadioButton>
+   <Label layoutX="371.0" layoutY="5.0" text="WSU Appointments" textFill="#0c56e8" underline="true">
       <font>
          <Font name="System Bold" size="24.0" />
       </font>
    </Label>
-   <DatePicker fx:id="startDatePicker" layoutX="293.0" layoutY="148.0" />
-   <DatePicker fx:id="endDatePicker" layoutX="511.0" layoutY="148.0" />
-   <Button layoutX="710.0" layoutY="148.0" mnemonicParsing="false" onAction="#customDateRange" text="Submit" />
-   <Label layoutX="469.0" layoutY="109.0" text="OR" />
-   <Label layoutX="483.0" layoutY="152.0" text="to" />
-   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="46.0" layoutX="185.0" layoutY="138.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />
-   <Label layoutX="200.0" layoutY="152.0" text="Custom Range:">
+   <DatePicker fx:id="startDatePicker" layoutX="171.0" layoutY="124.0" />
+   <DatePicker fx:id="endDatePicker" layoutX="389.0" layoutY="124.0" />
+   <Button layoutX="588.0" layoutY="124.0" mnemonicParsing="false" onAction="#customDateRange" text="Submit" />
+   <Label layoutX="347.0" layoutY="88.0" text="OR" />
+   <Label layoutX="361.0" layoutY="128.0" text="to" />
+   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="46.0" layoutX="63.0" layoutY="114.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />
+   <Label layoutX="78.0" layoutY="128.0" text="Custom Range:">
       <font>
          <Font name="System Bold" size="12.0" />
       </font></Label>
+   <Button layoutX="922.0" layoutY="14.0" mnemonicParsing="false" onAction="#toSignOut" text="Sign Out">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font>
+   </Button>
 </AnchorPane>

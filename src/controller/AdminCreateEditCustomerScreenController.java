@@ -11,7 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import model.Customer;
+import model.Client;
 import model.Region;
 import model.Salesperson;
 import model.State;
@@ -20,19 +20,20 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /** This is the controller class for the AdminCreateEditCustomerScreenController.fxml document and is not meant to be instantiated.
- * The class will either load the form with Customer data passed from the previous screen or will begin as blank
- * text fields and combo boxes for the Admin user to enter the Customer data into.
+ * The class will either load the form with Client data passed from the previous screen or will begin as blank
+ * text fields and combo boxes for the Admin user to enter the Client data into.
  * @author Gregory Farrell
  * @version 1.1
  * */
 public class AdminCreateEditCustomerScreenController implements Initializable {
     /**
-     * Static Customer member used to receive a Customer object passed from the allCustomersScreen
+     * Static Client member used to receive a Client object passed from the allCustomersScreen
      */
-    public static Customer tempCustomer = null;
+    public static Client tempClient = null;
     /**
      * Static boolean used to toggle the heading label on the screen
      */
@@ -42,53 +43,53 @@ public class AdminCreateEditCustomerScreenController implements Initializable {
      */
     public Label screenLabel;
     /**
-     * Disabled TextField used to display the Customer ID, if available.
+     * Disabled TextField used to display the Client ID, if available.
      */
     public TextField customerIdTextField;
     /**
-     * TextField used to enter and display the Customer's first name.
+     * TextField used to enter and display the Client's first name.
      */
     public TextField customerFirstNameTextField;
     /**
-     * TextField used to enter and display the Customer's last name.
+     * TextField used to enter and display the Client's last name.
      */
     public TextField customerLastNameTextField;
     /**
-     * TextField used to enter and display the Customer's address.
+     * TextField used to enter and display the Client's address.
      */
     public TextField addressTextField;
     /**
-     * TextField used to enter and display the Customer's zip code.
+     * TextField used to enter and display the Client's zip code.
      */
     public TextField zipCodeTextField;
     /**
-     * ComboBox used to select the Customer's state.
+     * ComboBox used to select the Client's state.
      */
     public ComboBox<State> stateComboBox;
     /**
-     * TextField used to enter and display the Customer phone number.
+     * TextField used to enter and display the Client phone number.
      */
     public TextField phoneNumberTextField;
     /**
-     * TextField used to enter and display the Customer email.
+     * TextField used to enter and display the Client email.
      */
     public TextField emailTextField;
     /**
-     * ComboBox used to select the Customer's Region.
+     * ComboBox used to select the Client's Region.
      */
     public ComboBox<Region> regionComboBox;
     /**
-     * ComboBox used to select the Customer's associated salesperson.
+     * ComboBox used to select the Client's associated salesperson.
      */
     public ComboBox<Salesperson> salespersonComboBox;
-    /** Button that saves the Customer info to the database. */
+    /** Button that saves the Client info to the database. */
     public Button submitButton;
-
-
+    /** Button for directing the program back to the previous screen. */
+    public Button backButton;
 
     /**
      * This method is called by the FXMLLoader.load() call contained in either the addCustomer() or modifyCustomer()
-     * methods of the CustomerScreenController class. If modifying a Customer record, the selected Customer's data is
+     * methods of the CustomerScreenController class. If modifying a Client record, the selected Client's data is
      * passed from the previous screen into the text fields, otherwise they load blank.
      *
      * @param resourceBundle An unreferenced ResourceBundle object passed automatically
@@ -97,25 +98,26 @@ public class AdminCreateEditCustomerScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if (!labelBoolean) {
-            screenLabel.setText("New Customer Info");
+            screenLabel.setText("New Client Info");
         } else {
-            screenLabel.setText("Edit Customer Info");
+            screenLabel.setText("Edit Client Info");
         }
         regionComboBox.setItems(Region.allRegionsList);
-        if (tempCustomer != null) {
-            customerIdTextField.setText(String.valueOf(tempCustomer.getCustomerId()));
-            customerFirstNameTextField.setText(tempCustomer.getCustomerFirstName());
-            customerLastNameTextField.setText(tempCustomer.getCustomerLastName());
-            addressTextField.setText(tempCustomer.getAddress());
-            zipCodeTextField.setText(tempCustomer.getZipCode());
-            stateComboBox.setValue(tempCustomer.getCustomerState());
-            phoneNumberTextField.setText(tempCustomer.getPhone());
-            emailTextField.setText(tempCustomer.getEmail());
-            regionComboBox.setValue(tempCustomer.getCustomerRegion());
-            salespersonComboBox.setValue(tempCustomer.getCustomerSalesperson());
+
+        if (tempClient != null) {
+            customerIdTextField.setText(String.valueOf(tempClient.getCustomerId()));
+            customerFirstNameTextField.setText(tempClient.getCustomerFirstName());
+            customerLastNameTextField.setText(tempClient.getCustomerLastName());
+            addressTextField.setText(tempClient.getAddress());
+            zipCodeTextField.setText(tempClient.getZipCode());
+            stateComboBox.setValue(tempClient.getCustomerState());
+            phoneNumberTextField.setText(tempClient.getPhone());
+            emailTextField.setText(tempClient.getEmail());
+            regionComboBox.setValue(tempClient.getCustomerRegion());
+            salespersonComboBox.setValue(tempClient.getCustomerSalesperson());
 
             ObservableList<State> regionStates = FXCollections.observableArrayList();
-            int regionId = tempCustomer.getRegionId();
+            int regionId = tempClient.getRegionId();
             for (State state : State.allStatesList) {
                 if (state.getRegionId() == regionId) {
                     regionStates.add(state);
@@ -216,7 +218,7 @@ public class AdminCreateEditCustomerScreenController implements Initializable {
     }
 
     /**
-     * This method is an event handler for the Save button that saves the entered Customer info to the database and
+     * This method is an event handler for the Save button that saves the entered Client info to the database and
      * redirects the application back to the CustomerScreen.
      * The method gathers the data from the form, executes the SQL to update the database and then loads the FXML document
      * for the AllCustomersScreen.
@@ -232,7 +234,7 @@ public class AdminCreateEditCustomerScreenController implements Initializable {
             if (firstNameText.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Blank Field");
-                alert.setContentText("A Customer first name must be entered.");
+                alert.setContentText("A Client first name must be entered.");
                 alert.show();
                 return;
             }
@@ -240,7 +242,7 @@ public class AdminCreateEditCustomerScreenController implements Initializable {
             if (lastNameText.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Blank Field");
-                alert.setContentText("A Customer last name must be entered.");
+                alert.setContentText("A Client last name must be entered.");
                 alert.show();
                 return;
             }
@@ -248,7 +250,7 @@ public class AdminCreateEditCustomerScreenController implements Initializable {
             if (addressText.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Blank Field");
-                alert.setContentText("A Customer address must be entered.");
+                alert.setContentText("A Client address must be entered.");
                 alert.show();
                 return;
             }
@@ -256,7 +258,7 @@ public class AdminCreateEditCustomerScreenController implements Initializable {
             if (zipCodeText.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Blank Field");
-                alert.setContentText("A Customer zip code must be entered.");
+                alert.setContentText("A Client zip code must be entered.");
                 alert.show();
                 return;
             }
@@ -266,7 +268,7 @@ public class AdminCreateEditCustomerScreenController implements Initializable {
             if (state == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Blank Field");
-                alert.setContentText("A Customer state must be chosen.");
+                alert.setContentText("A Client state must be chosen.");
                 alert.show();
                 return;
             }
@@ -290,7 +292,7 @@ public class AdminCreateEditCustomerScreenController implements Initializable {
             DBCustomers.insertCustomer(firstNameText, lastNameText, addressText, zipCodeText, phoneText, emailText,
                     salesperson.getSalespersonId(), state.getStateId(), region.getRegionId());
             DBCustomers.getAllCustomers();
-            tempCustomer = null;
+            tempClient = null;
 
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/AllCustomersScreen.fxml")));
             Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
@@ -304,7 +306,7 @@ public class AdminCreateEditCustomerScreenController implements Initializable {
             if (firstNameText.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Blank Field");
-                alert.setContentText("A Customer first name must be entered.");
+                alert.setContentText("A Client first name must be entered.");
                 alert.show();
                 return;
             }
@@ -312,7 +314,7 @@ public class AdminCreateEditCustomerScreenController implements Initializable {
             if (lastNameText.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Blank Field");
-                alert.setContentText("A Customer last name must be entered.");
+                alert.setContentText("A Client last name must be entered.");
                 alert.show();
                 return;
             }
@@ -320,7 +322,7 @@ public class AdminCreateEditCustomerScreenController implements Initializable {
             if (addressText.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Blank Field");
-                alert.setContentText("A Customer address must be entered.");
+                alert.setContentText("A Client address must be entered.");
                 alert.show();
                 return;
             }
@@ -328,7 +330,7 @@ public class AdminCreateEditCustomerScreenController implements Initializable {
             if (zipCodeText.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Blank Field");
-                alert.setContentText("A Customer zip code must be entered.");
+                alert.setContentText("A Client zip code must be entered.");
                 alert.show();
                 return;
             }
@@ -338,7 +340,7 @@ public class AdminCreateEditCustomerScreenController implements Initializable {
             if (state == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Blank Field");
-                alert.setContentText("A Customer state must be chosen.");
+                alert.setContentText("A Client state must be chosen.");
                 alert.show();
                 return;
             }
@@ -362,11 +364,11 @@ public class AdminCreateEditCustomerScreenController implements Initializable {
             DBCustomers.updateCustomer(customerId, firstNameText, lastNameText, addressText, zipCodeText, phoneText, emailText,
                     salesperson.getSalespersonId(), state.getStateId(), region.getRegionId());
             DBCustomers.getAllCustomers();
-            tempCustomer = null;
+            tempClient = null;
 
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/AllCustomersScreen.fxml")));
             Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
-            Scene scene = new Scene(root, 1000, 450);
+            Scene scene = new Scene(root, 1000, 500);
             stage.setScene(scene);
             stage.setTitle("All Customers Screen");
             stage.show();
@@ -379,7 +381,7 @@ public class AdminCreateEditCustomerScreenController implements Initializable {
      * @throws IOException Exception gets thrown if load() cannot locate the FXML file
      */
     public void toAllCustomersScreen(ActionEvent actionEvent) throws IOException {
-        tempCustomer = null;
+        tempClient = null;
 
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/AllCustomersScreen.fxml")));
         Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
@@ -387,4 +389,39 @@ public class AdminCreateEditCustomerScreenController implements Initializable {
         stage.setScene(scene);
         stage.setTitle("All Customers Screen");
     }
+
+    /** This method is an event handler on the SignOut button.
+     * When clicked, the button redirects the program to the original Login Screen
+     * @param actionEvent Passed from the On Action event listener on the SignOut button.
+     * @throws IOException Exception gets thrown if load() cannot locate the FXML file
+     */
+    public void toSignOut(ActionEvent actionEvent) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you wish to log out?");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/LoginScreen.fxml")));
+            Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
+            Scene scene = new Scene(root, 600, 400);
+            stage.setScene(scene);
+            stage.setTitle("Administrator Home Screen");
+        }
+    }
+
+    /** This method is to change the OnAction event of the back button if the screen came from the createAppointmentScreen.
+     * @throws IOException Exception gets thrown if load() cannot locate the FXML file
+     * @return
+     */
+    /*public EventHandler<ActionEvent> toAdminCreateAppointmentScreen() throws IOException {
+        AdminCreateEditAppointmentScreenController.labelBoolean = true;
+        AdminCreateEditCustomerScreenController.fromCreateAppointmentScreen = false;
+
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/AdminCreateEditAppointmentScreen.fxml")));
+        Stage stage = (Stage)(backButton.getScene().getWindow());
+        stage.setTitle("Create Appointment Screen");
+        stage.setScene(new Scene(root, 600, 500));
+        stage.show();
+        return null;
+    } */
+
 }

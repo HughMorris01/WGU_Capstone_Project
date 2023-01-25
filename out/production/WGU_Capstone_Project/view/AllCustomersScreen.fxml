@@ -6,27 +6,54 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AllCustomersScreenController">
    <children>
-      <Button layoutX="25.0" layoutY="444.0" mnemonicParsing="false" onAction="#toAdminHomeScreen" text="&lt;== Back" />
+      <Button layoutX="20.0" layoutY="456.0" mnemonicParsing="false" onAction="#toAdminHomeScreen" text="&lt;-- Back">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
       <TableView fx:id="customerTable" layoutX="14.0" layoutY="126.0" prefHeight="302.0" prefWidth="982.0">
         <columns>
           <TableColumn fx:id="idCol" prefWidth="86.80000114440918" text="CustomerID" />
-          <TableColumn fx:id="nameCol" prefWidth="143.00000762939453" text="Name" />
+          <TableColumn fx:id="nameCol" prefWidth="143.00000762939453" text="Customer Name" />
             <TableColumn fx:id="addressCol" prefWidth="134.19998168945312" text="Address" />
             <TableColumn fx:id="zipCodeCol" prefWidth="74.5999755859375" text="ZipCode" />
-            <TableColumn fx:id="stateCol" prefWidth="53.5999755859375" text="State" />
-            <TableColumn fx:id="phoneCol" prefWidth="96.39999389648438" text="Phone" />
-            <TableColumn fx:id="emailCol" prefWidth="114.0" text="Email" />
-            <TableColumn fx:id="salespersonCol" prefWidth="147.4000244140625" text="Salesperson" />
-            <TableColumn fx:id="regionCol" prefWidth="125.800048828125" text="Region" />
+            <TableColumn fx:id="stateCol" prefWidth="41.60003662109375" text="State" />
+            <TableColumn fx:id="phoneCol" prefWidth="107.79998779296875" text="Phone" />
+            <TableColumn fx:id="emailCol" prefWidth="133.0" text="Email" />
+            <TableColumn fx:id="salespersonCol" minWidth="0.0" prefWidth="124.4000244140625" text="Salesperson" />
+            <TableColumn fx:id="regionCol" prefWidth="106.5999755859375" text="Region" />
         </columns>
       </TableView>
-      <TextField fx:id="searchTextField" layoutX="802.0" layoutY="46.0" onAction="#searchCustomers" prefHeight="26.0" prefWidth="149.0" promptText="Search by Name or ID...." />
-      <Button layoutX="859.0" layoutY="444.0" mnemonicParsing="false" onAction="#onDeleteCustomer" text="Delete Customer" />
-      <Label layoutX="410.0" layoutY="24.0" text="WSU Customers">
+      <TextField fx:id="searchTextField" layoutX="763.0" layoutY="82.0" onAction="#searchCustomers" prefHeight="26.0" prefWidth="149.0" promptText="Search by Name or ID...." />
+      <Button layoutX="859.0" layoutY="449.0" mnemonicParsing="false" onAction="#onDeleteCustomer" text="Delete Customer">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Label layoutX="410.0" layoutY="5.0" text="WSU Customers" textFill="#0c56e8" underline="true">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Label>
-      <Button layoutX="716.0" layoutY="444.0" mnemonicParsing="false" onAction="#toAdminEditCustomerScreen" text="Edit Customer Info" />
-      <Button layoutX="534.0" layoutY="444.0" mnemonicParsing="false" onAction="#toAdminCreateCustomerScreen" text="Create New Customer" />
+      <Button layoutX="709.0" layoutY="449.0" mnemonicParsing="false" onAction="#toAdminEditCustomerScreen" text="Edit Customer Info">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button layoutX="534.0" layoutY="449.0" mnemonicParsing="false" onAction="#toAdminCreateCustomerScreen" text="Create New Customer">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Label layoutX="258.0" layoutY="85.0" text="Sort by Region:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <ComboBox fx:id="regionComboBox" layoutX="353.0" layoutY="83.0" onAction="#sortCustomersByRegion" prefWidth="150.0" promptText="Select Region....." />
+      <RadioButton fx:id="allRegionsRadioButton" layoutX="529.0" layoutY="85.0" mnemonicParsing="false" onAction="#displayAllRegions" text="Display All Regions">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </RadioButton>
+      <Button layoutX="922.0" layoutY="9.0" mnemonicParsing="false" onAction="#toSignOut" text="Sign Out">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

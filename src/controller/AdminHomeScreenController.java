@@ -1,6 +1,7 @@
 package controller;
 
 import database.DBSalespersons;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -8,19 +9,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Administrator;
-import model.Customer;
+import model.Region;
 import model.Salesperson;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /** This is the controller class for the AdminHomeScreen.fxml document and is not meant to be instantiated.
@@ -35,7 +34,7 @@ public class AdminHomeScreenController implements Initializable {
     /** TableView populated Salesperson data from the database. */
     public TableView<Salesperson> salespersonTable;
     /** TableColumn for SalespersonID. */
-    public TableColumn<Salesperson, Integer> salespersonId;
+    public TableColumn<Salesperson, Integer> salespersonIdCol;
     /** TableColumn for Salesperson's name. */
     public TableColumn<Salesperson, String> salespersonNameCol;
     /** TableColumn for upcoming appointments. */
@@ -50,6 +49,10 @@ public class AdminHomeScreenController implements Initializable {
     public TableColumn<Salesperson, String> regionCol;
     /** Static Administrator object corresponding to the User. */
     private static Administrator userAdministrator;
+    /** Combo box used to sort customers by region. */
+    public ComboBox<Region> regionComboBox;
+    /** Radio button used to load all salespersons into the table. */
+    public RadioButton allRegionsRadioButton;
 
 
     /** This method is called by the FXMLLoader.load() call contained in the loginValidation() method of the LoginScreenController class.
@@ -60,15 +63,24 @@ public class AdminHomeScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         DBSalespersons.getAllSalespersons();
+        regionComboBox.setItems(Region.allRegionsList);
 
-        salespersonId.setCellValueFactory(new PropertyValueFactory<>("salespersonId"));
+        salespersonIdCol.setCellValueFactory(new PropertyValueFactory<>("salespersonId"));
+        salespersonIdCol.setStyle("-fx-alignment: CENTER;");
         salespersonNameCol.setCellValueFactory(new PropertyValueFactory<>("fullName"));
+        salespersonNameCol.setStyle("-fx-alignment: CENTER;");
         scheduledApptsCol.setCellValueFactory(new PropertyValueFactory<>("scheduledAppointments"));
+        scheduledApptsCol.setStyle("-fx-alignment: CENTER;");
         completedApptsCol.setCellValueFactory(new PropertyValueFactory<>("completedAppointments"));
+        completedApptsCol.setStyle("-fx-alignment: CENTER;");
         totalApptsCol.setCellValueFactory(new PropertyValueFactory<>("totalAppointments"));
+        totalApptsCol.setStyle("-fx-alignment: CENTER;");
         totalCustomersCol.setCellValueFactory(new PropertyValueFactory<>("totalCustomers"));
+        totalCustomersCol.setStyle("-fx-alignment: CENTER;");
         regionCol.setCellValueFactory(new PropertyValueFactory<>("regionName"));
+        regionCol.setStyle("-fx-alignment: CENTER;");
         salespersonTable.setItems(Salesperson.allSalespersonsList);
+
     }
 
     /** This method is an event handler on the searchTextField.
@@ -105,33 +117,63 @@ public class AdminHomeScreenController implements Initializable {
         }
     }
 
-    /** This method is an event handler on the Logout button.
+    /** This method is an event handler on the SignOut button.
      * When clicked, the button redirects the program to the original Login Screen
-     * @param actionEvent Passed from the On Action event listener on the Logout button.
+     * @param actionEvent Passed from the On Action event listener on the SignOut button.
      * @throws IOException Exception gets thrown if load() cannot locate the FXML file
      */
-    public void toLogin(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/LoginScreen.fxml"));
-        Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
-        Scene scene = new Scene(root, 600, 400);
-        stage.setScene(scene);
-        stage.setTitle("Login Screen");
+    public void toSignOut(ActionEvent actionEvent) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you wish to log out?");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/LoginScreen.fxml")));
+            Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
+            Scene scene = new Scene(root, 600, 400);
+            stage.setScene(scene);
+            stage.setTitle("Administrator Home Screen");
+        }
     }
 
     /** This method is an event handler on the Salesperson Detail button.
-     * When clicked, the button redirects the program to the SalespersonDetailScreen
+     * When clicked, the button redirects the program to the SalespersonDetailScreen for the selected salesperson.
      * @param actionEvent Passed from the On Action event listener on the Salesperson Detail button.
      * @throws IOException Exception gets thrown if load() cannot locate the FXML file
      */
     public void toSalespersonDetailScreen(ActionEvent actionEvent) throws IOException {
+        if(salespersonTable.getSelectionModel().getSelectedItem() != null) {
+
+            SalespersonDetailScreenController.setSelectedSalesperson(salespersonTable.getSelectionModel().getSelectedItem());
+
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/SalespersonDetailScreen.fxml")));
+            Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
+            Scene scene = new Scene(root, 600, 500);
+            stage.setScene(scene);
+            stage.setTitle("Salesperson Detail");
+            stage.show();
+        }
+
+        else {
+            Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+            alert1.setTitle("No Selection Made");
+            alert1.setContentText("Please select an Salesperson to view. ");
+            alert1.show();
+            return;
+        }
     }
 
-    /** This method is an event handler on the Create New Salesperson button.
+    /** This method is an event handler on the Create New User button.
      * When clicked, the button redirects the program to the CreateNewSalespersonScreen
      * @param actionEvent Passed from the On Action event listener on the Create New Salesperson button.
      * @throws IOException Exception gets thrown if load() cannot locate the FXML file
      */
-    public void toCreateNewSalespersonScreen(ActionEvent actionEvent) throws IOException {
+    public void toCreateNewUserScreen(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/CreateNewUserScreen.fxml")));
+        Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
+        Scene scene = new Scene(root, 600, 500);
+        stage.setScene(scene);
+        stage.setTitle("Create New Client Screen");
+        stage.show();
     }
 
     /** This method is an event handler on the All Customers button.
@@ -167,5 +209,27 @@ public class AdminHomeScreenController implements Initializable {
     public static Administrator getUserAdministrator() { return userAdministrator; }
 
 
+    /** This method sorts the allSalespersonsList by region and displays the results in the table.
+     * @param actionEvent Passed from the On Action event listener on the regionComboBox. */
+    public void sortByRegion(ActionEvent actionEvent) {
+        if (regionComboBox.getSelectionModel().getSelectedItem() != null) {
+            ObservableList<Salesperson> regionSalespersons = FXCollections.observableArrayList();
+            int selectedRegionId = regionComboBox.getSelectionModel().getSelectedItem().getRegionId();
 
+            for (Salesperson salesperson : Salesperson.allSalespersonsList) {
+                if (salesperson.getRegionId() == selectedRegionId) {
+                    regionSalespersons.add(salesperson);
+                }
+            }
+            salespersonTable.setItems(regionSalespersons);
+            allRegionsRadioButton.setSelected(false);
+        }
+    }
+
+    /** This method restores the salesperson table to display salespersons from all regions/
+     * @param actionEvent Passed from the On Action event listener on allRegionsRadioButton. */
+    public void displayAllRegions(ActionEvent actionEvent) {
+        salespersonTable.setItems(Salesperson.allSalespersonsList);
+        regionComboBox.setValue(null);
+    }
 }

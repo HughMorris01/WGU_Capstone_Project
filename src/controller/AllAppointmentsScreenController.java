@@ -32,10 +32,10 @@ import java.util.ResourceBundle;
 public class AllAppointmentsScreenController implements Initializable {
     /** Text field used to search the Appointment records by ID, customer name, title or customerID */
     public TextField searchTextField;
-    /** TableView populated Customer records from the database. */
+    /** TableView populated Client records from the database. */
     public TableView<Appointment> appointmentsTable;
     /** TableColumn for the AppointmentID. */
-    public TableColumn<Appointment, Integer> appointmentId;
+    public TableColumn<Appointment, Integer> appointmentIdCol;
     /** TableColumn for the Appointment date. */
     public TableColumn<Appointment, String> dateCol;
     /** TableColumn for the Appointment's start time. */
@@ -70,17 +70,28 @@ public class AllAppointmentsScreenController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        appointmentId.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+        appointmentIdCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+        appointmentIdCol.setStyle("-fx-alignment: CENTER;");
         dateCol.setCellValueFactory(new PropertyValueFactory<>("startDateString"));
+        dateCol.setStyle("-fx-alignment: CENTER;");
         salespersonCol.setCellValueFactory(new PropertyValueFactory<>("salespersonFullName"));
+        salespersonCol.setStyle("-fx-alignment: CENTER;");
         startTimeStringCol.setCellValueFactory(new PropertyValueFactory<>("startTimeString"));
+        startTimeStringCol.setStyle("-fx-alignment: CENTER;");
         endTimeStringCol.setCellValueFactory(new PropertyValueFactory<>("endTimeString"));
+        endTimeStringCol.setStyle("-fx-alignment: CENTER;");
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        titleCol.setStyle("-fx-alignment: CENTER;");
         typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        typeCol.setStyle("-fx-alignment: CENTER;");
         regionCol.setCellValueFactory(new PropertyValueFactory<>("regionName"));
+        regionCol.setStyle("-fx-alignment: CENTER;");
         stateAbbreviationCol.setCellValueFactory(new PropertyValueFactory<>("stateAbbreviation"));
+        stateAbbreviationCol.setStyle("-fx-alignment: CENTER;");
         customerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        customerIdCol.setStyle("-fx-alignment: CENTER;");
         customerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        customerNameCol.setStyle("-fx-alignment: CENTER;");
 
         appointmentsTable.setItems(Appointment.allUpcomingAppointmentsList);
 
@@ -258,5 +269,23 @@ public class AllAppointmentsScreenController implements Initializable {
         }
         customDateRangeList = DBAppointments.getCustomDateRangeList(localStartDate, localEndDate);
         appointmentsTable.setItems(customDateRangeList);
+    }
+
+    /** This method is an event handler on the SignOut button.
+     * When clicked, the button redirects the program to the original Login Screen
+     * @param actionEvent Passed from the On Action event listener on the SignOut button.
+     * @throws IOException Exception gets thrown if load() cannot locate the FXML file
+     */
+    public void toSignOut(ActionEvent actionEvent) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you wish to log out?");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/LoginScreen.fxml")));
+            Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
+            Scene scene = new Scene(root, 600, 400);
+            stage.setScene(scene);
+            stage.setTitle("Administrator Home Screen");
+        }
     }
 }

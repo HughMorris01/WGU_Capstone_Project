@@ -2,22 +2,21 @@ package database;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.Customer;
-import model.State;
+import model.Client;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/** This abstract class is for manipulating the Customer records in the database and not meant to be instantiated.
- * The class contains methods to insert, update, delete and return all Customer records as an ObservableList of
- * Customer objects.
+/** This abstract class is for manipulating the Client records in the database and not meant to be instantiated.
+ * The class contains methods to insert, update, delete and return all Client records as an ObservableList of
+ * Client objects.
  * @author Gregory Farrell
  * @version 1.1
  */
 public abstract class DBCustomers {
 
-    /** This method is used to insert a new Customer record into the database.
+    /** This method is used to insert a new Client record into the database.
      * @return An int of the number of affected records
      * @param firstName first name as a string.
      * @param lastName last name as a string.
@@ -48,7 +47,7 @@ public abstract class DBCustomers {
 
         return ps.executeUpdate();
     }
-    /** This method is used to update a Customer record in the database.
+    /** This method is used to update a Client record in the database.
      * @return An int of the number of affected records
      * @param customerId customerId as an int.
      * @param updatedFirstName first name as a string.
@@ -81,7 +80,7 @@ public abstract class DBCustomers {
 
         return ps.executeUpdate();
     }
-    /** This method is used to delete a Customer record in the database.
+    /** This method is used to delete a Client record in the database.
      * @return An int of the number of affected records
      * @param customerId as an int.
      * @throws SQLException Throws a SQLException if the SQL does not execute properly.
@@ -93,12 +92,12 @@ public abstract class DBCustomers {
 
         return ps.executeUpdate();
     }
-    /** This method is used to return all the Customer records in the database as an ObservableList of Customer objects.
-     * @return An ObservableList of Customer objects.
+    /** This method is used to return all the Client records in the database as an ObservableList of Client objects.
+     * @return An ObservableList of Client objects.
      * */
-    public static ObservableList<Customer> getAllCustomers() {
-        Customer.allCustomerList.clear();
-        ObservableList<Customer> tempAllCustomers = FXCollections.observableArrayList();
+    public static ObservableList<Client> getAllCustomers() {
+        Client.allClientList.clear();
+        ObservableList<Client> tempAllClients = FXCollections.observableArrayList();
 
         try {
             String sqlCommand = "SELECT * FROM customers";
@@ -115,10 +114,10 @@ public abstract class DBCustomers {
                 int salespersonId = rs.getInt("Salesperson_ID");
                 int stateId = rs.getInt("State_ID");
                 int regionId = rs.getInt("Region_ID");
-                Customer tempCustomer = new Customer(customerId, customerFirstName,  customerLastName, address, zipCode,
+                Client tempClient = new Client(customerId, customerFirstName,  customerLastName, address, zipCode,
                         phone, email, salespersonId, stateId, regionId);
-                tempAllCustomers.add(tempCustomer);
-                Customer.allCustomerList.add(tempCustomer);
+                tempAllClients.add(tempClient);
+                Client.allClientList.add(tempClient);
             }
         }
         catch (SQLException e) {
@@ -126,6 +125,6 @@ public abstract class DBCustomers {
             e.printStackTrace();
         }
 
-        return tempAllCustomers;
+        return tempAllClients;
     }
 }

@@ -181,7 +181,7 @@ public class LoginScreenController implements Initializable {
 
                         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/SalespersonHomeScreen.fxml")));
                         Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
-                        Scene scene = new Scene(root, 500, 500);
+                        Scene scene = new Scene(root, 1000, 500);
                         stage.setScene(scene);
                         stage.setTitle("Salesperson Home Screen");
                     }

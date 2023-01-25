@@ -236,7 +236,7 @@ public abstract class DBAppointments {
         ps.executeUpdate();
     }
     /** This method is used to delete existing Appointment record into the database by entering the customerId. The method
-     * used when associated appointments need to be deleted because a Customer record is being deleted.
+     * used when associated appointments need to be deleted because a Client record is being deleted.
      * @param customerId as an int.
      * @throws SQLException Throws a SQLException if the SQL does not execute properly.
      * */

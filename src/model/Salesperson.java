@@ -3,6 +3,9 @@ package model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /** This is the Salesperson class for creating objects representing Salespersons that exist in the database.
  *  Each Salesperson has an salespersonID number, first name, last name, email address, userID and a regionID. They
  *  also contain fields for tracking the number of appointments that a salesperson has scheduled and completed.
@@ -35,6 +38,10 @@ public class Salesperson extends User {
     private int totalAppointments;
     /** Total customers associated with this salesperson as an int. */
     private int totalCustomers;
+    /** Observable list of Client objects that contain this salesperson instance's salespersonId. */
+    private ObservableList<Client> salespersonClients;
+    /** Observable list of Appointment objects that contain this salesperson instance's salespersonId. */
+    private ObservableList<Appointment> salespersonAppointments;
 
 
     /** Constructor used to create Salesperson objects.
@@ -102,15 +109,7 @@ public class Salesperson extends User {
     }
     /** Loops through the customer static observable list to count the number of customers associated
      * with this salesperson instance*/
-    public void setTotalCustomers() {
-        int customerCounter = 0;
-        for(Customer customer : Customer.allCustomerList) {
-            if(customer.getSalespersonId() == salespersonId) {
-                customerCounter += 1;
-            }
-        }
-        this.totalCustomers = customerCounter;
-    }
+    public void setTotalCustomers() { this.totalCustomers = getSalespersonCustomers().size(); }
     public void setRegionName() {
         for(Region region : Region.allRegionsList) {
             if(region.getRegionId() == regionId) {
@@ -118,6 +117,29 @@ public class Salesperson extends User {
                 return;
             }
         }
+    }
+    /** Method searches through the allCustomersList to create a list of customers associated with this salesperson instance. */
+    public void setSalespersonCustomers() {
+        ObservableList<Client> clientList = FXCollections.observableArrayList();
+        ObservableList<Client> clientList2 = FXCollections.observableArrayList();
+        for(Appointment appointment : Appointment.allAppointmentsList) {
+            if(appointment.getSalespersonId() == this.salespersonId) {
+                clientList.add(appointment.getCustomer());
+            }
+        }
+        Set<Client> clientSet = new HashSet<>(clientList);
+        clientList2.addAll(clientSet);
+        salespersonClients = clientList2;
+    }
+    /** Method searches through the allAppointmentsList to create a list of appointments associated with this salesperson instance. */
+    public void setSalespersonAppointments() {
+        ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
+        for(Appointment appointment : Appointment.allAppointmentsList) {
+            if(appointment.getSalespersonId() == this.salespersonId) {
+                appointmentList.add(appointment);
+            }
+        }
+        salespersonAppointments = appointmentList;
     }
 
     /** Method returns the salespersonId field.
@@ -156,6 +178,14 @@ public class Salesperson extends User {
     /** Method returns the regionName field.
      * @return regionName as a string. */
     public String getRegionName() { return regionName; }
+    /** Method sets the salespersonClients instance variable and then returns it as an ObservableList. */
+    public ObservableList<Client> getSalespersonCustomers() {
+        setSalespersonCustomers();
+        return salespersonClients; }
+    /** Method sets the salespersonClients instance variable and then returns it as an ObservableList. */
+    public ObservableList<Appointment> getSalespersonAppointments() {
+        setSalespersonAppointments();
+        return salespersonAppointments; }
 
     /** This method is used to traverse the allSalespersonsList to search for a matching ID or partial matching ID's.
      * @param searchInt an int representing an ID to search for

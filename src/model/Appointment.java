@@ -49,8 +49,8 @@ public class Appointment {
     private int stateId;
     /** RegionID as an int. */
     private int regionId;
-    /** Customer object assigned to the Appointment instance. */
-    private Customer appointmentCustomer;
+    /** Client object assigned to the Appointment instance. */
+    private Client appointmentClient;
     /** Salesperson object assigned to the Appointment instance. */
     private Salesperson appointmentSalesperson;
     /** State object assigned to the Appointment instance. */
@@ -127,12 +127,12 @@ public class Appointment {
     /** Sets the regionId instance variable.
      * @param regionId regionId as an int. */
     public void setRegionId(int regionId) { this.regionId = regionId; }
-    /** Sets the appointmentCustomer instance variable.
+    /** Sets the appointmentClient instance variable.
      * @param customerId customerId as an int. */
     public void setCustomer(int customerId) {
-        for(Customer customer : Customer.allCustomerList) {
-            if(customer.getCustomerId() == customerId) {
-                appointmentCustomer = customer;
+        for(Client client : Client.allClientList) {
+            if(client.getCustomerId() == customerId) {
+                appointmentClient = client;
                 break;
             }
         }
@@ -194,15 +194,15 @@ public class Appointment {
     /** Method returns the endTimeString field.
      * @return endTimeString as a string. */
     public String getEndTimeString() { return endTimeString; }
-    /** Method returns the appointmentCustomer field.
-     * @return appointmentCustomer as a Customer object. */
-    public Customer getCustomer() { return appointmentCustomer; }
+    /** Method returns the appointmentClient field.
+     * @return appointmentClient as a Client object. */
+    public Client getCustomer() { return appointmentClient; }
     /** Method returns the customerId field.
      * @return customerId as an int. */
     public int getCustomerId() { return customerId; }
     /** Method returns the appointment customer's full name for use in appointment tableviews.
      * @return customerFullName as a string */
-    public String getCustomerName() { return appointmentCustomer.getCustomerFullName(); }
+    public String getCustomerName() { return appointmentClient.getCustomerFullName(); }
     /** Method returns the appointmentSalesperson field.
      * @return appointmentSalesperson as a Salesperson object. */
     public Salesperson getSalesperson() { return appointmentSalesperson; }

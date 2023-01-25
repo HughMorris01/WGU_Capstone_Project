@@ -30,7 +30,7 @@ public abstract class DBSalespersons {
                                      int userId, int regionId) throws SQLException {
 
         String sqlCommand = "INSERT INTO salespersons (Salesperson_First_Name, Salesperson_Last_Name," +
-                " Email, User_ID, Region_ID) VALUES (?, ?, ?, ?, ?)";
+                " Salesperson_Email, User_ID, Region_ID) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement ps = JDBC.getConnection().prepareStatement(sqlCommand);
         ps.setString(1, salespersonFirstName);
         ps.setString(2, salespersonLastName);

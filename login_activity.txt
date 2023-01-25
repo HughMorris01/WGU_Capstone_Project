@@ -601,3 +601,228 @@ Username Entered: "admin" | Password Entered: "Passw0rd!" | Successful: true
 Login Attempt #1 - 1/24/23 11:43PM
 Username Entered: "admin" | Password Entered: "Passw0rd!" | Successful: true
 
+Login Attempt #1 - 1/24/23 11:49PM
+Username Entered: "admin" | Password Entered: "Passw0rd!" | Successful: true
+
+Login Attempt #1 - 1/24/23 11:50PM
+Username Entered: "admin" | Password Entered: "Passw0rd!" | Successful: true
+
+Login Attempt #1 - 1/25/23 12:27AM
+Username Entered: "test" | Password Entered: "test" | Successful: true
+
+Login Attempt #1 - 1/25/23 12:27AM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/25/23 12:53AM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #2 - 1/25/23 1:02PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #3 - 1/25/23 1:03PM
+Username Entered: "admin" | Password Entered: "Passw0rd!" | Successful: true
+
+Login Attempt #4 - 1/25/23 1:03PM
+Username Entered: "admin" | Password Entered: "Passw0rd!" | Successful: true
+
+Login Attempt #5 - 1/25/23 1:03PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/25/23 1:03PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/25/23 1:16PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/25/23 1:20PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/25/23 1:31PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/25/23 1:40PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/25/23 1:42PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/25/23 1:52PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/25/23 2:00PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/25/23 2:01PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/25/23 3:34PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/25/23 3:47PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/25/23 3:51PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/25/23 3:52PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/25/23 4:06PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #2 - 1/25/23 4:06PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #3 - 1/25/23 4:36PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/25/23 4:36PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/25/23 4:39PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/25/23 5:02PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/25/23 5:05PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/25/23 5:13PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #2 - 1/25/23 5:15PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/25/23 6:09PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/25/23 6:16PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/25/23 6:19PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #2 - 1/25/23 6:20PM
+Username Entered: "pleasework1" | Password Entered: "please" | Successful: true
+
+Login Attempt #1 - 1/25/23 6:20PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #2 - 1/25/23 6:22PM
+Username Entered: "wowz" | Password Entered: "asd" | Successful: true
+
+Login Attempt #1 - 1/25/23 6:26PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/27/23 11:45AM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/27/23 12:49PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/27/23 12:50PM
+Username Entered: "test1" | Password Entered: "TEST1" | Successful: false
+
+Login Attempt #2 - 1/27/23 12:51PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/27/23 1:09PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/27/23 1:21PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/27/23 1:35PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/27/23 1:36PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/27/23 3:09PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/27/23 3:14PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/27/23 3:24PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/27/23 3:30PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/27/23 4:44PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/27/23 4:45PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/27/23 4:51PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/27/23 4:53PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/27/23 4:55PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/27/23 4:56PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/27/23 4:57PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/27/23 4:58PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/27/23 4:59PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/27/23 5:01PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/27/23 5:04PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/27/23 5:07PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/27/23 5:09PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/27/23 5:10PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/27/23 5:16PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/27/23 5:18PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/27/23 5:27PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/27/23 5:40PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/27/23 5:45PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/27/23 5:46PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 1/27/23 5:53PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #2 - 1/27/23 6:15PM
+Username Entered: "test5" | Password Entered: "12345" | Successful: true
+
+Login Attempt #3 - 1/27/23 6:16PM
+Username Entered: "user5" | Password Entered: "12345" | Successful: true
+
+Login Attempt #1 - 1/27/23 8:28PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #2 - 1/27/23 8:29PM
+Username Entered: "user5" | Password Entered: "12345" | Successful: true
+
