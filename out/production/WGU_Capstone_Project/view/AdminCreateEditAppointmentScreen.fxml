@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminCreateEditAppointmentScreenController">
+   <Label fx:id="screenLabel" layoutX="163.0" layoutY="14.0" prefHeight="27.0" prefWidth="288.0" text="Label" underline="true">
+      <font>
+         <Font name="System Bold" size="18.0" />
+      </font></Label>
+   <Label layoutX="70.0" layoutY="55.0" text="Appointment ID:">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Label>
+   <TextField fx:id="appointmentIdTextField" disable="true" layoutX="185.0" layoutY="50.0" prefHeight="26.0" prefWidth="162.0" promptText="Appointment ID" />
+   <Label layoutX="70.0" layoutY="295.0" text="State: ">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Label>
+   <ComboBox fx:id="stateComboBox" disable="true" layoutX="185.0" layoutY="290.0" onAction="#onStateSelect" prefHeight="26.0" prefWidth="162.0" promptText="Select State" />
+   <Label layoutX="70.0" layoutY="335.0" text="Region: ">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Label>
+   <ComboBox fx:id="regionComboBox" disable="true" layoutX="185.0" layoutY="330.0" onAction="#onRegionSelect" prefHeight="26.0" prefWidth="162.0" promptText="Select Region" />
+   <Label layoutX="70.0" layoutY="375.0" text="Salesperson:">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Label>
+   <ComboBox fx:id="salespersonComboBox" layoutX="185.0" layoutY="370.0" prefHeight="26.0" prefWidth="162.0" promptText="Select Salesperson" />
+   <Label layoutX="70.0" layoutY="135.0" text="Date:">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Label>
+   <DatePicker fx:id="datePicker" editable="false" layoutX="185.0" layoutY="130.0" promptText="Select Date" />
+   <Label layoutX="70.0" layoutY="175.0" text="Start Time:">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Label>
+   <ComboBox fx:id="startTimeComboBox" layoutX="185.0" layoutY="170.0" onAction="#onStartTime" prefHeight="26.0" prefWidth="122.0" promptText="Select Start" />
+   <Label layoutX="70.0" layoutY="215.0" text="End Time:">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Label>
+   <ComboBox fx:id="endTimeComboBox" disable="true" layoutX="185.0" layoutY="210.0" prefHeight="26.0" prefWidth="122.0" promptText="Select End" />
+   <Label layoutX="70.0" layoutY="95.0" text="Title:">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Label>
+   <TextField fx:id="titleTextField" layoutX="185.0" layoutY="90.0" prefHeight="26.0" prefWidth="162.0" promptText="Enter Title" />
+   <Label layoutX="70.0" layoutY="255.0" text="Type: ">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Label>
+   <ComboBox fx:id="typeComboBox" layoutX="185.0" layoutY="250.0" prefHeight="26.0" prefWidth="162.0" promptText="Select Type" />
+   <Label layoutX="70.0" layoutY="415.0" text="Customer:">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Label>
+   <ComboBox fx:id="customerComboBox" disable="true" layoutX="185.0" layoutY="410.0" prefHeight="26.0" prefWidth="162.0" promptText="Select Customer" />
+   <Button layoutX="20.0" layoutY="463.0" mnemonicParsing="false" onAction="#toAllAppointmentsScreen" text="&lt;&lt;== All Appts">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button defaultButton="true" layoutX="197.0" layoutY="461.0" mnemonicParsing="false" onAction="#onSubmit" prefHeight="26.0" prefWidth="122.0" text="Submit">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
+   <Button fx:id="resetButton" layoutX="441.0" layoutY="292.0" mnemonicParsing="false" onAction="#resetRegionBasedInfo" text="Reset" />
+   <Label fx:id="resetButtonLabel" layoutX="389.0" layoutY="269.0" text="Reset region based information" />
+   <Button fx:id="createNewCustomerButton" layoutX="393.0" layoutY="404.0" mnemonicParsing="false" onAction="#toAdminCreateCustomerScreen" text="Create New Customer ==&gt;" />
+</AnchorPane>
