@@ -1,14 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controller.SalespersonHomeScreenController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SalespersonHomeScreenController">
+    <children>
+        <Button layoutX="12.0" layoutY="462.0" mnemonicParsing="false" onAction="#toLoginScreen" text="&lt;-- Sign Out">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+        <ImageView fitHeight="188.0" fitWidth="204.0" layoutX="22.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../main/salespeople.jpg" />
+            </image>
+        </ImageView>
+        <Label fx:id="salespersonNameTextField" layoutX="40.0" layoutY="62.0" text="Last Name, First Name">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font></Label>
+        <TableView fx:id="appointmentsTable" layoutX="206.0" layoutY="61.0" prefHeight="150.0" prefWidth="378.0">
+            <columns>
+                <TableColumn fx:id="appointmentDateCol" prefWidth="75.0" text="Date" />
+                <TableColumn fx:id="appointmentStartCol" prefWidth="89.20001220703125" text="Start" />
+                <TableColumn fx:id="appointmentEndCol" prefWidth="84.5999755859375" text="End" />
+                <TableColumn fx:id="appointmentCustomerNameCol" prefWidth="111.60000610351562" text="Customer" />
+            </columns>
+        </TableView>
+        <Label layoutX="20.0" layoutY="293.0" text="Region:">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font></Label>
+        <Label layoutX="353.0" layoutY="7.0" text="Appointments" underline="true">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font></Label>
+        <TableView fx:id="customersTable" layoutX="208.0" layoutY="288.0" prefHeight="169.0" prefWidth="378.0">
+            <columns>
+                <TableColumn fx:id="customerNameCol" prefWidth="99.80001831054688" text="Name" />
+                <TableColumn fx:id="customerAddressCol" prefWidth="144.20001220703125" text="Address" />
+                <TableColumn fx:id="totalCustomerAppointmentsCol" prefWidth="119.00003051757812" text="Total Appointments" />
+            </columns>
+        </TableView>
+        <Label layoutX="363.0" layoutY="263.0" prefHeight="18.0" prefWidth="43.0" text="Clients" underline="true">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font></Label>
+        <RadioButton fx:id="upcomingAppointmentsRadioButton" layoutX="364.0" layoutY="40.0" mnemonicParsing="false" onAction="#displayUpcomingAppointments" text="Upcoming">
+            <toggleGroup>
+                <ToggleGroup fx:id="appointmentsToggleGroup" />
+            </toggleGroup>
+            <font>
+                <Font size="10.0" />
+            </font></RadioButton>
+        <RadioButton fx:id="allAppointmentsRadioButton" layoutX="277.0" layoutY="40.0" mnemonicParsing="false" onAction="#displayAllAppointments" selected="true" text="All" toggleGroup="$appointmentsToggleGroup">
+            <font>
+                <Font size="10.0" />
+            </font></RadioButton>
+        <RadioButton fx:id="completedAppointmentsRadioButton" layoutX="474.0" layoutY="40.0" mnemonicParsing="false" onAction="#displayCompletedAppointments" text="Completed" toggleGroup="$appointmentsToggleGroup">
+            <font>
+                <Font size="10.0" />
+            </font></RadioButton>
+        <Label fx:id="regionTextField" layoutX="145.0" layoutY="293.0" text="Label" />
+        <Label layoutX="20.0" layoutY="343.0" text="Total Appointments:">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font></Label>
+        <Label fx:id="totalAppointmentsTextField" layoutX="145.0" layoutY="343.0" text="Label" />
+        <Label layoutX="62.0" layoutY="368.0" text="Scheduled:" />
+        <Label fx:id="scheduledAppointmentsTextField" layoutX="145.0" layoutY="368.0" text="Label" />
+        <Label layoutX="61.0" layoutY="393.0" text="Completed:" />
+        <Label fx:id="completedAppointmentsTextField" layoutX="145.0" layoutY="393.0" text="Label" />
+        <Label layoutX="20.0" layoutY="318.0" text="Email:">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Label>
+        <Label fx:id="emailTextField" layoutX="145.0" layoutY="318.0" text="Label" />
+        <Label layoutX="20.0" layoutY="418.0" text="Total Clients:">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Label>
+        <Label fx:id="totalCustomersTextField" layoutX="145.0" layoutY="418.0" text="Label" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="397.0" layoutX="7.0" layoutY="52.0" stroke="BLACK" strokeType="INSIDE" width="187.0" />
+      <Label layoutX="23.0" layoutY="23.0" text="Hello, " />
+      <Label layoutX="62.0" layoutY="23.0" text="First Name" />
+      <Button layoutX="256.0" layoutY="225.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="67.0" text="Button" />
+    </children>
 </AnchorPane>
