@@ -41,13 +41,13 @@ public class Appointment {
     private LocalDateTime end;
     /** End time as a string. */
     private String endTimeString;
-    /** CustomerID as an int. */
-    private int customerId;
-    /** SalespersonID as an int. */
+    /** ClientId as an int. */
+    private int clientId;
+    /** SalespersonId as an int. */
     private int salespersonId;
-    /** StateID as an int. */
+    /** StateId as an int. */
     private int stateId;
-    /** RegionID as an int. */
+    /** RegionId as an int. */
     private int regionId;
     /** Client object assigned to the Appointment instance. */
     private Client appointmentClient;
@@ -65,13 +65,13 @@ public class Appointment {
      * @param type type string.
      * @param start Appointment start time as a LocalDateTime
      * @param end Appointment end time as a LocalDateTime
-     * @param customerId customerId as an int.
+     * @param clientId customerId as an int.
      * @param salespersonId salespersonId as an int.
      * @param stateId stateId as an int.
      * @param regionId regionId as an int.
      * */
     public Appointment(int appointmentId, String title, String type, LocalDateTime start, LocalDateTime end,
-                       int customerId, int salespersonId, int stateId, int regionId) {
+                       int clientId, int salespersonId, int stateId, int regionId) {
         setAppointmentId(appointmentId);
         setTitle(title);
         setType(type);
@@ -80,15 +80,15 @@ public class Appointment {
         setStartTimeString();
         setEnd(end);
         setEndTimeString();
-        setCustomerId(customerId);
+        setClientId(clientId);
         setSalespersonId(salespersonId);
         setStateId(stateId);
         setRegionId(regionId);
 
-        setCustomer(customerId);
-        setSalesperson(salespersonId);
-        setState(stateId);
-        setRegion(regionId);
+        setClient();
+        setSalesperson();
+        setState();
+        setRegion();
     }
 
     /** Sets the appointmentId instance variable.
@@ -115,9 +115,9 @@ public class Appointment {
     /** Sets the endTimeString instance variable. */
     public void setEndTimeString() { DateTimeFormatter dtf = DateTimeFormatter.ofPattern("h:mm a");
         endTimeString = dtf.format(this.end); }
-    /** Sets the customerId instance variable.
-     * @param customerId customerId as an int. */
-    public void setCustomerId(int customerId) { this.customerId = customerId; }
+    /** Sets the clientId instance variable.
+     * @param clientId clientId as an int. */
+    public void setClientId(int clientId) { this.clientId = clientId; }
     /** Sets the salespersonId instance variable.
      * @param salespersonId salespersonId as an int. */
     public void setSalespersonId(int salespersonId) { this.salespersonId = salespersonId; }
@@ -127,42 +127,38 @@ public class Appointment {
     /** Sets the regionId instance variable.
      * @param regionId regionId as an int. */
     public void setRegionId(int regionId) { this.regionId = regionId; }
-    /** Sets the appointmentClient instance variable.
-     * @param customerId customerId as an int. */
-    public void setCustomer(int customerId) {
+    /** Sets the appointmentClient instance variable. */
+    public void setClient () {
         for(Client client : Client.allClientList) {
-            if(client.getCustomerId() == customerId) {
+            if(client.getClientId() == this.clientId) {
                 appointmentClient = client;
                 break;
             }
         }
     }
-    /** Sets the appointmentSalesperson instance variable.
-     * @param salespersonId salespersonId as an int. */
-    public void setSalesperson(int salespersonId) {
+    /** Sets the appointmentSalesperson instance variable. */
+    public void setSalesperson() {
         for(Salesperson salesperson : Salesperson.allSalespersonsList) {
-            if(salesperson.getSalespersonId() == salespersonId) {
+            if(salesperson.getSalespersonId() == this.salespersonId) {
                 appointmentSalesperson = salesperson;
                 break;
             }
         }
     }
-    /** Sets the appointmentState instance variable.
-     * @param stateId stateId as an int. */
-    public void setState(int stateId) {
+    /** Sets the appointmentState instance variable. */
+    public void setState() {
         for(State state : State.allStatesList) {
-            if(state.getStateId() == stateId) {
+            if(state.getStateId() == this.stateId) {
                 appointmentState = state;
                 break;
             }
         }
 
     }
-    /** Sets the appointmentRegion instance variable.
-     * @param regionId regionId as an int. */
-    public void setRegion(int regionId) {
+    /** Sets the appointmentRegion instance variable. */
+    public void setRegion() {
         for(Region region : Region.allRegionsList) {
-            if(region.getRegionId() == regionId) {
+            if(region.getRegionId() == this.regionId) {
                 appointmentRegion = region;
                 break;
             }
@@ -196,13 +192,13 @@ public class Appointment {
     public String getEndTimeString() { return endTimeString; }
     /** Method returns the appointmentClient field.
      * @return appointmentClient as a Client object. */
-    public Client getCustomer() { return appointmentClient; }
-    /** Method returns the customerId field.
+    public Client getClient() { return appointmentClient; }
+    /** Method returns the clientId field.
      * @return customerId as an int. */
-    public int getCustomerId() { return customerId; }
-    /** Method returns the appointment customer's full name for use in appointment tableviews.
-     * @return customerFullName as a string */
-    public String getCustomerName() { return appointmentClient.getCustomerFullName(); }
+    public int getClientId() { return clientId; }
+    /** Method returns the appointment client's full name for use in appointment tableviews.
+     * @return clientFullName as a string */
+    public String getClientName() { return appointmentClient.getClientFullName(); }
     /** Method returns the appointmentSalesperson field.
      * @return appointmentSalesperson as a Salesperson object. */
     public Salesperson getSalesperson() { return appointmentSalesperson; }
@@ -243,7 +239,7 @@ public class Appointment {
             if (Integer.toString(appointment.getAppointmentId()).contains(Integer.toString(searchInt))) {
                 appointmentsFoundList.add(appointment);
             }
-            if (Integer.toString(appointment.getCustomerId()).contains(Integer.toString(searchInt))) {
+            if (Integer.toString(appointment.getClientId()).contains(Integer.toString(searchInt))) {
                 appointmentsFoundList.add(appointment);
             }
         }
@@ -257,7 +253,7 @@ public class Appointment {
     public static ObservableList<Appointment> searchAppointments(String searchString) {
         ObservableList<Appointment> appointmentFoundList = FXCollections.observableArrayList();
         for (Appointment appointment : allAppointmentsList) {
-            if (appointment.getCustomerName().contains(searchString)) {
+            if (appointment.getClientName().contains(searchString)) {
                 appointmentFoundList.add(appointment);
             }
             if (appointment.getTitle().contains(searchString)) {
@@ -268,6 +264,10 @@ public class Appointment {
             }
         }
         return appointmentFoundList;
+    }
+
+    public String toString() {
+        return this.getSalespersonFullName() + " " + this.getAppointmentId();
     }
 
 }

@@ -12,13 +12,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Appointment;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.chrono.ChronoLocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -52,16 +50,19 @@ public class AllAppointmentsScreenController implements Initializable {
     public TableColumn<Appointment, String> regionCol;
     /** TableColumn for the Appointment's state abbreviation. */
     public TableColumn<Appointment, String> stateAbbreviationCol;
-    /** TableColumn for the Appointment's associated customerID */
-    public TableColumn<Appointment, Integer> customerIdCol;
-    /** TableColumn for the Appointment's associated customer */
-    public TableColumn<Appointment, String> customerNameCol;
+    /** TableColumn for the Appointment's associated clientId. */
+    public TableColumn<Appointment, Integer> clientIdCol;
+    /** TableColumn for the Appointment's associated client's name. */
+    public TableColumn<Appointment, String> clientNameCol;
     /** Toggle group for the radio buttons that load the appointments when selected. */
     public ToggleGroup appointmentsRadioGroup;
     /** Date picker for the start of the custom date range. */
     public DatePicker startDatePicker;
     /** Date picker for the end of the custom date range. */
     public DatePicker endDatePicker;
+    public RadioButton allAppointmentsRadioButton;
+    public RadioButton upcomingAppointmentsRadioButton;
+    public RadioButton completedAppointmentsRadioButton;
 
     /** This method is called by the FXMLLoader.load() call contained in the toAllAppointmentsScreen() method of the
      * AdminHomeScreenController class. The method initially populates the table with every Appointment that is in the database.
@@ -88,10 +89,10 @@ public class AllAppointmentsScreenController implements Initializable {
         regionCol.setStyle("-fx-alignment: CENTER;");
         stateAbbreviationCol.setCellValueFactory(new PropertyValueFactory<>("stateAbbreviation"));
         stateAbbreviationCol.setStyle("-fx-alignment: CENTER;");
-        customerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
-        customerIdCol.setStyle("-fx-alignment: CENTER;");
-        customerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-        customerNameCol.setStyle("-fx-alignment: CENTER;");
+        clientIdCol.setCellValueFactory(new PropertyValueFactory<>("clientId"));
+        clientIdCol.setStyle("-fx-alignment: CENTER;");
+        clientNameCol.setCellValueFactory(new PropertyValueFactory<>("clientName"));
+        clientNameCol.setStyle("-fx-alignment: CENTER;");
 
         appointmentsTable.setItems(Appointment.allUpcomingAppointmentsList);
 
@@ -214,10 +215,10 @@ public class AllAppointmentsScreenController implements Initializable {
         stage.setTitle("Edit Appointment Screen");
     }
 
-    /** This method is an event handler on the Delete Appointment button.
+    /** This method is an event handler on the "Delete Appointment" button.
      * When clicked, the button prompts the user to confirm they wish to delete the selected appointment and once confirmed,
      * the appointment is deleted from the database.
-     * @param actionEvent Passed from the On Action event listener on the Delete Appointment button.
+     * @param actionEvent Passed from the On Action event listener on the "Delete Appointment" button.
      */
     public void deleteAppointment(ActionEvent actionEvent) throws SQLException {
         Appointment selectedAppointment = appointmentsTable.getSelectionModel().getSelectedItem();
@@ -227,17 +228,25 @@ public class AllAppointmentsScreenController implements Initializable {
             alert.setTitle("No Appointment Selected");
             alert.setContentText("Please select the appointment to be deleted");
             alert.show();
-        } else {
+        }
+        if(appointmentsTable.getSelectionModel().getSelectedItem().getStart().isBefore(LocalDateTime.now())) {
+            Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+            alert1.setTitle("Appointment Already Completed");
+            alert1.setContentText("An Appointment that has already been completed cannot be deleted.");
+            alert1.show();
+        }
+        else {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Permanently delete selected appointment?");
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.isPresent() && result.get() == ButtonType.OK) {
+                assert selectedAppointment != null;
                 int appointmentId = selectedAppointment.getAppointmentId();
                 DBAppointments.deleteAppointment(appointmentId);
 
                 appointmentsTable.setItems(DBAppointments.getEveryAppointment());
-                DBAppointments.getCompletedAppointments();
-                DBAppointments.getUpcomingAppointments();
+                allAppointmentsRadioButton.setSelected(true);
+
 
                 Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
                 alert1.setTitle("Deletion Confirmation");
@@ -255,7 +264,7 @@ public class AllAppointmentsScreenController implements Initializable {
         if (localStartDate == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Blank Date");
-            alert.setContentText("An Appointment Start Date Must be Selected.");
+            alert.setContentText("An appointment start date must be selected. ");
             alert.show();
             return;
         }
@@ -263,11 +272,18 @@ public class AllAppointmentsScreenController implements Initializable {
         if (localEndDate == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Blank Date");
-            alert.setContentText("An Appointment End Date Must be Selected.");
+            alert.setContentText("An appointment end date must be selected. ");
             alert.show();
             return;
         }
-        customDateRangeList = DBAppointments.getCustomDateRangeList(localStartDate, localEndDate);
+        if(localEndDate.isBefore(localStartDate)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Blank Date");
+                alert.setContentText("End date must be after the start date. ");
+                alert.show();
+                return;
+        }
+        customDateRangeList = DBAppointments.getCustomDateRangeList(localStartDate, localEndDate.plusDays(1));
         appointmentsTable.setItems(customDateRangeList);
     }
 
@@ -285,7 +301,7 @@ public class AllAppointmentsScreenController implements Initializable {
             Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
             Scene scene = new Scene(root, 600, 400);
             stage.setScene(scene);
-            stage.setTitle("Administrator Home Screen");
+            stage.setTitle("Login Screen");
         }
     }
 }

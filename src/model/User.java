@@ -17,7 +17,7 @@ public class User {
     public static ObservableList<User> allUserList = FXCollections.observableArrayList();
 
     /** UserId as an int. */
-    protected int userId;
+    private int userId;
     /** UserName as a string */
     private String userName;
     /** UserPassword as a string */

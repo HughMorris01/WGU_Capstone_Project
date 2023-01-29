@@ -1,6 +1,5 @@
 package main;
 
-import controller.LoginScreenController;
 import database.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +9,6 @@ import javafx.stage.Stage;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Objects;
 
 /**
  * This class creates an appointment management application that interfaces with a MySQL database.
@@ -50,8 +48,9 @@ public class Main extends Application {
         DBSalespersons.getAllSalespersons();
         DBRegions.getAllRegions();
         DBStates.getAllStates();
-        DBCustomers.getAllCustomers();
+        DBClients.getAllClients();
         DBAppointments.getEveryAppointment();
+        DBSalespersons.getAllSalespersons();
 
         launch(args);
 

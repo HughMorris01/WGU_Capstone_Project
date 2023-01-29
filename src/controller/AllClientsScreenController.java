@@ -1,7 +1,7 @@
 package controller;
 
 import database.DBAppointments;
-import database.DBCustomers;
+import database.DBClients;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,16 +25,16 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-/** This is the controller class for the AllCustomersScreen.fxml document and is not meant to be instantiated.
+/** This is the controller class for the AllClientsScreen.fxml document and is not meant to be instantiated.
  *  This class populates the data for the Customers table, as well as provide the functionality for the buttons on the screen.
  * @author Gregory Farrell
  * @version 1.1
  * */
-public class AllCustomersScreenController implements Initializable {
+public class AllClientsScreenController implements Initializable {
     /** Text field used to search the Client records by name or customerID. */
     public TextField searchTextField;
     /** TableView populated Client records from the database. */
-    public TableView<Client> customerTable;
+    public TableView<Client> clientTable;
     /** TableColumn for Client ID. */
     public TableColumn<Client, Integer> idCol;
     /** TableColumn for Client's name. */
@@ -66,10 +66,11 @@ public class AllCustomersScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         regionComboBox.setItems(Region.allRegionsList);
+        allRegionsRadioButton.setSelected(true);
 
-        idCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        idCol.setCellValueFactory(new PropertyValueFactory<>("clientId"));
         idCol.setStyle("-fx-alignment: CENTER;");
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("customerFullName"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("clientFullName"));
         nameCol.setStyle("-fx-alignment: CENTER;");
         addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
         addressCol.setStyle("-fx-alignment: CENTER;");
@@ -81,19 +82,19 @@ public class AllCustomersScreenController implements Initializable {
         phoneCol.setStyle("-fx-alignment: CENTER;");
         emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
         emailCol.setStyle("-fx-alignment: CENTER;");
-        salespersonCol.setCellValueFactory(new PropertyValueFactory<>("customerSalesperson"));
+        salespersonCol.setCellValueFactory(new PropertyValueFactory<>("clientSalesperson"));
         salespersonCol.setStyle("-fx-alignment: CENTER;");
-        regionCol.setCellValueFactory(new PropertyValueFactory<>("customerRegion"));
+        regionCol.setCellValueFactory(new PropertyValueFactory<>("clientRegion"));
         regionCol.setStyle("-fx-alignment: CENTER;");
 
-        customerTable.setItems(Client.allClientList);
+        clientTable.setItems(Client.allClientList);
     }
 
     /** This method is an event handler on the searchTextField.
      * Search function searches the allCustomersList for matches containing either the string or ID entered.
      * @param actionEvent Passed from the On Action event listener on the text field.
      */
-    public void searchCustomers(ActionEvent actionEvent) {
+    public void searchClients(ActionEvent actionEvent) {
         try {
             String searchString = searchTextField.getText();
             ObservableList<Client> customersFoundList = Client.searchCustomers(searchString);
@@ -110,8 +111,9 @@ public class AllCustomersScreenController implements Initializable {
                 alert1.show();
                 return;
             }
-            customerTable.setItems(customersFoundList);
+            clientTable.setItems(customersFoundList);
             searchTextField.setText("");
+            allRegionsRadioButton.setSelected(false);
         } catch (NumberFormatException exception) {
             searchTextField.setText("");
             Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
@@ -121,50 +123,51 @@ public class AllCustomersScreenController implements Initializable {
         }
     }
 
-    /** This method is an event handler on the Delete Client button.
+    /** This method is an event handler on the "Delete Client" button.
      * When clicked, an alert will pop up asking the User to verify that they wish to delete the Client and all
      * associated Appointments. Upon confirmation, the Client will be deleted from the database and the display table
      * updated.
-     * @param actionEvent Passed from the On Action event listener on the Delete Client button.
+     * @param actionEvent Passed from the On Action event listener on the "Delete Client" button.
      * @throws SQLException Exception gets thrown if the SQL code does not compute properly.
      */
-    public void onDeleteCustomer(ActionEvent actionEvent) throws SQLException {
-        Client selectedClient = customerTable.getSelectionModel().getSelectedItem();
+    public void onDeleteClient(ActionEvent actionEvent) throws SQLException {
+        Client selectedClient = clientTable.getSelectionModel().getSelectedItem();
 
         if (selectedClient == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("No Client Selected");
-            alert.setContentText("Please select the customer to be deleted");
+            alert.setContentText("Please select the client to be deleted");
             alert.show();
         } else {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Permanently delete selected customer and all associated appointments?");
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Permanently delete selected client and all associated appointments?");
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.isPresent() && result.get() == ButtonType.OK) {
-                int customerId = selectedClient.getCustomerId();
-                DBAppointments.deleteAppointmentByCustomer(customerId);
+                int clientId = selectedClient.getClientId();
+                DBAppointments.deleteAppointmentsByClient(clientId);
 
-                DBCustomers.deleteCustomer(customerId);
-                customerTable.setItems(DBCustomers.getAllCustomers());
+                DBClients.deleteClient(clientId);
+                DBAppointments.getEveryAppointment();
+                clientTable.setItems(DBClients.getAllClients());
 
                 Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
                 alert1.setTitle("Deletion Confirmation");
-                alert1.setContentText("The selected customer and all associated appointments have been deleted");
+                alert1.setContentText("The selected client and all associated appointments have been deleted");
                 alert1.show();
             }
         }
     }
 
 
-    /** This method is an event handler on the New Client button.
+    /** This method is an event handler on the "New Client" button.
      * When clicked, the button redirects the program to the AddModifyCustomerScreen.
-     * @param actionEvent Passed from the On Action event listener on the New Client button.
+     * @param actionEvent Passed from the On Action event listener on the "New Client" button.
      * @throws IOException Exception gets thrown if load() cannot locate the FXML file
      */
-    public void toAdminCreateCustomerScreen(ActionEvent actionEvent) throws IOException {
-            AdminCreateEditCustomerScreenController.labelBoolean = false;
+    public void toAdminCreateClientScreen(ActionEvent actionEvent) throws IOException {
+            AdminCreateEditClientScreenController.labelBoolean = false;
 
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/AdminCreateEditCustomerScreen.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/AdminCreateEditClientScreen.fxml")));
             Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
             Scene scene = new Scene(root, 600, 500);
             stage.setScene(scene);
@@ -174,16 +177,16 @@ public class AllCustomersScreenController implements Initializable {
     }
 
     /** This method is an event handler on the Edit Client Info button.
-     * When clicked, the button redirects the program to the AddModifyCustomerScreen.
+     * When clicked, the button redirects the program to the AdminCreateEditClientScreen.
      * @param actionEvent Passed from the On Action event listener on the Edit Client Info button.
      * @throws IOException Exception gets thrown if load() cannot locate the FXML file
      */
-    public void toAdminEditCustomerScreen (ActionEvent actionEvent) throws IOException {
-        if (customerTable.getSelectionModel().getSelectedItem() != null) {
-            AdminCreateEditCustomerScreenController.labelBoolean = true;
-            AdminCreateEditCustomerScreenController.tempClient = customerTable.getSelectionModel().getSelectedItem();
+    public void toAdminEditClientScreen (ActionEvent actionEvent) throws IOException {
+        if (clientTable.getSelectionModel().getSelectedItem() != null) {
+            AdminCreateEditClientScreenController.labelBoolean = true;
+            AdminCreateEditClientScreenController.tempClient = clientTable.getSelectionModel().getSelectedItem();
 
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/AdminCreateEditCustomerScreen.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/AdminCreateEditClientScreen.fxml")));
             Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
             Scene scene = new Scene(root, 600, 500);
             stage.setScene(scene);
@@ -212,7 +215,7 @@ public class AllCustomersScreenController implements Initializable {
 
     /** This method sorts the allCustomersList by region and displays the results in the table.
      * @param actionEvent Passed from the On Action event listener on the regionComboBox. */
-    public void sortCustomersByRegion(ActionEvent actionEvent) {
+    public void sortClientsByRegion(ActionEvent actionEvent) {
         if (regionComboBox.getSelectionModel().getSelectedItem() != null) {
         ObservableList<Client> regionClients = FXCollections.observableArrayList();
         int selectedRegionId = regionComboBox.getSelectionModel().getSelectedItem().getRegionId();
@@ -222,7 +225,7 @@ public class AllCustomersScreenController implements Initializable {
                 regionClients.add(client);
             }
         }
-        customerTable.setItems(regionClients);
+        clientTable.setItems(regionClients);
         allRegionsRadioButton.setSelected(false);
         }
     }
@@ -230,7 +233,7 @@ public class AllCustomersScreenController implements Initializable {
     /** This method restores the customer table to display customers from all regions/
      * @param actionEvent Passed from the On Action event listener on allRegionsRadioButton. */
     public void displayAllRegions(ActionEvent actionEvent) {
-        customerTable.setItems(Client.allClientList);
+        clientTable.setItems(Client.allClientList);
         regionComboBox.setValue(null);
     }
 
@@ -248,7 +251,7 @@ public class AllCustomersScreenController implements Initializable {
             Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
             Scene scene = new Scene(root, 600, 400);
             stage.setScene(scene);
-            stage.setTitle("Administrator Home Screen");
+            stage.setTitle("Login Screen Screen");
         }
     }
 }

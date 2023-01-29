@@ -1,11 +1,10 @@
 package model;
 
-import database.DBRegions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /** This is the class for creating objects representing States that exist in the database.
- *  Each State has an ID, name, Division, and DivisionId.
+ *  Each State has a stateId, name, Division, and DivisionId.
  * @author Gregory Farrell
  * @version 1.1
  */

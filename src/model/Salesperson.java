@@ -26,6 +26,8 @@ public class Salesperson extends User {
     private String salespersonLastName;
     /** Email as a string. */
     private String email;
+    /** Region as a region object. */
+    private Region region;
     /** RegionID as an int. */
     private int regionId;
     /** Region name as a string. */
@@ -36,8 +38,8 @@ public class Salesperson extends User {
     private int scheduledAppointments;
     /** Total appointments associated with this salesperson as an int. */
     private int totalAppointments;
-    /** Total customers associated with this salesperson as an int. */
-    private int totalCustomers;
+    /** Total clients associated with this salesperson as an int. */
+    private int totalClients;
     /** Observable list of Client objects that contain this salesperson instance's salespersonId. */
     private ObservableList<Client> salespersonClients;
     /** Observable list of Appointment objects that contain this salesperson instance's salespersonId. */
@@ -62,9 +64,10 @@ public class Salesperson extends User {
         setRegionId(regionId);
         setScheduledAppointments();
         setCompletedAppointments();
-        setTotalCustomers();
+        setTotalClients();
         setRegionName();
-    }
+        setRegion();
+ }
 
     /** Method sets the salespersonId field.
      * @param salespersonId salespersonId as an int. */
@@ -78,38 +81,42 @@ public class Salesperson extends User {
     /** Method sets the email field.
      * @param email email as a string. */
     public void setEmail(String email) { this.email = email; }
-    /** Method sets the userId field.
-     * @param userId userId as an int. */
-    //public void setUserId(int userId) { this.userId = userId; }
     /** Method sets the regionId field.
      * @param regionId regionId as an int. */
     public void setRegionId(int regionId) { this.regionId = regionId; }
     /** Loops through the scheduled appointment static observable list to count the number of appointments associated
      * with this salesperson instance*/
     public void setScheduledAppointments() {
-        int apptCounter = 0;
+        int appointmentCounter = 0;
         for(Appointment apt : Appointment.allUpcomingAppointmentsList) {
             if(apt.getSalespersonId() == salespersonId) {
-                apptCounter += 1;
+                appointmentCounter += 1;
             }
         }
-        this.scheduledAppointments = apptCounter;
+        this.scheduledAppointments = appointmentCounter;
     }
     /** Loops through the completed appointment static observable list to count the number of appointments associated
      * with this salesperson instance*/
     public void setCompletedAppointments() {
-        int apptCounter = 0;
+        int appointmentCounter = 0;
         for(Appointment apt : Appointment.allCompletedAppointmentsList) {
             if(apt.getSalespersonId() == salespersonId) {
-                apptCounter += 1;
+                appointmentCounter += 1;
             }
         }
-        this.completedAppointments = apptCounter;
+        this.completedAppointments = appointmentCounter;
         this.totalAppointments = scheduledAppointments + completedAppointments;
     }
     /** Loops through the customer static observable list to count the number of customers associated
      * with this salesperson instance*/
-    public void setTotalCustomers() { this.totalCustomers = getSalespersonCustomers().size(); }
+    public void setTotalClients() { this.totalClients = getSalespersonClients().size(); }
+    public void setRegion() {
+        for(Region region : Region.allRegionsList) {
+            if(region.getRegionId() == regionId) {
+                this.region = region;
+            }
+        }
+    }
     public void setRegionName() {
         for(Region region : Region.allRegionsList) {
             if(region.getRegionId() == regionId) {
@@ -118,13 +125,20 @@ public class Salesperson extends User {
             }
         }
     }
+
+
     /** Method searches through the allCustomersList to create a list of customers associated with this salesperson instance. */
-    public void setSalespersonCustomers() {
+    public void setSalespersonClients() {
         ObservableList<Client> clientList = FXCollections.observableArrayList();
         ObservableList<Client> clientList2 = FXCollections.observableArrayList();
         for(Appointment appointment : Appointment.allAppointmentsList) {
             if(appointment.getSalespersonId() == this.salespersonId) {
-                clientList.add(appointment.getCustomer());
+                clientList.add(appointment.getClient());
+            }
+        }
+        for(Client client : Client.allClientList) {
+            if(client.getSalespersonId() == this.salespersonId) {
+                clientList.add(client);
             }
         }
         Set<Client> clientSet = new HashSet<>(clientList);
@@ -156,7 +170,7 @@ public class Salesperson extends User {
     public String getEmail() { return email; }
     /** Method returns the userId field.
      * @return userId as an int. */
-    public int getUserId() { return userId; }
+    public int getUserId() { return super.getUserId(); }
     /** Method returns the regionId field.
      * @return regionId as an int. */
     public int getRegionId() { return regionId; }
@@ -165,22 +179,25 @@ public class Salesperson extends User {
     public String getFullName() { return getSalespersonLastName() + ", " + getSalespersonFirstName(); }
     /** Method returns the scheduledAppointments field.
      * @return scheduledAppointments as an int. */
-    public int getScheduledAppointments() { return scheduledAppointments; }
+    public int getTotalScheduledAppointments() { return scheduledAppointments; }
     /** Method returns the completedAppointments field.
      * @return completedAppointments as an int. */
-    public int getCompletedAppointments() { return completedAppointments; }
+    public int getTotalCompletedAppointments() { return completedAppointments; }
     /** Method returns the totalAppointments field.
      * @return totalAppointments as an int. */
-    public int getTotalAppointments() { return totalAppointments; }
+    public int getTotalAllAppointments() { return totalAppointments; }
     /** Method returns the totalCustomers field.
      * @return totalCustomers as an int. */
-    public int getTotalCustomers() { return totalCustomers; }
+    public int getTotalClients() { return totalClients; }
+    /** Method returns the region field.
+     * @return region as a region object. */
+    public Region getRegion() { return region; }
     /** Method returns the regionName field.
      * @return regionName as a string. */
     public String getRegionName() { return regionName; }
     /** Method sets the salespersonClients instance variable and then returns it as an ObservableList. */
-    public ObservableList<Client> getSalespersonCustomers() {
-        setSalespersonCustomers();
+    public ObservableList<Client> getSalespersonClients() {
+        setSalespersonClients();
         return salespersonClients; }
     /** Method sets the salespersonClients instance variable and then returns it as an ObservableList. */
     public ObservableList<Appointment> getSalespersonAppointments() {

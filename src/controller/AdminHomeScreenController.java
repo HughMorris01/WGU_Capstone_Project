@@ -29,6 +29,9 @@ import java.util.ResourceBundle;
  * */
 public class AdminHomeScreenController implements Initializable {
 
+    /** Static Administrator object corresponding to the User. */
+    private static Administrator userAdministrator;
+
     /** Text field used to search and filter the salespersonTable*/
     public TextField searchTextField;
     /** TableView populated Salesperson data from the database. */
@@ -38,21 +41,21 @@ public class AdminHomeScreenController implements Initializable {
     /** TableColumn for Salesperson's name. */
     public TableColumn<Salesperson, String> salespersonNameCol;
     /** TableColumn for upcoming appointments. */
-    public TableColumn<Salesperson, Integer> scheduledApptsCol;
+    public TableColumn<Salesperson, Integer> scheduledAppointmentsCol;
     /** TableColumn for completed appointments. */
-    public TableColumn<Salesperson, Integer> completedApptsCol;
+    public TableColumn<Salesperson, Integer> completedAppointmentsCol;
     /** TableColumn for total appointments. */
-    public TableColumn<Salesperson, Integer> totalApptsCol;
+    public TableColumn<Salesperson, Integer> totalAppointmentsCol;
     /** TableColumn for total customers. */
-    public TableColumn<Salesperson, Integer> totalCustomersCol;
+    public TableColumn<Salesperson, Integer> totalClientsCol;
     /** TableColumn for salesperson's region */
     public TableColumn<Salesperson, String> regionCol;
-    /** Static Administrator object corresponding to the User. */
-    private static Administrator userAdministrator;
     /** Combo box used to sort customers by region. */
     public ComboBox<Region> regionComboBox;
     /** Radio button used to load all salespersons into the table. */
     public RadioButton allRegionsRadioButton;
+    /** Text field used to display the administrator user's name. */
+    public Label adminNameTextField;
 
 
     /** This method is called by the FXMLLoader.load() call contained in the loginValidation() method of the LoginScreenController class.
@@ -62,6 +65,7 @@ public class AdminHomeScreenController implements Initializable {
      * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        adminNameTextField.setText(getUserAdministrator().getAdministratorFirstName() + " " + getUserAdministrator().getAdministratorLastName());
         DBSalespersons.getAllSalespersons();
         regionComboBox.setItems(Region.allRegionsList);
 
@@ -69,16 +73,17 @@ public class AdminHomeScreenController implements Initializable {
         salespersonIdCol.setStyle("-fx-alignment: CENTER;");
         salespersonNameCol.setCellValueFactory(new PropertyValueFactory<>("fullName"));
         salespersonNameCol.setStyle("-fx-alignment: CENTER;");
-        scheduledApptsCol.setCellValueFactory(new PropertyValueFactory<>("scheduledAppointments"));
-        scheduledApptsCol.setStyle("-fx-alignment: CENTER;");
-        completedApptsCol.setCellValueFactory(new PropertyValueFactory<>("completedAppointments"));
-        completedApptsCol.setStyle("-fx-alignment: CENTER;");
-        totalApptsCol.setCellValueFactory(new PropertyValueFactory<>("totalAppointments"));
-        totalApptsCol.setStyle("-fx-alignment: CENTER;");
-        totalCustomersCol.setCellValueFactory(new PropertyValueFactory<>("totalCustomers"));
-        totalCustomersCol.setStyle("-fx-alignment: CENTER;");
+        scheduledAppointmentsCol.setCellValueFactory(new PropertyValueFactory<>("totalScheduledAppointments"));
+        scheduledAppointmentsCol.setStyle("-fx-alignment: CENTER;");
+        completedAppointmentsCol.setCellValueFactory(new PropertyValueFactory<>("totalCompletedAppointments"));
+        completedAppointmentsCol.setStyle("-fx-alignment: CENTER;");
+        totalAppointmentsCol.setCellValueFactory(new PropertyValueFactory<>("totalAllAppointments"));
+        totalAppointmentsCol.setStyle("-fx-alignment: CENTER;");
+        totalClientsCol.setCellValueFactory(new PropertyValueFactory<>("totalClients"));
+        totalClientsCol.setStyle("-fx-alignment: CENTER;");
         regionCol.setCellValueFactory(new PropertyValueFactory<>("regionName"));
         regionCol.setStyle("-fx-alignment: CENTER;");
+
         salespersonTable.setItems(Salesperson.allSalespersonsList);
 
     }
@@ -107,6 +112,7 @@ public class AdminHomeScreenController implements Initializable {
             }
             salespersonTable.setItems(salespersonFoundList);
             searchTextField.setText("");
+            allRegionsRadioButton.setSelected(false);
         } catch (NumberFormatException exception) {
             searchTextField.setText("");
             salespersonTable.setItems(Salesperson.allSalespersonsList);
@@ -117,9 +123,9 @@ public class AdminHomeScreenController implements Initializable {
         }
     }
 
-    /** This method is an event handler on the SignOut button.
+    /** This method is an event handler on the "Sign Out" button.
      * When clicked, the button redirects the program to the original Login Screen
-     * @param actionEvent Passed from the On Action event listener on the SignOut button.
+     * @param actionEvent Passed from the On Action event listener on the "Sign Out" button.
      * @throws IOException Exception gets thrown if load() cannot locate the FXML file
      */
     public void toSignOut(ActionEvent actionEvent) throws IOException {
@@ -131,7 +137,7 @@ public class AdminHomeScreenController implements Initializable {
             Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
             Scene scene = new Scene(root, 600, 400);
             stage.setScene(scene);
-            stage.setTitle("Administrator Home Screen");
+            stage.setTitle("Login Screen");
         }
     }
 
@@ -158,7 +164,6 @@ public class AdminHomeScreenController implements Initializable {
             alert1.setTitle("No Selection Made");
             alert1.setContentText("Please select an Salesperson to view. ");
             alert1.show();
-            return;
         }
     }
 
@@ -172,26 +177,26 @@ public class AdminHomeScreenController implements Initializable {
         Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
         Scene scene = new Scene(root, 600, 500);
         stage.setScene(scene);
-        stage.setTitle("Create New Client Screen");
+        stage.setTitle("Create New User Screen");
         stage.show();
     }
 
-    /** This method is an event handler on the All Customers button.
+    /** This method is an event handler on the "All Clients" button.
      * When clicked, the button redirects the program to the AllCustomersScreen.
-     * @param actionEvent Passed from the On Action event listener on the All Customers button.
+     * @param actionEvent Passed from the On Action event listener on the "All Clients" button.
      * @throws IOException Exception gets thrown if load() cannot locate the FXML file
      */
-    public void toAllCustomersScreen(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/AllCustomersScreen.fxml")));
+    public void toAllClientsScreen(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/AllClientsScreen.fxml")));
         Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
         Scene scene = new Scene(root, 1000, 500);
         stage.setScene(scene);
-        stage.setTitle("All Customers Screen");
+        stage.setTitle("All Clients Screen");
     }
 
-    /** This method is an event handler on the All Appointments button.
+    /** This method is an event handler on the "All Appointments" button.
      * When clicked, the button redirects the program to the AllAppointmentsScreen.
-     * @param actionEvent Passed from the On Action event listener on the All Appointments button.
+     * @param actionEvent Passed from the On Action event listener on the "All Appointments" button.
      * @throws IOException Exception gets thrown if load() cannot locate the FXML file
      */
     public void toAllAppointmentsScreen(ActionEvent actionEvent) throws IOException {

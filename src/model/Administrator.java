@@ -3,7 +3,7 @@ package model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class Administrator extends User{
+public class Administrator extends User {
     /** Static ObservableList field for accessing all Administrators so that the database only needs to be queried once
      * when the application initially launches. */
     public static ObservableList<Administrator> allAdministratorsList = FXCollections.observableArrayList();

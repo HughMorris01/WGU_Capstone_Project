@@ -14,7 +14,7 @@ import java.sql.SQLException;
  * @author Gregory Farrell
  * @version 1.1
  */
-public abstract class DBCustomers {
+public abstract class DBClients {
 
     /** This method is used to insert a new Client record into the database.
      * @return An int of the number of affected records
@@ -29,7 +29,7 @@ public abstract class DBCustomers {
      * @param regionId regionId as an int.
      * @throws SQLException Throws a SQLException if the SQL commands do not execute properly.
      * */
-    public static int insertCustomer(String firstName, String lastName, String address, String zipCode, String phone,
+    public static int insertClient(String firstName, String lastName, String address, String zipCode, String phone,
                                      String email, int salespersonId, int stateId, int regionId) throws SQLException {
 
         String sqlCommand = "INSERT INTO customers (Customer_First_Name, Customer_Last_Name, Address, Zip_Code, Phone," +
@@ -61,7 +61,7 @@ public abstract class DBCustomers {
      * @param regionId regionId as an int.
      * @throws SQLException Throws a SQLException if the SQL commands do not execute properly.
      * */
-    public static int updateCustomer(int customerId, String updatedFirstName, String updatedLastName, String updatedAddress,
+    public static int updateClient(int customerId, String updatedFirstName, String updatedLastName, String updatedAddress,
                                      String updatedZipCode, String updatedPhone, String updatedEmail, int salespersonId,
                                      int stateId, int regionId) throws SQLException {
         String sqlCommand = "UPDATE customers SET Customer_First_Name = ?, Customer_Last_Name = ?, Address = ?, Zip_Code = ?, " +
@@ -85,7 +85,7 @@ public abstract class DBCustomers {
      * @param customerId as an int.
      * @throws SQLException Throws a SQLException if the SQL does not execute properly.
      * */
-    public static int deleteCustomer(int customerId) throws SQLException {
+    public static int deleteClient(int customerId) throws SQLException {
         String sqlCommand = "DELETE FROM customers WHERE Customer_ID = ? ";
         PreparedStatement ps = JDBC.getConnection().prepareStatement(sqlCommand);
         ps.setInt(1, customerId);
@@ -95,7 +95,7 @@ public abstract class DBCustomers {
     /** This method is used to return all the Client records in the database as an ObservableList of Client objects.
      * @return An ObservableList of Client objects.
      * */
-    public static ObservableList<Client> getAllCustomers() {
+    public static ObservableList<Client> getAllClients() {
         Client.allClientList.clear();
         ObservableList<Client> tempAllClients = FXCollections.observableArrayList();
 

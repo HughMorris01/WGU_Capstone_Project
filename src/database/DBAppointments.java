@@ -56,6 +56,46 @@ public abstract class DBAppointments {
         getCompletedAppointments();
         return everyAppointment;
     }
+
+    /** This method is used to return all the Appointment records in the database, even if the date has passed, as an
+     * ObservableList of Appointment objects.
+     * @return An ObservableList of Appointment objects.
+     * */
+    public static ObservableList<Appointment> getEveryAppointment(int salespersonIdParam) {
+        Appointment.allAppointmentsList.clear();
+        ObservableList<Appointment> everyAppointment = FXCollections.observableArrayList();
+        try {
+            String sqlCommand = "SELECT * FROM appointments WHERE Salesperson_ID = ?";
+            PreparedStatement ps = JDBC.getConnection().prepareStatement(sqlCommand);
+            ps.setInt(1, salespersonIdParam);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int appointmentId = rs.getInt("Appointment_ID");
+                String title = rs.getString("Title");
+                String type = rs.getString("Type");
+                Timestamp sts = rs.getTimestamp("Start");
+                LocalDateTime start = sts.toLocalDateTime();
+                Timestamp ets = rs.getTimestamp("End");
+                LocalDateTime end = ets.toLocalDateTime();
+                int customerId = rs.getInt("Customer_ID");
+                int salespersonId = rs.getInt("Salesperson_ID");
+                int stateId = rs.getInt("State_ID");
+                int regionId = rs.getInt("Region_ID");
+                Appointment tempAppointment = new Appointment(appointmentId, title, type, start, end, customerId, salespersonId,
+                        stateId, regionId);
+                everyAppointment.add(tempAppointment);
+                Appointment.allAppointmentsList.add(tempAppointment);
+            }
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        getUpcomingAppointments();
+        getCompletedAppointments();
+        return everyAppointment;
+    }
+
     /** This method is used to return all the upcoming Appointment records in the database as an ObservableList
      * of Appointment objects.
      * @return An ObservableList of Appointment objects.
@@ -94,6 +134,47 @@ public abstract class DBAppointments {
         }
         return allUpcomingAppointments;
     }
+
+    /** This method is used to return all the upcoming Appointment records in the database that are associated with a
+     * certain salespersonId.
+     * @return An ObservableList of Appointment objects.
+     * */
+    public static ObservableList<Appointment> getUpcomingAppointments(int salespersonIdParam) {
+        Appointment.allUpcomingAppointmentsList.clear();
+        ObservableList<Appointment> allUpcomingAppointments = FXCollections.observableArrayList();
+        try {
+            String sqlCommand = "SELECT * FROM appointments WHERE Start >= ? AND Salesperson_ID = ?";
+            PreparedStatement ps = JDBC.getConnection().prepareStatement(sqlCommand);
+            LocalDate date = LocalDate.now();
+            String dateString = date.toString();
+            ps.setString(1, dateString);
+            ps.setInt(2, salespersonIdParam);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int appointmentId = rs.getInt("Appointment_ID");
+                String title = rs.getString("Title");
+                String type = rs.getString("Type");
+                Timestamp sts = rs.getTimestamp("Start");
+                LocalDateTime start = sts.toLocalDateTime();
+                Timestamp ets = rs.getTimestamp("End");
+                LocalDateTime end = ets.toLocalDateTime();
+                int customerId = rs.getInt("Customer_ID");
+                int salespersonId = rs.getInt("Salesperson_ID");
+                int stateId = rs.getInt("State_ID");
+                int regionId = rs.getInt("Region_ID");
+                Appointment tempAppointment = new Appointment(appointmentId, title, type, start, end, customerId, salespersonId,
+                        stateId, regionId);
+                allUpcomingAppointments.add(tempAppointment);
+                Appointment.allUpcomingAppointmentsList.add(tempAppointment);
+            }
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return allUpcomingAppointments;
+    }
+
     /** This method is used to return all the completed Appointment records in the database as an ObservableList
      * of Appointment objects.
      * @return An ObservableList of Appointment objects.
@@ -107,6 +188,46 @@ public abstract class DBAppointments {
             LocalDate date = LocalDate.now();
             String dateString = date.toString();
             ps.setString(1, dateString);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int appointmentId = rs.getInt("Appointment_ID");
+                String title = rs.getString("Title");
+                String type = rs.getString("Type");
+                Timestamp sts = rs.getTimestamp("Start");
+                LocalDateTime start = sts.toLocalDateTime();
+                Timestamp ets = rs.getTimestamp("End");
+                LocalDateTime end = ets.toLocalDateTime();
+                int customerId = rs.getInt("Customer_ID");
+                int salespersonId = rs.getInt("Salesperson_ID");
+                int stateId = rs.getInt("State_ID");
+                int regionId = rs.getInt("Region_ID");
+                Appointment tempAppointment = new Appointment(appointmentId, title, type, start, end, customerId, salespersonId,
+                        stateId, regionId);
+                allCompletedAppointments.add(tempAppointment);
+                Appointment.allCompletedAppointmentsList.add(tempAppointment);
+            }
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return allCompletedAppointments;
+    }
+
+    /** This method is used to return all the completed Appointment records in the database that are associated with
+     * a provided salespersonId.
+     * @return An ObservableList of Appointment objects.
+     * */
+    public static ObservableList<Appointment> getCompletedAppointments(int salespersonIdParam) {
+        Appointment.allCompletedAppointmentsList.clear();
+        ObservableList<Appointment> allCompletedAppointments = FXCollections.observableArrayList();
+        try {
+            String sqlCommand = "SELECT * FROM appointments WHERE Start < ? AND Salesperson_ID = ?";
+            PreparedStatement ps = JDBC.getConnection().prepareStatement(sqlCommand);
+            LocalDate date = LocalDate.now();
+            String dateString = date.toString();
+            ps.setString(1, dateString);
+            ps.setInt(2, salespersonIdParam);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int appointmentId = rs.getInt("Appointment_ID");
@@ -235,15 +356,17 @@ public abstract class DBAppointments {
         ps.setInt(1, appointmentId);
         ps.executeUpdate();
     }
-    /** This method is used to delete existing Appointment record into the database by entering the customerId. The method
-     * used when associated appointments need to be deleted because a Client record is being deleted.
-     * @param customerId as an int.
+
+    /** This method is used to delete existing Appointment records from the database based on clientId. The method
+     * is used when a client record is being deleted and all associated appointments need to be deleted to maintain database
+     * integrity.
+     * @param clientId as an int.
      * @throws SQLException Throws a SQLException if the SQL does not execute properly.
      * */
-    public static void deleteAppointmentByCustomer(int customerId) throws SQLException {
+    public static void deleteAppointmentsByClient(int clientId) throws SQLException {
         String sqlCommand = "DELETE FROM appointments WHERE Customer_ID = ? ";
         PreparedStatement ps = JDBC.getConnection().prepareStatement(sqlCommand);
-        ps.setInt(1, customerId);
+        ps.setInt(1, clientId);
         ps.executeUpdate();
     }
 }

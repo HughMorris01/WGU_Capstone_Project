@@ -6,7 +6,6 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreateNewUserScreenController">
-   <children>
       <Button layoutX="14.0" layoutY="460.0" mnemonicParsing="false" onAction="#toAdminHomeScreen" text="&lt;-- Back">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -53,8 +52,8 @@
       <TextField fx:id="lastNameTextField" layoutX="257.0" layoutY="234.0" promptText="Enter Last Name" />
       <TextField fx:id="emailTextField" layoutX="257.0" layoutY="274.0" promptText="Enter Email" />
       <TextField fx:id="usernameTextField" layoutX="257.0" layoutY="314.0" promptText="Enter Username" />
-      <TextField fx:id="passwordTextField" layoutX="257.0" layoutY="354.0" promptText="Enter Password" />
-      <TextField fx:id="passwordTextField2" layoutX="257.0" layoutY="394.0" promptText="Re-Enter Password" />
+      <PasswordField fx:id="passwordTextField" layoutX="257.0" layoutY="354.0" promptText="Enter Password" />
+      <PasswordField fx:id="passwordTextField2" layoutX="257.0" layoutY="394.0" promptText="Re-Enter Password" />
       <Button defaultButton="true" layoutX="276.0" layoutY="437.0" mnemonicParsing="false" onAction="#onSubmit" prefHeight="26.0" prefWidth="98.0" text="Submit" />
       <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#1f93ff00" height="410.0" layoutX="99.0" layoutY="71.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" width="398.0" />
       <Label layoutX="127.0" layoutY="160.0" text="Region: ">
@@ -68,5 +67,4 @@
             <Font size="10.0" />
          </font>
       </Label>
-   </children>
 </AnchorPane>

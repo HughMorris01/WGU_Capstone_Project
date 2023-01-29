@@ -11,10 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Region;
 import model.User;
@@ -45,9 +42,9 @@ public class CreateNewUserScreenController implements Initializable {
     /** Text field for entering user's username. */
     public TextField usernameTextField;
     /** Text field for entering user's password. */
-    public TextField passwordTextField;
+    public PasswordField passwordTextField;
     /** Text field for confirming user's password. */
-    public TextField passwordTextField2;
+    public PasswordField passwordTextField2;
 
     /** This method is called by the FXMLLoader.load() call contained in the toCreateNewUser() method of the
      * AdminHomeHomeScreen class. The method populates the userTypeComboBox and regionComboBox.
@@ -87,7 +84,7 @@ public class CreateNewUserScreenController implements Initializable {
             Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
             Scene scene = new Scene(root, 600, 400);
             stage.setScene(scene);
-            stage.setTitle("Administrator Home Screen");
+            stage.setTitle("Login Screen");
         }
     }
 
@@ -101,7 +98,7 @@ public class CreateNewUserScreenController implements Initializable {
         if (userType == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Blank Field");
-            alert.setContentText("Please enter a first name. ");
+            alert.setContentText("Please select a user type. ");
             alert.show();
             return;
         }
@@ -112,7 +109,7 @@ public class CreateNewUserScreenController implements Initializable {
             if (regionComboBox.getSelectionModel().getSelectedItem() == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Blank Field");
-                alert.setContentText("Please select a Region to assign salesperson to. ");
+                alert.setContentText("Please select a region to assign salesperson to. ");
                 alert.show();
                 return;
             }
@@ -142,15 +139,6 @@ public class CreateNewUserScreenController implements Initializable {
             alert.show();
             return;
         }
-        int emailChecker = 0;
-        int emailChecker2 = 0;
-        int emailChecker3 = 0;
-        for(int i = 0; i < userEmail.length(); i++) {
-            Character c = (Character) userEmail.charAt(i);
-            if(c.equals("@")) {
-                emailChecker += 1;
-            }
-        }
         String userName = usernameTextField.getText();
         if (userName == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -177,7 +165,7 @@ public class CreateNewUserScreenController implements Initializable {
             alert.show();
             return;
         }
-        if (password.length() < 6) {
+        if (password.length() < 5) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Invalid Password");
             alert.setContentText("Password must be at least 5 characters. ");

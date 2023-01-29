@@ -37,21 +37,21 @@ public class SalespersonDetailScreenController implements Initializable {
     public TableColumn<Appointment, String> appointmentDateCol;
     public TableColumn<Appointment, String> appointmentStartCol;
     public TableColumn<Appointment, String> appointmentEndCol;
-    public TableColumn<Appointment, String> appointmentCustomerNameCol;
-    public TableView<Client> customersTable;
-    public TableColumn<Client, String> customerNameCol;
-    public TableColumn<Client, String> customerAddressCol;
-    public TableColumn<Client, Integer> totalCustomerAppointmentsCol;
-    public Label totalCustomersTextField;
+    public TableColumn<Appointment, String> appointmentClientNameCol;
+    public TableView<Client> clientsTable;
+    public TableColumn<Client, String> clientNameCol;
+    public TableColumn<Client, String> clientAddressCol;
+    public TableColumn<Client, Integer> totalClientsAppointmentsCol;
+    public Label totalClientsTextField;
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         salespersonNameTextField.setText(selectedSalesperson.getFullName());
         regionTextField.setText(selectedSalesperson.getRegionName());
         emailTextField.setText(selectedSalesperson.getEmail());
-        totalAppointmentsTextField.setText(Integer.toString(selectedSalesperson.getTotalAppointments()));
-        scheduledAppointmentsTextField.setText(Integer.toString(selectedSalesperson.getScheduledAppointments()));
-        completedAppointmentsTextField.setText(Integer.toString(selectedSalesperson.getCompletedAppointments()));
-        totalCustomersTextField.setText(Integer.toString(selectedSalesperson.getTotalCustomers()));
+        totalAppointmentsTextField.setText(Integer.toString(selectedSalesperson.getTotalAllAppointments()));
+        scheduledAppointmentsTextField.setText(Integer.toString(selectedSalesperson.getTotalScheduledAppointments()));
+        completedAppointmentsTextField.setText(Integer.toString(selectedSalesperson.getTotalCompletedAppointments()));
+        totalClientsTextField.setText(Integer.toString(selectedSalesperson.getTotalClients()));
 
 
         appointmentDateCol.setCellValueFactory(new PropertyValueFactory<>("startDateString"));
@@ -60,18 +60,18 @@ public class SalespersonDetailScreenController implements Initializable {
         appointmentStartCol.setStyle("-fx-alignment: CENTER;");
         appointmentEndCol.setCellValueFactory(new PropertyValueFactory<>("endTimeString"));
         appointmentEndCol.setStyle("-fx-alignment: CENTER;");
-        appointmentCustomerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-        appointmentCustomerNameCol.setStyle("-fx-alignment: CENTER;");
+        appointmentClientNameCol.setCellValueFactory(new PropertyValueFactory<>("clientName"));
+        appointmentClientNameCol.setStyle("-fx-alignment: CENTER;");
 
-        customerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerFullName"));
-        customerNameCol.setStyle("-fx-alignment: CENTER;");
-        customerAddressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
-        customerAddressCol.setStyle("-fx-alignment: CENTER;");
-        totalCustomerAppointmentsCol.setCellValueFactory(new PropertyValueFactory<>("totalAppointments"));
-        totalCustomerAppointmentsCol.setStyle("-fx-alignment: CENTER;");
+        clientNameCol.setCellValueFactory(new PropertyValueFactory<>("clientFullName"));
+        clientNameCol.setStyle("-fx-alignment: CENTER;");
+        clientAddressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
+        clientAddressCol.setStyle("-fx-alignment: CENTER;");
+        totalClientsAppointmentsCol.setCellValueFactory(new PropertyValueFactory<>("totalAppointments"));
+        totalClientsAppointmentsCol.setStyle("-fx-alignment: CENTER;");
 
         appointmentsTable.setItems(selectedSalesperson.getSalespersonAppointments());
-        customersTable.setItems(selectedSalesperson.getSalespersonCustomers());
+        clientsTable.setItems(selectedSalesperson.getSalespersonClients());
 
 
     }
@@ -129,7 +129,7 @@ public class SalespersonDetailScreenController implements Initializable {
             Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
             Scene scene = new Scene(root, 600, 400);
             stage.setScene(scene);
-            stage.setTitle("Administrator Home Screen");
+            stage.setTitle("Login Screen");
         }
     }
 }

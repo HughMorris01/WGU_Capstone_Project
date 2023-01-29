@@ -14,11 +14,10 @@
           <TableColumn fx:id="salespersonIdCol" prefWidth="93.60000991821289" text="ID" />
           <TableColumn fx:id="salespersonNameCol" prefWidth="155.59999084472656" text="Salesperson" />
           <TableColumn fx:id="regionCol" prefWidth="111.60003662109375" text="Region" />
-          <TableColumn fx:id="scheduledApptsCol" prefWidth="169.20001220703125" text="Scheduled Appts." />
-          <TableColumn fx:id="completedApptsCol" prefWidth="115.0" text="Completed Appts." />
-          <TableColumn fx:id="totalApptsCol" prefWidth="125.19998168945312" text="Total Appts." />
-          <TableColumn fx:id="totalCustomersCol" prefWidth="112.20001220703125" text="Total Customers" />
-
+          <TableColumn fx:id="scheduledAppointmentsCol" prefWidth="169.20001220703125" text="Scheduled Appts." />
+          <TableColumn fx:id="completedAppointmentsCol" prefWidth="115.0" text="Completed Appts." />
+          <TableColumn fx:id="totalAppointmentsCol" prefWidth="125.19998168945312" text="Total Appts." />
+          <TableColumn fx:id="totalClientsCol" prefWidth="112.20001220703125" text="Total Clients" />
       </columns>
     </TableView>
    <Label layoutX="397.0" layoutY="9.0" text="WSU Salesforce Roster" textFill="#0c56e8" underline="true">
@@ -34,7 +33,7 @@
       <font>
          <Font name="System Bold" size="12.0" />
       </font></Button>
-   <Button layoutX="592.0" layoutY="427.0" mnemonicParsing="false" onAction="#toAllCustomersScreen" prefHeight="26.0" prefWidth="145.0" text="View All Customers ">
+   <Button layoutX="592.0" layoutY="427.0" mnemonicParsing="false" onAction="#toAllClientsScreen" prefHeight="26.0" prefWidth="145.0" text="View All Clients">
       <font>
          <Font name="System Bold" size="12.0" />
       </font></Button>
@@ -48,11 +47,17 @@
       <font>
          <Font name="System Bold" size="12.0" />
       </font></Label>
-   <RadioButton fx:id="allRegionsRadioButton" layoutX="545.0" layoutY="85.0" mnemonicParsing="false" onAction="#displayAllRegions" text="Display All Regions">
+   <RadioButton fx:id="allRegionsRadioButton" layoutX="545.0" layoutY="85.0" mnemonicParsing="false" onAction="#displayAllRegions" selected="true" text="Display All Salespersons">
       <font>
          <Font name="System Bold" size="12.0" />
       </font>
    </RadioButton>
-   <Label layoutX="38.0" layoutY="27.0" text="Hello, " />
-   <Label layoutX="79.0" layoutY="27.0" text="Administrator's Name" />
+   <Label layoutX="38.0" layoutY="27.0" text="Hello, ">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Label>
+   <Label fx:id="adminNameTextField" layoutX="79.0" layoutY="27.0" text="Administrator's Name">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Label>
 </AnchorPane>

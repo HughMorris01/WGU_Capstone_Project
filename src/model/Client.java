@@ -3,24 +3,23 @@ package model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-/** This is the Client class for creating objects representing Customers that exist in the database.
- *  Each Client has an CustomerID, First Name, Last Name, Address, Zip Code, Phone Number, Email, SalespersonID,
+/** This is the Client class for creating objects representing Clients that exist in the database.
+ *  Each Client has an ClientID, First Name, Last Name, Address, Zip Code, Phone Number, Email, SalespersonID,
  *  StateID and RegionID
  * @author Gregory Farrell
- * @version 1.0
+ * @version 1.1
  */
 public class Client {
-    /** Static ObservableList for accessing all Customers so that the database only needs to be queried once when
-     * the application initially launches.
-     * */
+    /** Static ObservableList for accessing all Clients so that the database only needs to be queried once when
+     * the application initially launches. */
     public static ObservableList<Client> allClientList = FXCollections.observableArrayList();
 
     /** Client ID as an int. */
-    private int customerId;
+    private int clientId;
     /** Client first name as a string. */
-    private String customerFirstName;
+    private String clientFirstName;
     /** Client last name as a string. */
-    private String customerLastName;
+    private String clientLastName;
     /** Client address as a string. */
     private String address;
     /** Client zip code as a string. */
@@ -36,11 +35,11 @@ public class Client {
     /** RegionID as an int. */
     private int regionId;
     /** State object associated with the Client instance */
-    private State customerState;
+    private State clientState;
     /** Salesperson object associated with the Client instance */
-    private Salesperson customerSalesperson;
+    private Salesperson clientSalesperson;
     /** Region object associated with the Client instance */
-    private Region customerRegion;
+    private Region clientRegion;
 
     /** Constructor used to create Client objects.
      * This constructor is used for creating Client objects from existing customers in the database.
@@ -57,7 +56,7 @@ public class Client {
      * */
     public Client(int customerId, String customerFirstName, String customerLastName, String address, String zipCode,
                   String phone, String email, int salespersonId, int stateId, int regionId) {
-        setCustomerId(customerId);
+        setClientId(customerId);
         setCustomerFirstName(customerFirstName);
         setCustomerLastName(customerLastName);
         setAddress(address);
@@ -70,17 +69,17 @@ public class Client {
 
         for(State state : State.allStatesList) {
             if(state.getStateId() == this.stateId) {
-                customerState = state;
+                clientState = state;
             }
         }
         for(Region region : Region.allRegionsList) {
             if(region.getRegionId() == this.regionId) {
-                customerRegion = region;
+                clientRegion = region;
             }
         }
         for(Salesperson salesperson : Salesperson.allSalespersonsList) {
             if(salesperson.getSalespersonId() == this.salespersonId) {
-                customerSalesperson = salesperson;
+                clientSalesperson = salesperson;
             }
         }
     }
@@ -111,33 +110,33 @@ public class Client {
 
         for(State state : State.allStatesList) {
             if(state.getStateId() == this.stateId) {
-                customerState = state;
+                clientState = state;
                 System.out.println("state added");
             }
         }
         for(Region region : Region.allRegionsList) {
             if(region.getRegionId() == this.regionId) {
-                customerRegion = region;
+                clientRegion = region;
                 System.out.println("region added");
             }
         }
         for(Salesperson salesperson : Salesperson.allSalespersonsList) {
             if(salesperson.getSalespersonId() == this.salespersonId) {
-                customerSalesperson = salesperson;
+                clientSalesperson = salesperson;
                 System.out.println("salesperson added");
             }
         }
     }
 
-    /** Sets the CustomerId instance variable.
-     * @param customerId customerId as an int. */
-    public void setCustomerId(int customerId) { this.customerId = customerId; }
+    /** Sets the ClientId instance variable.
+     * @param clientId clientId as an int. */
+    public void setClientId(int clientId) { this.clientId = clientId; }
     /** Sets the CustomerFirstName instance variable.
      * @param customerFirstName customer first name as a string. */
-    public void setCustomerFirstName(String customerFirstName) { this.customerFirstName = customerFirstName; }
+    public void setCustomerFirstName(String customerFirstName) { this.clientFirstName = customerFirstName; }
     /** Sets the CustomerLastName instance variable.
      * @param customerLastName customer last name as a string. */
-    public void setCustomerLastName(String customerLastName) { this.customerLastName = customerLastName; }
+    public void setCustomerLastName(String customerLastName) { this.clientLastName = customerLastName; }
     /** Sets the address instance variable.
      * @param address address as a string. */
     public void setAddress(String address) { this.address = address; }
@@ -163,16 +162,16 @@ public class Client {
 
     /** Method returns the customerId field.
      * @return customerId as an int. */
-    public int getCustomerId() { return customerId; }
-    /** Method returns the customerFirstName field.
-     * @return customerFirstName as a string. */
-    public String getCustomerFirstName() { return customerFirstName; }
-    /** Method returns the customerLastName field.
-     * @return customerLastName as a string. */
-    public String getCustomerLastName() { return customerLastName; }
+    public int getClientId() { return clientId; }
+    /** Method returns the clientFirstName field.
+     * @return clientFirstName as a string. */
+    public String getClientFirstName() { return clientFirstName; }
+    /** Method returns the clientLastName field.
+     * @return clientLastName as a string. */
+    public String getClientLastName() { return clientLastName; }
     /** Method returns the customer's concatenated first and last names.
      * @return Full name as a string. */
-    public String getCustomerFullName() { return getCustomerFirstName() + " " + getCustomerLastName(); }
+    public String getClientFullName() { return getClientFirstName() + " " + getClientLastName(); }
     /** Method returns the address field.
      * @return address as a string. */
     public String getAddress() { return address; }
@@ -230,22 +229,22 @@ public class Client {
     public int getRegionId() { return regionId; }
     /** Method returns the region name based on the regionID.
      * @return region name as a string. */
-    public String getRegionName() { return customerRegion.getRegionName(); }
-    /** Method returns the State object belonging to this customer instance.
-     * @return customerState as a State. */
-    public State getCustomerState() { return customerState; }
-    /** Method returns the Region object belonging to this customer instance.
-     * @return customerRegion as a Region. */
-    public Region getCustomerRegion() { return customerRegion; }
-    /** Method returns the Salesperson object belonging to this customer instance.
+    public String getRegionName() { return clientRegion.getRegionName(); }
+    /** Method returns the State object belonging to this client instance.
+     * @return clientState as a State. */
+    public State getClientState() { return clientState; }
+    /** Method returns the Region object belonging to this client instance.
+     * @return clientRegion as a Region. */
+    public Region getClientRegion() { return clientRegion; }
+    /** Method returns the Salesperson object belonging to this client instance.
      * @return customerSalesperson as a Salesperson. */
-    public Salesperson getCustomerSalesperson() { return customerSalesperson;}
-    /** Method returns the total appointments belonging to this customer instance for use in tableviews.
+    public Salesperson getClientSalesperson() { return clientSalesperson;}
+    /** Method returns the total appointments belonging to this client instance for use in tableviews.
      * @return totalAppointments as an int. */
     public int getTotalAppointments() {
         int totalAppointments = 0;
         for (Appointment appointment : Appointment.allAppointmentsList) {
-            if(appointment.getCustomerId() == getCustomerId()) {
+            if(appointment.getClientId() == getClientId()) {
                 totalAppointments += 1;
             }
         }
@@ -259,7 +258,7 @@ public class Client {
     public static ObservableList<Client> searchCustomers(int searchInt) {
         ObservableList<Client> customersFoundList = FXCollections.observableArrayList();
         for (Client client : allClientList) {
-            if (Integer.toString(client.getCustomerId()).contains(Integer.toString(searchInt))) {
+            if (Integer.toString(client.getClientId()).contains(Integer.toString(searchInt))) {
                 customersFoundList.add(client);
             }
         }
@@ -273,7 +272,7 @@ public class Client {
     public static ObservableList<Client> searchCustomers(String searchString) {
         ObservableList<Client> clientFoundList = FXCollections.observableArrayList();
         for (Client client : allClientList) {
-            if (client.getCustomerFullName().contains(searchString)) {
+            if (client.getClientFullName().contains(searchString)) {
                 clientFoundList.add(client);
             }
         }
@@ -284,7 +283,7 @@ public class Client {
     /** Method overrides the inherited toString() method to return the userName field. */
     @Override
     public String toString() {
-        return getCustomerFirstName() + " " + getCustomerLastName();
+        return getClientFirstName() + " " + getClientLastName();
     }
 
 }
