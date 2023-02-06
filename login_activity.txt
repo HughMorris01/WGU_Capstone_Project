@@ -1399,3 +1399,12 @@ Username Entered: "admin" | Password Entered: "Passw0rd!" | Successful: true
 Login Attempt #3 - 1/30/23 2:02AM
 Username Entered: "user3" | Password Entered: "12345" | Successful: true
 
+Login Attempt #1 - 2/7/23 5:43PM
+Username Entered: "admin" | Password Entered: "Passw0rd!" | Successful: true
+
+Login Attempt #1 - 2/18/23 9:50PM
+Username Entered: "admin1" | Password Entered: "Passw0rd!" | Successful: false
+
+Login Attempt #2 - 2/18/23 9:50PM
+Username Entered: "admin" | Password Entered: "Passw0rd!" | Successful: true
+

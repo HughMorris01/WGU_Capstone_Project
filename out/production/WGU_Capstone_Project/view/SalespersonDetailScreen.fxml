@@ -7,15 +7,12 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SalespersonDetailScreenController">
-   <children>
       <Button layoutX="14.0" layoutY="460.0" mnemonicParsing="false" onAction="#toAdminHomeScreen" text="&lt;-- Back">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Button>
       <ImageView fitHeight="188.0" fitWidth="204.0" layoutX="22.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
-         <image>
             <Image url="@../main/salespeople.jpg" />
-         </image>
       </ImageView>
       <Label fx:id="salespersonNameTextField" layoutX="87.0" layoutY="62.0" text="Last, First" />
       <TableView fx:id="appointmentsTable" layoutX="201.0" layoutY="111.0" prefHeight="169.0" prefWidth="378.0">
@@ -108,5 +105,4 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-   </children>
 </AnchorPane>
