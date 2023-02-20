@@ -25,10 +25,10 @@ public abstract class JDBC {
     /** String for driver reference. */
     private static final String driver = "software.aws.rds.jdbc.mysql.Driver";
     /** String for database username. */
-    private static final String userName = "hughmorris";
+    private static final String userName = "";
     private static final String userName1 = "sqlUser";
     /** String for database password. */
-    final private static String password = "AWSQueen4383";
+    final private static String password = "";
     final private static String password1 = "Passw0rd!";
     /** Connection interface object. */
     private static Connection connection;
