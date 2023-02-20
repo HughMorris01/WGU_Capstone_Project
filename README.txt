@@ -17,3 +17,5 @@ Directions: The user must initially enter a valid username and password (admin: 
 Upon authentication, the user will either be presented with the Salesperson Home Screen or Administrator Home Screen depending on their credentials.
 Both types of users are able to create, edit, modify and delete appointments and Admin users are able to additionally create new users for the application.
 
+**The AWS username and password have been removed from the JDBC.java file for security purposes but are available upon request**
+
