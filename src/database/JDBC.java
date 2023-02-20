@@ -5,9 +5,9 @@ import java.sql.DriverManager;
 
 /** Some code for this class was pulled from the C195 Code Repository.
  * This abstract class provides the interface between the Java program and a MySQL database.
- * CONNECTOR VERSION: Connector/J 8.0.25
+ * CONNECTOR VERSION: AWS-MYSQL-JDBC-1.1.3
  * @author Greg Farrell
- * @version 1.0
+ * @version 1.1
  */
 public abstract class JDBC {
     /** String for database protocol. */
@@ -25,10 +25,10 @@ public abstract class JDBC {
     /** String for driver reference. */
     private static final String driver = "software.aws.rds.jdbc.mysql.Driver";
     /** String for database username. */
-    private static final String userName = "hughmorris";
+    private static final String userName = "";
     private static final String userName1 = "sqlUser";
     /** String for database password. */
-    final private static String password = "AWSQueen4383";
+    final private static String password = "";
     final private static String password1 = "Passw0rd!";
     /** Connection interface object. */
     private static Connection connection;
