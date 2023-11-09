@@ -153,7 +153,6 @@ public class Appointment {
                 break;
             }
         }
-
     }
     /** Sets the appointmentRegion instance variable. */
     public void setRegion() {
@@ -164,7 +163,6 @@ public class Appointment {
             }
         }
     }
-
 
     /** Method returns the appointmentId field.
      * @return appointmentId as an int. */

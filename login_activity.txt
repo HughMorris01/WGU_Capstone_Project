@@ -1408,3 +1408,78 @@ Username Entered: "admin1" | Password Entered: "Passw0rd!" | Successful: false
 Login Attempt #2 - 2/18/23 9:50PM
 Username Entered: "admin" | Password Entered: "Passw0rd!" | Successful: true
 
+Login Attempt #1 - 2/24/23 4:10PM
+Username Entered: "admin" | Password Entered: "Passw0rd!" | Successful: true
+
+Login Attempt #1 - 2/24/23 4:15PM
+Username Entered: "admin" | Password Entered: "Passw0rd!" | Successful: true
+
+Login Attempt #2 - 2/24/23 4:15PM
+Username Entered: "admin" | Password Entered: "Passw0rd!" | Successful: true
+
+Login Attempt #3 - 2/24/23 4:15PM
+Username Entered: "admin" | Password Entered: "12345" | Successful: true
+
+Login Attempt #4 - 2/24/23 4:15PM
+Username Entered: "admin" | Password Entered: "password" | Successful: true
+
+Login Attempt #5 - 2/24/23 4:16PM
+Username Entered: "admin" | Password Entered: "Passw0rd!" | Successful: true
+
+Login Attempt #6 - 2/24/23 4:17PM
+Username Entered: "test" | Password Entered: "test" | Successful: true
+
+Login Attempt #7 - 2/24/23 4:17PM
+Username Entered: "admin" | Password Entered: "admin" | Successful: true
+
+Login Attempt #8 - 2/24/23 4:17PM
+Username Entered: "test" | Password Entered: "test" | Successful: true
+
+Login Attempt #9 - 2/24/23 4:19PM
+Username Entered: "gfarr" | Password Entered: "12345" | Successful: true
+
+Login Attempt #10 - 2/24/23 4:19PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #11 - 2/24/23 4:20PM
+Username Entered: "test" | Password Entered: "test" | Successful: true
+
+Login Attempt #12 - 2/24/23 4:20PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #1 - 2/24/23 4:21PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #2 - 2/24/23 4:21PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #3 - 2/24/23 4:22PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #4 - 2/24/23 4:22PM
+Username Entered: "gfarr" | Password Entered: "12345" | Successful: true
+
+Login Attempt #1 - 2/24/23 4:24PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #2 - 2/24/23 4:24PM
+Username Entered: "gfarr" | Password Entered: "12345" | Successful: true
+
+Login Attempt #1 - 2/26/23 9:14AM
+Username Entered: "test" | Password Entered: "test" | Successful: false
+
+Login Attempt #2 - 2/26/23 9:14AM
+Username Entered: "test" | Password Entered: "12345" | Successful: false
+
+Login Attempt #3 - 2/26/23 9:14AM
+Username Entered: "admin" | Password Entered: "Passw0rd!" | Successful: true
+
+Login Attempt #1 - 5/25/23 10:18PM
+Username Entered: "admin" | Password Entered: "admin" | Successful: false
+
+Login Attempt #2 - 5/25/23 10:19PM
+Username Entered: "admin" | Password Entered: "Passw0rd!" | Successful: true
+
+Login Attempt #1 - 11/9/23 2:03PM
+Username Entered: "admin" | Password Entered: "Passw0rd!" | Successful: true
+
