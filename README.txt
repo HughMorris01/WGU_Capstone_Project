@@ -1,4 +1,4 @@
-![Login Screen](Project Documents/sales_home_screen.png)
+![Login](src/main/salespeople.jpg)
 
 
 Author: Gregory Farrell
