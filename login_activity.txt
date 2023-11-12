@@ -1483,3 +1483,33 @@ Username Entered: "admin" | Password Entered: "Passw0rd!" | Successful: true
 Login Attempt #1 - 11/9/23 2:03PM
 Username Entered: "admin" | Password Entered: "Passw0rd!" | Successful: true
 
+Login Attempt #1 - 11/9/23 2:44PM
+Username Entered: "admin" | Password Entered: "Passw0rd!" | Successful: true
+
+Login Attempt #2 - 11/9/23 2:45PM
+Username Entered: "admin" | Password Entered: "Passw0rd!" | Successful: true
+
+Login Attempt #3 - 11/9/23 2:45PM
+Username Entered: "test" | Password Entered: "test" | Successful: true
+
+Login Attempt #4 - 11/9/23 2:46PM
+Username Entered: "admin" | Password Entered: "Passw0rd!" | Successful: true
+
+Login Attempt #5 - 11/9/23 2:47PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: true
+
+Login Attempt #6 - 11/9/23 2:47PM
+Username Entered: "user1" | Password Entered: "12345" | Successful: true
+
+Login Attempt #1 - 11/12/23 5:38PM
+Username Entered: "test1" | Password Entered: "test1" | Successful: false
+
+Login Attempt #2 - 11/12/23 5:38PM
+Username Entered: "admin" | Password Entered: "passw0rd!" | Successful: false
+
+Login Attempt #3 - 11/12/23 5:52PM
+Username Entered: "admin" | Password Entered: "Passw0rd!" | Successful: true
+
+Login Attempt #4 - 11/12/23 5:55PM
+Username Entered: "user1" | Password Entered: "12345" | Successful: true
+
