@@ -1,3 +1,7 @@
+![Screenshots](Project Documents/login_screen.jpg)
+![Screenshots](Project Documents/admin_home_screen.jpg)
+![Screenshots](Project Documents/sales_home_screen.jpg)
+
 Author: Gregory Farrell
 Version 1.1
 1/29/2023
