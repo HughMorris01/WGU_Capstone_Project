@@ -1,4 +1,4 @@
-![Login Screen](Project Documents/login_screen.jpg)
+![Login Screen](Project_Documents/login_screen.jpg)
 
 
 Author: Gregory Farrell
