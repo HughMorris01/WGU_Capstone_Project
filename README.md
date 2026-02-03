@@ -1,58 +1,56 @@
 ![Login](src/main/login_screen.png) ![Login](src/main/sales_home_screen.jpg) ![Login](src/main/admin_home_screen.jpg)
 
-Appointment Organizer Plus+
-A robust, enterprise-ready scheduling and CRM solution designed to manage complex salesperson-client relationships. This application demonstrates high-level proficiency in multi-tier architecture, cloud-based data management, and globalization.
+# Client Schedule Management System
+*A JavaFX Application for Managing Appointments, Customers, and Regions*
 
-🌟 Key Features
-Cloud-Integrated Persistence: Leverages AWS RDS (MySQL) for a centralized, globally accessible database.
+## Overview
+This application is a comprehensive scheduling system designed for sales teams. It allows administrators and sales personnel to manage client appointments, track customer records, and view reports based on geographical regions.
 
-Role-Based Access Control (RBAC): Distinct workflows for Administrators and Salespeople, ensuring data security and functional isolation.
+**Key Features:**
+* **Role-Based Login:** Separate access for Administrators and Salespeople.
+* **Appointment Management:** Create, update, and delete appointments with conflict detection.
+* **Customer Records:** Maintain detailed client information including location data.
+* **Reporting:** Generate reports for appointment types, schedules per user, and customer distribution.
+* **Localization:** Supports automatic language translation (English/French) based on system settings.
 
-Internationalization (i18n): Full support for English and French locales, including UI translation and time-zone-aware scheduling.
+## 🛠️ How to Run Locally
+This project was originally designed for a cloud-based AWS database but has been updated to run completely offline for portfolio demonstration purposes.
 
-Business Logic Validation: Advanced conflict-checking algorithms prevent overlapping appointments for both clients and sales staff.
+### Prerequisites
+1.  **Java JDK 17** or higher.
+2.  **MySQL Server 8.0** (Community Edition).
+3.  **IntelliJ IDEA** (Recommended IDE).
 
-Automated Auditing: Maintains a detailed login_activity.txt log to track successful and failed authentication attempts for security auditing.
+### Step 1: Database Setup
+1.  Install **MySQL Server** and **MySQL Workbench**.
+2.  During installation, set the **Root Password** to `root`.
+    * *Note: If you use a different password, you must update the `password` variable in `src/database/JDBC.java`.*
+3.  Open MySQL Workbench.
+4.  Open the file `database_setup.sql` located in the root of this project.
+5.  Run the entire script (Lightning Bolt icon) to create the database and populate it with sample data (Regions, States, Users, and Appointments).
 
-🏗️ Technical Architecture
-The project strictly adheres to the Model-View-Controller (MVC) pattern to maintain a clean separation between UI logic and data models.
+### Step 2: Project Configuration
+1.  Open the project in **IntelliJ IDEA**.
+2.  Allow the IDE to import dependencies from the `pom.xml` file (Maven).
+    * *This automatically downloads JavaFX and the MySQL Connector.*
+3.  Ensure your Project SDK is set to **Java 17** (File > Project Structure > Project).
 
-Front-End: JavaFX 17 with FXML for declarative UI design.
+### Step 3: Launch the Application
+1.  Navigate to `src/main/Launcher.java`.
+2.  Click the **Green Play Button** (Run).
+    * *Do not run `Main.java` directly as it may cause JavaFX runtime errors.*
 
-Back-End: Java 17 logic utilizing JDBC for optimized SQL performance.
+### 🔑 Login Credentials
+**Administrator Access:**
+* **Username:** `admin`
+* **Password:** `Passw0rd!`
 
-Infrastructure: Hosted on AWS with dedicated database drivers for reliable connectivity.
+**Salesperson Access (Northeast Region):**
+* **Username:** `sales_ne`
+* **Password:** `12345`
 
-🛠️ Development Stack
-IDE: IntelliJ IDEA 2021.2.4
-
-Language/GUI: JDK 17 & JavaFX 17
-
-Database: MySQL (AWS Hosted)
-
-Drivers: AWS-mysql-jdbc-1.1.3
-
-🚀 Getting Started
-Clone the Repo:
-
-Bash
-git clone https://github.com/HughMorris01/WGU_Capstone_Project.git
-Configure Database: Update JDBC.java with your specific AWS RDS credentials.
-
-Run: Execute the Main.java class to launch the login interface.
-
-🧠 Technical Deep-Dive (Initial Review)
-Based on the files provided, here are three high-impact "clean-up" suggestions for the code itself:
-
-1. Extract Business Logic (The Service Layer)
-In AdminCreateEditAppointmentScreenController.java, your onSubmit method is doing a lot of heavy lifting—calculating time differences, checking for conflicts, and calling the database.
-
-Fix: Create a Service class (e.g., AppointmentService.java). Move the conflict-checking logic there. This makes your code more testable and your controller much shorter.
-
-2. Standardize Input Validation
-Currently, you use many if(field == null) blocks followed by Alert pop-ups.
-
-Fix: Create a Validator utility class. You could pass a list of fields to a single method that returns a boolean, keeping your controllers clean.
-
-3. Move from Procedural to DAO Pattern
-Your DBAppointments.java is an abstract class with static methods. While functional, a Data Access Object (DAO) interface would be more professional and allow for easier "mocking" if you ever write unit tests.
+## Technologies Used
+* **Java 17**
+* **JavaFX** (UI Framework)
+* **MySQL** (Database)
+* **Maven** (Dependency Management)

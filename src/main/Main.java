@@ -19,7 +19,7 @@ import java.time.format.DateTimeFormatter;
 public class Main extends Application {
 
     /** This method starts the appointment management application and loads the LoginScreen FXML screen.
-     * @throws Exception FXMLLoader.load() will throw and exception if it cannot locate the FXML document.
+     * @throws Exception FXMLLoader.load() will throw an exception if it cannot locate the FXML document.
      * @param stage The initial stage for loading the first scene.
      * */
     @Override
