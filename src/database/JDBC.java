@@ -5,31 +5,38 @@ import java.sql.DriverManager;
 
 /**
  * This abstract class provides the interface between the Java program and a MySQL database.
- * CONNECTOR VERSION: AWS-MYSQL-JDBC-1.1.3
+ * UPDATED: Configured for Localhost (Standard MySQL)
  * @author Greg Farrell
- * @version 1.1
+ * @version 1.2
  */
 public abstract class JDBC {
     /** String for database protocol. */
     private static final String protocol = "jdbc";
     /** String for database vendor. */
     private static final String vendor = ":mysql:";
+    
     /** String for database address. */
-    private static final String location = "//capstone-db.cget13oy91km.us-east-1.rds.amazonaws.com/";
-    private static final String location1 = "//localhost/";
+    // Set to localhost for local testing/grading
+    private static final String location = "//localhost:3306/";
+    
     /** String for database name. */
     private static final String databaseName = "client_schedule";
-    private static final String databaseName1 = "capstone_clone";
+    
     /** String for full URL. */
-    private static final String jdbcUrl = protocol + vendor + location + databaseName + "?connectionTimeZone = SERVER"; // LOCAL
+    // Added allowPublicKeyRetrieval and useSSL to prevent common local connection errors
+    private static final String jdbcUrl = protocol + vendor + location + databaseName + "?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC";
+    
     /** String for driver reference. */
-    private static final String driver = "software.aws.rds.jdbc.mysql.Driver";
+    // Switched to standard MySQL driver for easier local deployment
+    private static final String driver = "com.mysql.cj.jdbc.Driver"; 
+    
     /** String for database username. */
-    private static final String userName = "hughmorris";
-    private static final String userName1 = "sqlUser";
+    private static final String userName = "root"; 
+    
     /** String for database password. */
-    final private static String password = "AWSKing8722";
-    final private static String password1 = "Passw0rd!";
+    // TODO: Update this to match your local MySQL password!
+    final private static String password = "root"; 
+    
     /** Connection interface object. */
     private static Connection connection;
 
