@@ -27,7 +27,7 @@ This project was originally designed for a cloud-based AWS database but has been
     * *Note: If you use a different password, you must update the `password` variable in `src/database/JDBC.java`.*
 3.  Open MySQL Workbench.
 4.  Open the file `database_setup.sql` located in the root of this project.
-5.  Run the entire script (Lightning Bolt icon) to create the database and populate it with sample data (Regions, States, Users, and Appointments).
+5.  Run the entire script (Lightning Bolt icon) to create the database and populate it with sample data (Regions, States, Salespeople, Clients and Appointments).
 
 ### Step 2: Project Configuration
 1.  Open the project in **IntelliJ IDEA**.
