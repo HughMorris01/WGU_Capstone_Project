@@ -4,7 +4,7 @@
 
 A comprehensive, multi-role appointment management system built to demonstrate full-stack software engineering principles, rigorous QA validation, and secure database architecture.
 
-**📁 Master Documentation:** [View Project Full Summary](./Project%20Documents/Project_Full_Summary.pdf)
+**📁 Master Documentation:** [View Project Full Summary](./docs/Project_Full_Summary.pdf)
 
 ---
 
